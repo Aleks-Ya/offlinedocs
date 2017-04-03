@@ -5,8 +5,8 @@ import org.springframework.stereotype.Component;
 import ru.yaal.offlinedocs.api.configuration.ConfigurationApi;
 import ru.yaal.offlinedocs.api.job.Job;
 import ru.yaal.offlinedocs.api.job.JobParameters;
-import ru.yaal.offlinedocs.impl.job.HadoopJavadocJob;
-import ru.yaal.offlinedocs.impl.job.HadoopJavadocJobParameters;
+import ru.yaal.offlinedocs.impl.job.hadoop.javadoc.HadoopJavadocJob;
+import ru.yaal.offlinedocs.impl.job.hadoop.javadoc.HadoopJavadocJobParameters;
 import ru.yaal.offlinedocs.impl.operation.download.storage.DownloadToStorageOperationParameters;
 
 import java.net.URL;

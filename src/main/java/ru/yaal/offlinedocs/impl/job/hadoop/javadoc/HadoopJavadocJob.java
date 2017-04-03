@@ -1,4 +1,4 @@
-package ru.yaal.offlinedocs.impl.job;
+package ru.yaal.offlinedocs.impl.job.hadoop.javadoc;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +13,7 @@ import ru.yaal.offlinedocs.impl.operation.download.storage.DownloadToStorageOper
  * @author Yablokov Aleksey
  */
 @Component
+@Deprecated
 public class HadoopJavadocJob implements Job<HadoopJavadocJobParameters, HadoopJavadocJobResult> {
     private final Logger LOG = LoggerFactory.getLogger(HadoopJavadocJob.class);
     private final ConfigurationApi configurationApi;

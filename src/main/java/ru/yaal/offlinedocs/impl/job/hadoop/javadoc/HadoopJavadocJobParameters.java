@@ -1,4 +1,4 @@
-package ru.yaal.offlinedocs.impl.job;
+package ru.yaal.offlinedocs.impl.job.hadoop.javadoc;
 
 import ru.yaal.offlinedocs.api.job.JobParameters;
 import ru.yaal.offlinedocs.impl.operation.download.storage.DownloadToStorageOperationParameters;
@@ -6,6 +6,7 @@ import ru.yaal.offlinedocs.impl.operation.download.storage.DownloadToStorageOper
 /**
  * @author Yablokov Aleksey
  */
+@Deprecated
 public class HadoopJavadocJobParameters implements JobParameters {
     private final DownloadToStorageOperationParameters downloadToStorageOperationParameters;
 
