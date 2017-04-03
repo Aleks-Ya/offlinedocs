@@ -12,12 +12,16 @@ import ru.yaal.offlinedocs.api.execution.operation.Operation;
 import ru.yaal.offlinedocs.impl.execution.job.AbstractJob;
 import ru.yaal.offlinedocs.impl.execution.operation.AbstractOperation;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Yablokov Aleksey
  */
 @Component
 public class SpringExecutionFactory implements ExecutionFactory {
     private final ApplicationContext ctx;
+    private List<Job<? extends InitParams, ? extends ExecuteParams, ? extends Result>> allJobs = new ArrayList<>();
 
     @Autowired
     public SpringExecutionFactory(ApplicationContext ctx) {
@@ -35,6 +39,13 @@ public class SpringExecutionFactory implements ExecutionFactory {
     public <IP extends InitParams, EP extends ExecuteParams, R extends Result, J extends Job<IP, EP, R>>
     J getNewJob(Class<? extends AbstractJob<IP, EP, R>> jobClass, IP initParams) {
         //noinspection unchecked
-        return (J) ctx.getBean(jobClass, initParams);
+        J job = (J) ctx.getBean(jobClass, initParams);
+        allJobs.add(job);
+        return job;
+    }
+
+    @Override
+    public List<Job<? extends InitParams, ? extends ExecuteParams, ? extends Result>> getAllJobs() {
+        return allJobs;
     }
 }

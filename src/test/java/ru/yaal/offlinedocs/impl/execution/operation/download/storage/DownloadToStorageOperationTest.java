@@ -12,7 +12,6 @@ import ru.yaal.offlinedocs.impl.MockNetApi;
 import ru.yaal.offlinedocs.impl.TestBase;
 import ru.yaal.offlinedocs.impl.artifact.ArtifactImpl;
 import ru.yaal.offlinedocs.impl.execution.EmptyExecuteParams;
-import ru.yaal.offlinedocs.impl.execution.EmptyInitParams;
 import ru.yaal.offlinedocs.impl.execution.EmptyResult;
 import ru.yaal.offlinedocs.impl.execution.job.operationlist.OperationListInitParams;
 import ru.yaal.offlinedocs.impl.execution.operation.ArtifactDataOperationResult;
@@ -32,28 +31,19 @@ public class DownloadToStorageOperationTest extends TestBase {
     @Qualifier("springReference437Pdf")
     private Job<OperationListInitParams, EmptyExecuteParams, EmptyResult> job;
 
-    @Autowired
-    private ArtifactStorage storage;
-
-    @Autowired
-    private ExecutionFactory factory;
-
-    @Autowired
-    private MockNetApi netApi;
-
     @Test
     public void execute() throws Exception {
-        Operation<EmptyInitParams, DownloadToStorageExecuteParams, ArtifactDataOperationResult> operation =
-                factory.getNewOperation(DownloadToStorageOperation.class, EmptyInitParams.instance);
         String artifactName = "Spring Reference Pdf";
         String artifactVersion = "4.3.7";
         URL artifactUrl = new URL("http://docs.spring.io/spring/docs/4.3.7.RELEASE/spring-framework-reference/pdf/spring-framework-reference.pdf");
-        DownloadToStorageExecuteParams execParams = new DownloadToStorageExecuteParams(artifactName, artifactVersion, artifactUrl);
+        DownloadToStorageInitParams initParams = new DownloadToStorageInitParams(artifactName, artifactVersion, artifactUrl);
+        Operation<DownloadToStorageInitParams, EmptyExecuteParams, ArtifactDataOperationResult> operation =
+                factory.getNewOperation(DownloadToStorageOperation.class, initParams);
         byte[] isArray = {1, 2, 3, 4, 5};
         ByteArrayInputStream is = new ByteArrayInputStream(isArray);
         netApi.putEntry(artifactUrl, is);
 
-        ArtifactDataOperationResult result = operation.execute(execParams);
+        ArtifactDataOperationResult result = operation.execute(EmptyExecuteParams.instance);
         ArtifactImpl expArtifact = new ArtifactImpl(artifactName, artifactVersion, isArray.length);
 
         ArtifactData artifactData = result.getArtifactData();

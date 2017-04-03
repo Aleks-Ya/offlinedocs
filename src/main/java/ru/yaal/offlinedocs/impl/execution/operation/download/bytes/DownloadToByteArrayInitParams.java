@@ -1,16 +1,16 @@
 package ru.yaal.offlinedocs.impl.execution.operation.download.bytes;
 
-import ru.yaal.offlinedocs.api.execution.ExecuteParams;
+import ru.yaal.offlinedocs.api.execution.InitParams;
 
 import java.net.URL;
 
 /**
  * @author Yablokov Aleksey
  */
-public class DownloadToByteArrayExecuteParams implements ExecuteParams {
+public class DownloadToByteArrayInitParams implements InitParams {
     private final URL artifactUrl;
 
-    public DownloadToByteArrayExecuteParams(URL artifactUrl) {
+    public DownloadToByteArrayInitParams(URL artifactUrl) {
         this.artifactUrl = artifactUrl;
     }
 

@@ -13,7 +13,7 @@ import ru.yaal.offlinedocs.api.artifact.storage.ArtifactStorage;
 import ru.yaal.offlinedocs.api.system.NetApi;
 import ru.yaal.offlinedocs.impl.artifact.ArtifactImpl;
 import ru.yaal.offlinedocs.impl.artifact.data.ByteArrayArtifactData;
-import ru.yaal.offlinedocs.impl.execution.EmptyInitParams;
+import ru.yaal.offlinedocs.impl.execution.EmptyExecuteParams;
 import ru.yaal.offlinedocs.impl.execution.operation.AbstractOperation;
 import ru.yaal.offlinedocs.impl.execution.operation.ArtifactDataOperationResult;
 
@@ -27,10 +27,10 @@ import java.net.URL;
  * @author Yablokov Aleksey
  */
 @Component
-@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+@Scope("prototype")
 @SuppressWarnings("SpringAutowiredFieldsWarningInspection")
 public class DownloadToStorageOperation
-        extends AbstractOperation<EmptyInitParams, DownloadToStorageExecuteParams, ArtifactDataOperationResult> {
+        extends AbstractOperation<DownloadToStorageInitParams, EmptyExecuteParams, ArtifactDataOperationResult> {
 
     private final Logger LOG = LoggerFactory.getLogger(DownloadToStorageOperation.class);
     @Autowired
@@ -38,18 +38,19 @@ public class DownloadToStorageOperation
     @Autowired
     private ArtifactStorage storage;
 
-    public DownloadToStorageOperation(EmptyInitParams initParameters) {
-        super(initParameters);
+    public DownloadToStorageOperation(DownloadToStorageInitParams initParams) {
+        super(initParams);
     }
 
     @Override
     @SneakyThrows
-    public ArtifactDataOperationResult execute(DownloadToStorageExecuteParams parameters) {
-        URL url = parameters.getURL();
+    public ArtifactDataOperationResult execute(EmptyExecuteParams executeParams) {
+        URL url = getInitParameters().getURL();
         LOG.debug("Start downloading " + url);
         InputStream is = netApi.openUrl(url);
         byte[] bytes = inputStreamToByteArray(is);
-        Artifact artifact = new ArtifactImpl(parameters.getArtifactName(), parameters.getArtifactVersion(), bytes.length);
+        Artifact artifact = new ArtifactImpl(
+                getInitParameters().getArtifactName(), getInitParameters().getArtifactVersion(), bytes.length);
         ArtifactData data = new ByteArrayArtifactData(artifact, bytes);
         storage.save(data);
         LOG.debug("Artifact downloaded " + artifact);

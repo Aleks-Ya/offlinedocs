@@ -1,17 +1,17 @@
 package ru.yaal.offlinedocs.impl.execution.operation.download.storage;
 
-import ru.yaal.offlinedocs.impl.execution.operation.download.bytes.DownloadToByteArrayExecuteParams;
+import ru.yaal.offlinedocs.impl.execution.operation.download.bytes.DownloadToByteArrayInitParams;
 
 import java.net.URL;
 
 /**
  * @author Yablokov Aleksey
  */
-public class DownloadToStorageExecuteParams extends DownloadToByteArrayExecuteParams {
+public class DownloadToStorageInitParams extends DownloadToByteArrayInitParams {
     private final String artifactName;
     private final String artifactVersion;
 
-    public DownloadToStorageExecuteParams(String artifactName, String artifactVersion, URL artifactUrl) {
+    public DownloadToStorageInitParams(String artifactName, String artifactVersion, URL artifactUrl) {
         super(artifactUrl);
         this.artifactName = artifactName;
         this.artifactVersion = artifactVersion;
