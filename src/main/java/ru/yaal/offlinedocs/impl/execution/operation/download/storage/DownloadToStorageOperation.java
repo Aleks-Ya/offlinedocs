@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import ru.yaal.offlinedocs.api.artifact.Artifact;
 import ru.yaal.offlinedocs.api.artifact.ArtifactData;
+import ru.yaal.offlinedocs.api.artifact.ArtifactStorage;
 import ru.yaal.offlinedocs.api.system.NetApi;
 import ru.yaal.offlinedocs.impl.artifact.ArtifactImpl;
 import ru.yaal.offlinedocs.impl.artifact.ByteArrayArtifactData;
@@ -27,12 +28,15 @@ import java.net.URL;
  */
 @Component
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+@SuppressWarnings("SpringAutowiredFieldsWarningInspection")
 public class DownloadToStorageOperation
         extends AbstractOperation<EmptyInitParams, DownloadToStorageExecuteParams, ArtifactDataOperationResult> {
 
     private final Logger LOG = LoggerFactory.getLogger(DownloadToStorageOperation.class);
     @Autowired
     private NetApi netApi;
+    @Autowired
+    private ArtifactStorage storage;
 
     public DownloadToStorageOperation(EmptyInitParams initParameters) {
         super(initParameters);
@@ -47,6 +51,7 @@ public class DownloadToStorageOperation
         byte[] bytes = inputStreamToByteArray(is);
         Artifact artifact = new ArtifactImpl(parameters.getArtifactName(), parameters.getArtifactVersion(), bytes.length);
         ArtifactData data = new ByteArrayArtifactData(artifact, bytes);
+        storage.save(data);
         LOG.debug("Artifact downloaded " + artifact);
         return new ArtifactDataOperationResult(data);
     }

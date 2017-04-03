@@ -36,4 +36,12 @@ public class JobsConfig {
         OperationListInitParams params = new OperationListInitParams(Collections.singletonList(downloadOperation));
         return factory.getNewJob(OperationListJob.class, params);
     }
+
+    @Bean
+    public Job<OperationListInitParams, EmptyExecuteParams, EmptyResult> springReference437Pdf() {
+        Operation<EmptyInitParams, DownloadToStorageExecuteParams, ArtifactDataOperationResult> downloadOperation =
+                factory.getNewOperation(DownloadToStorageOperation.class, EmptyInitParams.instance);
+        OperationListInitParams params = new OperationListInitParams(Collections.singletonList(downloadOperation));
+        return factory.getNewJob(OperationListJob.class, params);
+    }
 }

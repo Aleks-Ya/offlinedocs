@@ -13,7 +13,7 @@ public class ArtifactDataOperationResult implements Result {
         this.data = data;
     }
 
-    ArtifactData getArtifactData() {
+    public ArtifactData getArtifactData() {
         return data;
     }
 }

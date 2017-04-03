@@ -1,4 +1,4 @@
-package ru.yaal.offlinedocs.impl.execution.job;
+package ru.yaal.offlinedocs.impl;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
