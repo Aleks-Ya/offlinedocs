@@ -1,8 +1,8 @@
-package ru.yaal.offlinedocs.impl.artifact;
+package ru.yaal.offlinedocs.impl.artifact.data;
 
 import lombok.Getter;
 import ru.yaal.offlinedocs.api.artifact.Artifact;
-import ru.yaal.offlinedocs.api.artifact.ArtifactData;
+import ru.yaal.offlinedocs.api.artifact.data.ArtifactData;
 
 import java.io.InputStream;
 

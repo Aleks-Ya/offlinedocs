@@ -1,4 +1,6 @@
-package ru.yaal.offlinedocs.api.artifact;
+package ru.yaal.offlinedocs.api.artifact.data;
+
+import ru.yaal.offlinedocs.api.artifact.Artifact;
 
 import java.io.InputStream;
 

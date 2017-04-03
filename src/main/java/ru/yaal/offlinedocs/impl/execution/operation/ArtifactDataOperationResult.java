@@ -1,6 +1,6 @@
 package ru.yaal.offlinedocs.impl.execution.operation;
 
-import ru.yaal.offlinedocs.api.artifact.ArtifactData;
+import ru.yaal.offlinedocs.api.artifact.data.ArtifactData;
 import ru.yaal.offlinedocs.api.execution.Result;
 
 /**

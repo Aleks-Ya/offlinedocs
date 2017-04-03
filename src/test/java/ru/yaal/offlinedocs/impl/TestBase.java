@@ -12,5 +12,5 @@ import ru.yaal.offlinedocs.spring.Profiles;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestConfig.class)
 @ActiveProfiles(Profiles.TEST)
-public class TestBase {
+public abstract class TestBase {
 }

@@ -1,6 +1,7 @@
-package ru.yaal.offlinedocs.api.artifact;
+package ru.yaal.offlinedocs.api.artifact.storage;
 
-import java.io.InputStream;
+import ru.yaal.offlinedocs.api.artifact.Artifact;
+import ru.yaal.offlinedocs.api.artifact.data.ArtifactData;
 
 /**
  * @author Yablokov Aleksey
