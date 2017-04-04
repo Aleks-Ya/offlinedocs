@@ -46,8 +46,7 @@ public class JobsConfig {
     public Job<DownloadUnzipJob.InitParams, EmptyExecuteParams, EmptyResult> jdk8Documentation() {
         DownloadToStorageOp.InitParams opParams = new DownloadToStorageOp.InitParams(
                 "JavaSE", "JdkDocumentation", "8",
-                new URL("http://download.oracle.com/otn-pub/java/jdk/8u121-b13/e9e7ea248e2c4826b92b3f075a80e441/jdk-8u121-docs-all.zip"),
-                "zip");
+                new URL("https://getfile.dokpub.com/yandex/get/https://yadi.sk/d/69Dngbhw3GfQyy"), "zip");
         DownloadUnzipJob.InitParams jobParams = new DownloadUnzipJob.InitParams(opParams);
         return factory.getNewJob(DownloadUnzipJob.class, jobParams);
     }
