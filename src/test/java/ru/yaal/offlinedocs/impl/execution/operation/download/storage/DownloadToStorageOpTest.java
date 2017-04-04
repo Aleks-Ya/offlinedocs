@@ -25,9 +25,9 @@ public class DownloadToStorageOpTest extends TestBase {
         String artifactName = "SpringReferencePdf";
         String artifactVersion = "4.3.7";
         URL artifactUrl = new URL("http://docs.spring.io/spring/docs/4.3.7.RELEASE/spring-framework-reference/pdf/spring-framework-reference.pdf");
-        DownloadToStorageInitParams initParams =
-                new DownloadToStorageInitParams(artifactCategory, artifactName, artifactVersion, artifactUrl, "pdf");
-        Operation<DownloadToStorageInitParams, EmptyExecuteParams, ArtifactDataOpResult> op =
+        DownloadToStorageOp.InitParams initParams =
+                new DownloadToStorageOp.InitParams(artifactCategory, artifactName, artifactVersion, artifactUrl, "pdf");
+        Operation<DownloadToStorageOp.InitParams, EmptyExecuteParams, ArtifactDataOpResult> op =
                 executionFactory.getNewOperation(DownloadToStorageOp.class, initParams);
         ByteArrayInputStream is = new ByteArrayInputStream(new byte[]{1, 2, 3, 4, 5});
         netApi.putEntry(artifactUrl, is);

@@ -1,5 +1,6 @@
 package ru.yaal.offlinedocs.impl.execution.operation.download.bytes;
 
+import lombok.Getter;
 import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,11 +20,11 @@ import java.net.URL;
 @Component
 @Scope("prototype")
 public class DownloadToByteArrayOp
-        extends AbstractOp<DownloadToByteArrayInitParams, EmptyExecuteParams, ByteArrayOpResult> {
+        extends AbstractOp<DownloadToByteArrayOp.InitParams, EmptyExecuteParams, ByteArrayOpResult> {
 
     private final Logger LOG = LoggerFactory.getLogger(DownloadToByteArrayOp.class);
 
-    public DownloadToByteArrayOp(DownloadToByteArrayInitParams initParams) {
+    public DownloadToByteArrayOp(InitParams initParams) {
         super(initParams);
     }
 
@@ -36,5 +37,21 @@ public class DownloadToByteArrayOp
         byte[] bytes = DownloadHelper.inputStreamToByteArray(is, getInitParams().getLogEveryBytes());
         LOG.debug("URL downloaded '{}' ({} bytes)", url, bytes.length);
         return new ByteArrayOpResult(bytes);
+    }
+
+    @Getter
+    public static class InitParams implements ru.yaal.offlinedocs.api.execution.InitParams {
+        private final URL artifactUrl;
+        private final int logEveryBytes;
+
+        public InitParams(URL artifactUrl) {
+            this.artifactUrl = artifactUrl;
+            logEveryBytes = 1_000_000;
+        }
+
+        public InitParams(URL artifactUrl, int logEveryBytes) {
+            this.artifactUrl = artifactUrl;
+            this.logEveryBytes = logEveryBytes;
+        }
     }
 }

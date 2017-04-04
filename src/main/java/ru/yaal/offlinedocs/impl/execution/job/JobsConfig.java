@@ -11,10 +11,8 @@ import ru.yaal.offlinedocs.impl.execution.EmptyExecuteParams;
 import ru.yaal.offlinedocs.impl.execution.EmptyResult;
 import ru.yaal.offlinedocs.impl.execution.job.downloadcopy.DownloadCopyInitParams;
 import ru.yaal.offlinedocs.impl.execution.job.downloadcopy.DownloadCopyJob;
-import ru.yaal.offlinedocs.impl.execution.job.operationlist.OpListInitParams;
 import ru.yaal.offlinedocs.impl.execution.job.operationlist.OpListJob;
 import ru.yaal.offlinedocs.impl.execution.operation.ArtifactDataOpResult;
-import ru.yaal.offlinedocs.impl.execution.operation.download.storage.DownloadToStorageInitParams;
 import ru.yaal.offlinedocs.impl.execution.operation.download.storage.DownloadToStorageOp;
 
 import java.net.MalformedURLException;
@@ -35,14 +33,14 @@ public class JobsConfig {
 
     @Bean
     @SneakyThrows
-    public Job<OpListInitParams, EmptyExecuteParams, EmptyResult> hadoopJavadocJob() {
-        DownloadToStorageInitParams initParams = new DownloadToStorageInitParams(
+    public Job<OpListJob.InitParams, EmptyExecuteParams, EmptyResult> hadoopJavadocJob() {
+        DownloadToStorageOp.InitParams initParams = new DownloadToStorageOp.InitParams(
                 "Hadoop", "HadoopJavadoc", "2.8.0",
                 new URL("http://apache-mirror.rbc.ru/pub/apache/hadoop/common/hadoop-2.8.0/hadoop-2.8.0.tar.gz"),
                 "tar.gz");
-        Operation<DownloadToStorageInitParams, EmptyExecuteParams, ArtifactDataOpResult> downloadOperation =
+        Operation<DownloadToStorageOp.InitParams, EmptyExecuteParams, ArtifactDataOpResult> downloadOperation =
                 factory.getNewOperation(DownloadToStorageOp.class, initParams);
-        OpListInitParams params = new OpListInitParams(Collections.singletonList(downloadOperation));
+        OpListJob.InitParams params = new OpListJob.InitParams(Collections.singletonList(downloadOperation));
         return factory.getNewJob(OpListJob.class, params);
     }
 
@@ -62,7 +60,7 @@ public class JobsConfig {
             String artifactTypeId)
             throws MalformedURLException {
 
-        DownloadToStorageInitParams opParams = new DownloadToStorageInitParams(
+        DownloadToStorageOp.InitParams opParams = new DownloadToStorageOp.InitParams(
                 artifactCategory, artifactName, artifactVersion, new URL(artifactUrl), artifactTypeId);
         DownloadCopyInitParams jobParams = new DownloadCopyInitParams(opParams);
         return factory.getNewJob(DownloadCopyJob.class, jobParams);

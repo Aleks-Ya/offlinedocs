@@ -38,8 +38,8 @@ public class CopyArtifactOpTest extends TestBase {
 
         File destDir = Files.createTempDirectory(getClass().getSimpleName() + "_").toFile();
         destDir.deleteOnExit();
-        CopyArtifactInitParams params = new CopyArtifactInitParams(artifact, destDir);
-        Operation<CopyArtifactInitParams, EmptyExecuteParams, EmptyResult> op =
+        CopyArtifactOp.InitParams params = new CopyArtifactOp.InitParams(artifact, destDir);
+        Operation<CopyArtifactOp.InitParams, EmptyExecuteParams, EmptyResult> op =
                 executionFactory.getNewOperation(CopyArtifactOp.class, params);
         op.execute(EmptyExecuteParams.instance);
         File destFile = fileNameStrategy.artifactToFile(destDir, artifact);

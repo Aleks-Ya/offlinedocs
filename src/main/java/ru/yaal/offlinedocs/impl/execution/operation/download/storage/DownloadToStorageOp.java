@@ -1,5 +1,6 @@
 package ru.yaal.offlinedocs.impl.execution.operation.download.storage;
 
+import lombok.Getter;
 import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +14,7 @@ import ru.yaal.offlinedocs.impl.execution.EmptyExecuteParams;
 import ru.yaal.offlinedocs.impl.execution.operation.AbstractOp;
 import ru.yaal.offlinedocs.impl.execution.operation.ArtifactDataOpResult;
 import ru.yaal.offlinedocs.impl.execution.operation.download.DownloadHelper;
+import ru.yaal.offlinedocs.impl.execution.operation.download.bytes.DownloadToByteArrayOp;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -23,18 +25,18 @@ import java.net.URL;
 @Component
 @Scope("prototype")
 public class DownloadToStorageOp
-        extends AbstractOp<DownloadToStorageInitParams, EmptyExecuteParams, ArtifactDataOpResult> {
+        extends AbstractOp<DownloadToStorageOp.InitParams, EmptyExecuteParams, ArtifactDataOpResult> {
 
     private final Logger LOG = LoggerFactory.getLogger(DownloadToStorageOp.class);
 
-    public DownloadToStorageOp(DownloadToStorageInitParams initParams) {
+    public DownloadToStorageOp(InitParams initParams) {
         super(initParams);
     }
 
     @Override
     @SneakyThrows
     public ArtifactDataOpResult execute(EmptyExecuteParams executeParams) {
-        DownloadToStorageInitParams params = getInitParams();
+        InitParams params = getInitParams();
         Artifact artifact = new ArtifactImpl(
                 params.getArtifactCategory(),
                 params.getArtifactName(),
@@ -54,5 +56,29 @@ public class DownloadToStorageOp
             LOG.debug("Artifact downloaded: " + artifact);
         }
         return new ArtifactDataOpResult(data);
+    }
+
+    @Getter
+    public static class InitParams extends DownloadToByteArrayOp.InitParams {
+        private final String artifactCategory;
+        private final String artifactName;
+        private final String artifactVersion;
+        private final String artifactTypeId;
+        private final Boolean skipIfExists;
+
+        public InitParams(
+                String artifactCategory, String artifactName, String artifactVersion, URL artifactUrl, String artifactTypeId, Boolean skipIfExists) {
+            super(artifactUrl);
+            this.artifactCategory = artifactCategory;
+            this.artifactName = artifactName;
+            this.artifactVersion = artifactVersion;
+            this.artifactTypeId = artifactTypeId;
+            this.skipIfExists = skipIfExists;
+        }
+
+        public InitParams(
+                String artifactCategory, String artifactName, String artifactVersion, URL artifactUrl, String artifactTypeId) {
+            this(artifactCategory, artifactName, artifactVersion, artifactUrl, artifactTypeId, true);
+        }
     }
 }

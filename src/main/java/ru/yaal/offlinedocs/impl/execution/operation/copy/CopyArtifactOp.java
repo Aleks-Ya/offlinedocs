@@ -1,5 +1,6 @@
 package ru.yaal.offlinedocs.impl.execution.operation.copy;
 
+import lombok.Getter;
 import lombok.SneakyThrows;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
@@ -21,11 +22,11 @@ import java.io.InputStream;
 @Component
 @Scope("prototype")
 public class CopyArtifactOp
-        extends AbstractOp<CopyArtifactInitParams, EmptyExecuteParams, EmptyResult> {
+        extends AbstractOp<CopyArtifactOp.InitParams, EmptyExecuteParams, EmptyResult> {
 
     private final Logger LOG = LoggerFactory.getLogger(CopyArtifactOp.class);
 
-    public CopyArtifactOp(CopyArtifactInitParams initParams) {
+    public CopyArtifactOp(InitParams initParams) {
         super(initParams);
     }
 
@@ -43,5 +44,16 @@ public class CopyArtifactOp
         LOG.debug("Copied: {} to {}", artifact, destFile.getAbsolutePath());
 
         return EmptyResult.instance;
+    }
+
+    @Getter
+    public static class InitParams implements ru.yaal.offlinedocs.api.execution.InitParams {
+        private final Artifact artifact;
+        private final File destinationDir;
+
+        public InitParams(Artifact artifact, File destinationDir) {
+            this.artifact = artifact;
+            this.destinationDir = destinationDir;
+        }
     }
 }

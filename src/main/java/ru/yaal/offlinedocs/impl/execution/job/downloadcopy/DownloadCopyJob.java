@@ -10,9 +10,7 @@ import ru.yaal.offlinedocs.impl.execution.EmptyExecuteParams;
 import ru.yaal.offlinedocs.impl.execution.EmptyResult;
 import ru.yaal.offlinedocs.impl.execution.job.AbstractJob;
 import ru.yaal.offlinedocs.impl.execution.operation.ArtifactDataOpResult;
-import ru.yaal.offlinedocs.impl.execution.operation.copy.CopyArtifactInitParams;
 import ru.yaal.offlinedocs.impl.execution.operation.copy.CopyArtifactOp;
-import ru.yaal.offlinedocs.impl.execution.operation.download.storage.DownloadToStorageInitParams;
 import ru.yaal.offlinedocs.impl.execution.operation.download.storage.DownloadToStorageOp;
 
 import java.io.File;
@@ -32,15 +30,15 @@ public class DownloadCopyJob extends AbstractJob<DownloadCopyInitParams, EmptyEx
     @Override
     public EmptyResult execute(EmptyExecuteParams executeParams) {
         LOG.debug("Start");
-        DownloadToStorageInitParams params = getInitParams().getDownloadParams();
-        Operation<DownloadToStorageInitParams, EmptyExecuteParams, ArtifactDataOpResult> downloadOp =
+        DownloadToStorageOp.InitParams params = getInitParams().getDownloadParams();
+        Operation<DownloadToStorageOp.InitParams, EmptyExecuteParams, ArtifactDataOpResult> downloadOp =
                 executionFactory.getNewOperation(DownloadToStorageOp.class, params);
         ArtifactDataOpResult downloadResult = downloadOp.execute(EmptyExecuteParams.instance);
         Artifact artifact = downloadResult.getArtifactData().getArtifact();
 
         File destDir = fileNameStrategy.subDirInOutlet(dataAppProps.getOutletDir(), artifact);
-        CopyArtifactInitParams copyParams = new CopyArtifactInitParams(artifact, destDir);
-        Operation<CopyArtifactInitParams, EmptyExecuteParams, EmptyResult> copyOp =
+        CopyArtifactOp.InitParams copyParams = new CopyArtifactOp.InitParams(artifact, destDir);
+        Operation<CopyArtifactOp.InitParams, EmptyExecuteParams, EmptyResult> copyOp =
                 executionFactory.getNewOperation(CopyArtifactOp.class, copyParams);
         copyOp.execute(EmptyExecuteParams.instance);
 
