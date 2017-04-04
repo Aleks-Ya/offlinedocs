@@ -36,10 +36,10 @@ public class DownloadToByteArrayOperation
     @Override
     @SneakyThrows
     public ByteArrayOperationResult execute(EmptyExecuteParams executeParams) {
-        URL url = getInitParameters().getArtifactUrl();
+        URL url = getInitParams().getArtifactUrl();
         LOG.debug("Start downloading " + url);
         InputStream is = netApi.openUrl(url);
-        byte[] bytes = DownloadHelper.inputStreamToByteArray(is, getInitParameters().getLogEveryBytes());
+        byte[] bytes = DownloadHelper.inputStreamToByteArray(is, getInitParams().getLogEveryBytes());
         LOG.debug("URL downloaded '{}' ({} bytes)", url, bytes.length);
         return new ByteArrayOperationResult(bytes);
     }

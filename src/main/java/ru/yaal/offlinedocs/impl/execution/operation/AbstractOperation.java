@@ -14,13 +14,13 @@ public abstract class AbstractOperation<
         R extends Result>
         implements Operation<IP, EP, R> {
 
-    private final IP initParameters;
+    private final IP initParams;
 
-    protected AbstractOperation(IP initParameters) {
-        this.initParameters = initParameters;
+    protected AbstractOperation(IP initParams) {
+        this.initParams = initParams;
     }
 
-    public IP getInitParameters() {
-        return initParameters;
+    public IP getInitParams() {
+        return initParams;
     }
 }

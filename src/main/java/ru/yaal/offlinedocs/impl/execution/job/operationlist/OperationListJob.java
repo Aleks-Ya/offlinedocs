@@ -23,7 +23,7 @@ public class OperationListJob extends AbstractJob<OperationListInitParams, Empty
     @Override
     public EmptyResult execute(EmptyExecuteParams executeParams) {
         LOG.debug("Executing operations");
-        getInitParameters().getOperations().forEach(operation -> operation.execute(EmptyExecuteParams.instance));
+        getInitParams().getOperations().forEach(operation -> operation.execute(EmptyExecuteParams.instance));
         return EmptyResult.instance;
     }
 }

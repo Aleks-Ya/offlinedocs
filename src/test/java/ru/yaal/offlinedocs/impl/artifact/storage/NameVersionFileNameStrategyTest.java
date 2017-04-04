@@ -23,9 +23,9 @@ public class NameVersionFileNameStrategyTest extends TestBase {
     @Test
     public void toFile() throws Exception {
         File rootDir = new File("root");
-        Artifact artifact = new ArtifactImpl("Hadoop", "2.8.0", 100);
+        Artifact artifact = new ArtifactImpl("Hadoop", "HadoopJavadoc", "2.8.0", 100);
         File file = strategy.toFile(rootDir, artifact);
-        String expected = "Hadoop" + File.separator + "2.8.0" + File.separator + "object.bin";
+        String expected = "HadoopJavadoc" + File.separator + "2.8.0" + File.separator + "object.bin";
         assertThat(file, FileMatchers.aFileWithAbsolutePath(endsWith(expected)));
     }
 

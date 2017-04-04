@@ -34,7 +34,7 @@ public class JobsConfig {
     @SneakyThrows
     public Job<OperationListInitParams, EmptyExecuteParams, EmptyResult> hadoopJavadocJob() {
         DownloadToStorageInitParams initParams = new DownloadToStorageInitParams(
-                "Hadoop Javadoc", "2.8.0",
+                "Hadoop", "HadoopJavadoc", "2.8.0",
                 new URL("http://apache-mirror.rbc.ru/pub/apache/hadoop/common/hadoop-2.8.0/hadoop-2.8.0.tar.gz")
         );
         Operation<DownloadToStorageInitParams, EmptyExecuteParams, ArtifactDataOperationResult> downloadOperation =
@@ -47,7 +47,7 @@ public class JobsConfig {
     @SneakyThrows
     public Job<OperationListInitParams, EmptyExecuteParams, EmptyResult> springReference437Pdf() {
         DownloadToStorageInitParams initParams = new DownloadToStorageInitParams(
-                "Spring Reference Pdf", "4.3.7",
+                "Spring", "SpringReferencePdf", "4.3.7",
                 new URL("http://docs.spring.io/spring/docs/4.3.7.RELEASE/spring-framework-reference/pdf/spring-framework-reference.pdf"));
         Operation<DownloadToStorageInitParams, EmptyExecuteParams, ArtifactDataOperationResult> downloadOperation =
                 factory.getNewOperation(DownloadToStorageOperation.class, initParams);

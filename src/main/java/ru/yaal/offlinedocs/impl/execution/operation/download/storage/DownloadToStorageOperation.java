@@ -42,12 +42,13 @@ public class DownloadToStorageOperation
     @Override
     @SneakyThrows
     public ArtifactDataOperationResult execute(EmptyExecuteParams executeParams) {
-        URL url = getInitParameters().getArtifactUrl();
+        DownloadToStorageInitParams initParams = getInitParams();
+        URL url = initParams.getArtifactUrl();
         LOG.debug("Start downloading " + url);
         InputStream is = netApi.openUrl(url);
-        byte[] bytes = DownloadHelper.inputStreamToByteArray(is, getInitParameters().getLogEveryBytes());
+        byte[] bytes = DownloadHelper.inputStreamToByteArray(is, initParams.getLogEveryBytes());
         Artifact artifact = new ArtifactImpl(
-                getInitParameters().getArtifactName(), getInitParameters().getArtifactVersion(), bytes.length);
+                initParams.getArtifactCategory(), initParams.getArtifactName(), initParams.getArtifactVersion(), bytes.length);
         ArtifactData data = new ByteArrayArtifactData(artifact, bytes);
         storage.save(data);
         LOG.debug("Artifact downloaded " + artifact);

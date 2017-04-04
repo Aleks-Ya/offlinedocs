@@ -4,11 +4,8 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import ru.yaal.offlinedocs.api.artifact.data.ArtifactData;
-import ru.yaal.offlinedocs.api.artifact.storage.ArtifactStorage;
-import ru.yaal.offlinedocs.api.execution.ExecutionFactory;
 import ru.yaal.offlinedocs.api.execution.job.Job;
 import ru.yaal.offlinedocs.api.execution.operation.Operation;
-import ru.yaal.offlinedocs.impl.MockNetApi;
 import ru.yaal.offlinedocs.impl.TestBase;
 import ru.yaal.offlinedocs.impl.artifact.ArtifactImpl;
 import ru.yaal.offlinedocs.impl.execution.EmptyExecuteParams;
@@ -33,10 +30,11 @@ public class DownloadToStorageOperationTest extends TestBase {
 
     @Test
     public void execute() throws Exception {
-        String artifactName = "Spring Reference Pdf";
+        String artifactCategory = "Spring";
+        String artifactName = "SpringReferencePdf";
         String artifactVersion = "4.3.7";
         URL artifactUrl = new URL("http://docs.spring.io/spring/docs/4.3.7.RELEASE/spring-framework-reference/pdf/spring-framework-reference.pdf");
-        DownloadToStorageInitParams initParams = new DownloadToStorageInitParams(artifactName, artifactVersion, artifactUrl);
+        DownloadToStorageInitParams initParams = new DownloadToStorageInitParams(artifactCategory, artifactName, artifactVersion, artifactUrl);
         Operation<DownloadToStorageInitParams, EmptyExecuteParams, ArtifactDataOperationResult> operation =
                 factory.getNewOperation(DownloadToStorageOperation.class, initParams);
         byte[] isArray = {1, 2, 3, 4, 5};
@@ -44,7 +42,7 @@ public class DownloadToStorageOperationTest extends TestBase {
         netApi.putEntry(artifactUrl, is);
 
         ArtifactDataOperationResult result = operation.execute(EmptyExecuteParams.instance);
-        ArtifactImpl expArtifact = new ArtifactImpl(artifactName, artifactVersion, isArray.length);
+        ArtifactImpl expArtifact = new ArtifactImpl(artifactCategory, artifactName, artifactVersion, isArray.length);
 
         ArtifactData artifactData = result.getArtifactData();
         assertThat(artifactData.getArtifact(), equalTo(expArtifact));

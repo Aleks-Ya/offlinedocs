@@ -3,7 +3,6 @@ package ru.yaal.offlinedocs.impl.execution.job;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import ru.yaal.offlinedocs.api.artifact.storage.ArtifactStorage;
 import ru.yaal.offlinedocs.api.execution.job.Job;
 import ru.yaal.offlinedocs.api.execution.operation.Operation;
 import ru.yaal.offlinedocs.impl.TestBase;
@@ -27,10 +26,11 @@ public class SpringReference437PdfJobTest extends TestBase {
 
     @Test
     public void execute() throws Exception {
-        String artifactName = "Spring Reference Pdf";
+        String artifactCategory = "Spring";
+        String artifactName = "SpringReferencePdf";
         String artifactVersion = "4.3.7";
         URL artifactUrl = new URL("http://docs.spring.io/spring/docs/4.3.7.RELEASE/spring-framework-reference/pdf/spring-framework-reference.pdf");
-        DownloadToStorageInitParams initParams = new DownloadToStorageInitParams(artifactName, artifactVersion, artifactUrl);
+        DownloadToStorageInitParams initParams = new DownloadToStorageInitParams(artifactCategory, artifactName, artifactVersion, artifactUrl);
         Operation<DownloadToStorageInitParams, EmptyExecuteParams, ArtifactDataOperationResult> operation =
                 factory.getNewOperation(DownloadToStorageOperation.class, initParams);
         byte[] isArray = {1, 2, 3, 4, 5};

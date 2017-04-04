@@ -14,13 +14,13 @@ public abstract class AbstractJob<
         R extends Result>
         implements Job<IP, EP, R> {
 
-    private final IP initParameters;
+    private final IP initParams;
 
     protected AbstractJob(IP initParams) {
-        this.initParameters = initParams;
+        this.initParams = initParams;
     }
 
-    public IP getInitParameters() {
-        return initParameters;
+    public IP getInitParams() {
+        return initParams;
     }
 }

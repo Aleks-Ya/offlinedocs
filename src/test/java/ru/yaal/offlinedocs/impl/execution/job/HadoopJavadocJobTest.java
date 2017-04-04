@@ -25,10 +25,11 @@ public class HadoopJavadocJobTest extends TestBase {
 
     @Test
     public void name() throws Exception {
-        String artifactName = "Hadoop Javadoc";
+        String artifactCategory = "Hadoop";
+        String artifactName = "HadoopJavadoc";
         String artifactVersion = "2.8.0";
         URL artifactUrl = new URL("http://apache-mirror.rbc.ru/pub/apache/hadoop/common/hadoop-2.8.0/hadoop-2.8.0.tar.gz");
-        DownloadToStorageInitParams initParams = new DownloadToStorageInitParams(artifactName, artifactVersion, artifactUrl);
+        DownloadToStorageInitParams initParams = new DownloadToStorageInitParams(artifactCategory, artifactName, artifactVersion, artifactUrl);
         Operation<DownloadToStorageInitParams, EmptyExecuteParams, ArtifactDataOperationResult> operation =
                 factory.getNewOperation(DownloadToStorageOperation.class, initParams);
         byte[] isArray = {1, 2, 3, 4, 5};
