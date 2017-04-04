@@ -21,11 +21,11 @@ public class NameVersionFileNameStrategy implements FileNameStrategy {
     }
 
     @Override
-    public File toFile(File rootDir, Artifact artifact) {
+    public File subDirInStorage(File storageDir, Artifact artifact) {
         String sep = fileApi.getFileSeparator();
         String path = artifact.getCategory() + sep + artifact.getName() + sep
                 + artifact.getVersion() + sep + artifact.getName() + "." + artifact.getType().getFileExtension();
-        return new File(rootDir, path);
+        return new File(storageDir, path);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class NameVersionFileNameStrategy implements FileNameStrategy {
     }
 
     @Override
-    public File subDirInOutlet(File storageDir, Artifact artifact) {
-        return new File(storageDir, artifact.getCategory());
+    public File subDirInOutlet(File outletDir, Artifact artifact) {
+        return new File(outletDir, artifact.getCategory());
     }
 }

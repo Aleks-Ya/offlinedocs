@@ -7,4 +7,6 @@ import java.io.File;
  */
 public interface DataAppProps {
     File getOutletDir();
+
+    File getTmpDirectory();
 }

@@ -37,20 +37,20 @@ public class UserDirArtifactStorage implements ArtifactStorage {
     @SneakyThrows
     public void save(ArtifactData artifactData) {
         Artifact artifact = artifactData.getArtifact();
-        File artifactFile = strategy.toFile(rootDir, artifact);
+        File artifactFile = strategy.subDirInStorage(rootDir, artifact);
         LOG.debug("Saving artifact to file: " + artifactFile.getAbsolutePath());
         FileUtils.copyInputStreamToFile(artifactData.getData(), artifactFile);
         LOG.debug("Artifact saved: " + artifactFile.getAbsolutePath());
     }
 
     public boolean has(Artifact artifact) {
-        return strategy.toFile(rootDir, artifact).exists();
+        return strategy.subDirInStorage(rootDir, artifact).exists();
     }
 
     public ArtifactData read(Artifact artifact) {
         if (!has(artifact)) {
             throw new ArtifactNotFoundException(artifact);
         }
-        return new FileArtifactData(artifact, strategy.toFile(rootDir, artifact));
+        return new FileArtifactData(artifact, strategy.subDirInStorage(rootDir, artifact));
     }
 }

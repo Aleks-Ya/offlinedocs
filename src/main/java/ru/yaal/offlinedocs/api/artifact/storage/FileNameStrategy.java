@@ -8,7 +8,7 @@ import java.io.File;
  * @author Yablokov Aleksey
  */
 public interface FileNameStrategy {
-    File toFile(File rootDir, Artifact artifact);
+    File subDirInStorage(File rootDir, Artifact artifact);
 
     String artifactToFileName(Artifact artifact);
 

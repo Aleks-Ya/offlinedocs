@@ -3,8 +3,10 @@ package ru.yaal.offlinedocs.impl.artifact.data;
 import lombok.Getter;
 import ru.yaal.offlinedocs.api.artifact.Artifact;
 import ru.yaal.offlinedocs.api.artifact.data.ArtifactData;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.InputStream;
 
 /**
@@ -23,5 +25,10 @@ public class ByteArrayArtifactData implements ArtifactData {
     @Override
     public InputStream getData() {
         return new ByteArrayInputStream(bytes);
+    }
+
+    @Override
+    public File getFile() {
+        throw new NotImplementedException();
     }
 }

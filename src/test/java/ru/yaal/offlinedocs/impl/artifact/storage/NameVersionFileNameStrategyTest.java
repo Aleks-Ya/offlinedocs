@@ -23,11 +23,11 @@ public class NameVersionFileNameStrategyTest extends TestBase {
     private NameVersionFileNameStrategy strategy;
 
     @Test
-    public void toFile() throws Exception {
+    public void subDirInStorage() throws Exception {
         File rootDir = new File("root");
         Artifact artifact = new ArtifactImpl("Hadoop", "HadoopJavadoc", "2.8.0",
                 artifactTypeFactory.getTypeById("pdf"));
-        File file = strategy.toFile(rootDir, artifact);
+        File file = strategy.subDirInStorage(rootDir, artifact);
         String sep = fileApi.getFileSeparator();
         String expected = "Hadoop" + sep + "HadoopJavadoc" + sep + "2.8.0" + sep + "HadoopJavadoc.pdf";
         assertThat(file, aFileWithAbsolutePath(endsWith(expected)));

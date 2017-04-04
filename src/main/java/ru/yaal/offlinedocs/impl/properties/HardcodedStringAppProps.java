@@ -14,15 +14,18 @@ import java.util.Map;
  */
 @Component
 public class HardcodedStringAppProps implements StringAppProps {
-    private final Map<String, String> properties = new HashMap<>();
+    private final Map<String, String> props = new HashMap<>();
 
     @Autowired
     public HardcodedStringAppProps(SystemApi systemApi, FileApi fileApi) {
-        properties.put(DataAppPropsImpl.OUTLET_DIR_PROP, systemApi.getUserHome() + fileApi.getFileSeparator() + "offline_documentation");
+        props.put(DataAppPropsImpl.OUTLET_DIR_PROP,
+                systemApi.getUserHome() + fileApi.getFileSeparator() + "offline_documentation");
+        props.put(DataAppPropsImpl.TMP_DIR_PROP,
+                systemApi.getTmpDir() + fileApi.getFileSeparator() + "offlinedocs");
     }
 
     @Override
     public String getProperty(String propertyName) {
-        return properties.get(propertyName);
+        return props.get(propertyName);
     }
 }

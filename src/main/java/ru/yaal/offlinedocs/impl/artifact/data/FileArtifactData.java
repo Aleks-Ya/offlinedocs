@@ -26,4 +26,9 @@ public class FileArtifactData implements ArtifactData {
     public InputStream getData() {
         return new FileInputStream(artifactFile);
     }
+
+    @Override
+    public File getFile() {
+        return artifactFile;
+    }
 }

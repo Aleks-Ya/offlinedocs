@@ -5,4 +5,5 @@ package ru.yaal.offlinedocs.api.system;
  */
 public interface SystemApi {
     String getUserHome();
+    String getTmpDir();
 }

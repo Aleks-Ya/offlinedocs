@@ -2,6 +2,7 @@ package ru.yaal.offlinedocs.api.artifact.data;
 
 import ru.yaal.offlinedocs.api.artifact.Artifact;
 
+import java.io.File;
 import java.io.InputStream;
 
 /**
@@ -10,4 +11,5 @@ import java.io.InputStream;
 public interface ArtifactData {
     Artifact getArtifact();
     InputStream getData();
+    File getFile();
 }

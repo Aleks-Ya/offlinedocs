@@ -5,6 +5,6 @@ package ru.yaal.offlinedocs.api.artifact;
  */
 public class ArtifactNotFoundException extends RuntimeException {
     public ArtifactNotFoundException(Artifact artifact) {
-
+        super(artifact.toString());
     }
 }

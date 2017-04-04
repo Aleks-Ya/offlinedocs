@@ -12,7 +12,8 @@ import java.io.File;
  */
 @Component
 public class DataAppPropsImpl implements DataAppProps {
-    public static final String OUTLET_DIR_PROP = "outputdir";
+    public static final String OUTLET_DIR_PROP = "dir.outlet";
+    public static final String TMP_DIR_PROP = "dir.tmp";
     private final StringAppProps props;
 
     @Autowired
@@ -23,5 +24,10 @@ public class DataAppPropsImpl implements DataAppProps {
     @Override
     public File getOutletDir() {
         return new File(props.getProperty(OUTLET_DIR_PROP));
+    }
+
+    @Override
+    public File getTmpDirectory() {
+        return new File(props.getProperty(TMP_DIR_PROP));
     }
 }

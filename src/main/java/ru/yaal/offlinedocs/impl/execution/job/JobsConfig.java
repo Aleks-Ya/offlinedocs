@@ -43,6 +43,17 @@ public class JobsConfig {
 
     @Bean
     @SneakyThrows
+    public Job<DownloadUnzipJob.InitParams, EmptyExecuteParams, EmptyResult> jdk8Documentation() {
+        DownloadToStorageOp.InitParams opParams = new DownloadToStorageOp.InitParams(
+                "JavaSE", "JdkDocumentation", "8",
+                new URL("http://download.oracle.com/otn-pub/java/jdk/8u121-b13/e9e7ea248e2c4826b92b3f075a80e441/jdk-8u121-docs-all.zip"),
+                "zip");
+        DownloadUnzipJob.InitParams jobParams = new DownloadUnzipJob.InitParams(opParams);
+        return factory.getNewJob(DownloadUnzipJob.class, jobParams);
+    }
+
+    @Bean
+    @SneakyThrows
     public Job<DownloadCopyJob.InitParams, EmptyExecuteParams, EmptyResult> springReference437Pdf() {
         return makeDownloadCopyJob("Spring", "SpringReferencePdf", "4.3.7",
                 "http://docs.spring.io/spring/docs/4.3.7.RELEASE/spring-framework-reference/pdf/spring-framework-reference.pdf",

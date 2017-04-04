@@ -12,4 +12,9 @@ public class RealSystemApi implements SystemApi {
     public String getUserHome() {
         return System.getProperty("user.home");
     }
+
+    @Override
+    public String getTmpDir() {
+        return System.getProperty("java.io.tmpdir");
+    }
 }

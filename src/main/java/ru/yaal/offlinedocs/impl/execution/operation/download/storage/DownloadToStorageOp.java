@@ -53,6 +53,7 @@ public class DownloadToStorageOp
             byte[] bytes = DownloadHelper.inputStreamToByteArray(is, params.getLogEveryBytes());
             data = new ByteArrayArtifactData(artifact, bytes);
             artifactStorage.save(data);
+            data = artifactStorage.read(data.getArtifact());
             LOG.debug("Artifact downloaded: " + artifact);
         }
         return new ArtifactDataOpResult(data);
