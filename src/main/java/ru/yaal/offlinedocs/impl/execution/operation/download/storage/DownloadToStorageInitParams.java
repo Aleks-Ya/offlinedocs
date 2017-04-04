@@ -14,13 +14,20 @@ public class DownloadToStorageInitParams extends DownloadToByteArrayInitParams {
     private final String artifactName;
     private final String artifactVersion;
     private final String artifactTypeId;
+    private final Boolean skipIfExists;
 
     public DownloadToStorageInitParams(
-            String artifactCategory, String artifactName, String artifactVersion, URL artifactUrl, String artifactTypeId) {
+            String artifactCategory, String artifactName, String artifactVersion, URL artifactUrl, String artifactTypeId, Boolean skipIfExists) {
         super(artifactUrl);
         this.artifactCategory = artifactCategory;
         this.artifactName = artifactName;
         this.artifactVersion = artifactVersion;
         this.artifactTypeId = artifactTypeId;
+        this.skipIfExists = skipIfExists;
+    }
+
+    public DownloadToStorageInitParams(
+            String artifactCategory, String artifactName, String artifactVersion, URL artifactUrl, String artifactTypeId) {
+        this(artifactCategory, artifactName, artifactVersion, artifactUrl, artifactTypeId, true);
     }
 }

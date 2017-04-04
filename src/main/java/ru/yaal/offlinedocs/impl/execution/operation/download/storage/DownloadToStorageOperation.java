@@ -45,19 +45,25 @@ public class DownloadToStorageOperation
     @Override
     @SneakyThrows
     public ArtifactDataOperationResult execute(EmptyExecuteParams executeParams) {
-        DownloadToStorageInitParams initParams = getInitParams();
-        URL url = initParams.getArtifactUrl();
-        LOG.debug("Start downloading " + url);
-        InputStream is = netApi.openUrl(url);
-        byte[] bytes = DownloadHelper.inputStreamToByteArray(is, initParams.getLogEveryBytes());
+        DownloadToStorageInitParams params = getInitParams();
         Artifact artifact = new ArtifactImpl(
-                initParams.getArtifactCategory(),
-                initParams.getArtifactName(),
-                initParams.getArtifactVersion(),
-                typeFactory.getTypeById(initParams.getArtifactTypeId()));
-        ArtifactData data = new ByteArrayArtifactData(artifact, bytes);
-        storage.save(data);
-        LOG.debug("Artifact downloaded " + artifact);
+                params.getArtifactCategory(),
+                params.getArtifactName(),
+                params.getArtifactVersion(),
+                typeFactory.getTypeById(params.getArtifactTypeId()));
+        ArtifactData data;
+        if (params.getSkipIfExists() && storage.has(artifact)) {
+            LOG.debug("Skip exists artifact download: " + artifact);
+            data = storage.read(artifact);
+        } else {
+            URL url = params.getArtifactUrl();
+            LOG.debug("Start downloading: " + url);
+            InputStream is = netApi.openUrl(url);
+            byte[] bytes = DownloadHelper.inputStreamToByteArray(is, params.getLogEveryBytes());
+            data = new ByteArrayArtifactData(artifact, bytes);
+            storage.save(data);
+            LOG.debug("Artifact downloaded: " + artifact);
+        }
         return new ArtifactDataOperationResult(data);
     }
 }
