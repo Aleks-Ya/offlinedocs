@@ -11,10 +11,8 @@ import org.springframework.stereotype.Component;
 import ru.yaal.offlinedocs.impl.execution.EmptyExecuteParams;
 import ru.yaal.offlinedocs.impl.execution.EmptyResult;
 import ru.yaal.offlinedocs.impl.execution.operation.AbstractOp;
-import ru.yaal.offlinedocs.impl.execution.operation.download.DownloadHelper;
 
-import java.io.*;
-import java.util.zip.GZIPInputStream;
+import java.io.File;
 
 /**
  * @author Yablokov Aleksey
@@ -25,7 +23,7 @@ public class UnpackTarGzOp extends AbstractOp<UnpackTarGzOp.InitParams, EmptyExe
 
     private final Logger LOG = LoggerFactory.getLogger(UnpackTarGzOp.class);
 
-    public UnpackTarGzOp(InitParams initParams) {
+    public UnpackTarGzOp(UnpackTarGzOp.InitParams initParams) {
         super(initParams);
     }
 
@@ -33,16 +31,18 @@ public class UnpackTarGzOp extends AbstractOp<UnpackTarGzOp.InitParams, EmptyExe
     @SneakyThrows
     public EmptyResult execute(EmptyExecuteParams executeParams) {
         File srcFile = getInitParams().getSrcFile();
-        File destFile = getInitParams().getDestDir();
-        LOG.info("Unpacking {} to {}", srcFile, destFile);
+        File destDir = getInitParams().getDestDir();
+        //noinspection ResultOfMethodCallIgnored
+        destDir.mkdirs();
+        LOG.info("Unpacking {} to {}", srcFile, destDir);
 
         final TarGZipUnArchiver ua = new TarGZipUnArchiver();
         ua.setSourceFile(srcFile);
         ua.enableLogging(new ConsoleLogger(org.codehaus.plexus.logging.Logger.LEVEL_DEBUG, "console_logger"));
-        ua.setDestDirectory(destFile);
+        ua.setDestDirectory(destDir);
         ua.extract();
 
-        LOG.debug("Unpacked: {} to {}", srcFile, destFile);
+        LOG.debug("Unpacked: {} to {}", srcFile, destDir);
         return EmptyResult.instance;
     }
 
