@@ -13,4 +13,6 @@ public interface FileNameStrategy {
     String artifactToFileName(Artifact artifact);
 
     File artifactToFile(File rootDir, Artifact artifact);
+
+    File subDirInOutlet(File storageDir, Artifact artifact);
 }

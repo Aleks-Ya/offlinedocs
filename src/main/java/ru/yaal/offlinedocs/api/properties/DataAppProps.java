@@ -6,5 +6,5 @@ import java.io.File;
  * @author Yablokov Aleksey
  */
 public interface DataAppProps {
-    File getOutputDir();
+    File getOutletDir();
 }

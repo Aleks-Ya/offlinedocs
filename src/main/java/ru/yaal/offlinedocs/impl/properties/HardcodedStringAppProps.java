@@ -18,7 +18,7 @@ public class HardcodedStringAppProps implements StringAppProps {
 
     @Autowired
     public HardcodedStringAppProps(SystemApi systemApi, FileApi fileApi) {
-        properties.put(DataAppPropsImpl.OUTPUT_DIR, systemApi.getUserHome() + fileApi.getFileSeparator() + "offline_documentation");
+        properties.put(DataAppPropsImpl.OUTLET_DIR_PROP, systemApi.getUserHome() + fileApi.getFileSeparator() + "offline_documentation");
     }
 
     @Override

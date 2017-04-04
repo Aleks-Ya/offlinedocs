@@ -30,11 +30,16 @@ public class NameVersionFileNameStrategy implements FileNameStrategy {
 
     @Override
     public String artifactToFileName(Artifact artifact) {
-        return artifact.getName() + "." + artifact.getType().getFileExtension();
+        return String.format("%s-%s.%s", artifact.getName(), artifact.getVersion(), artifact.getType().getFileExtension());
     }
 
     @Override
     public File artifactToFile(File rootDir, Artifact artifact) {
         return new File(rootDir, artifactToFileName(artifact));
+    }
+
+    @Override
+    public File subDirInOutlet(File storageDir, Artifact artifact) {
+        return new File(storageDir, artifact.getCategory());
     }
 }

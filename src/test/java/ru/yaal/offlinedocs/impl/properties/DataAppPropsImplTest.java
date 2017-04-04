@@ -14,7 +14,7 @@ public class DataAppPropsImplTest extends TestBase {
     @Test
     public void getOutputDir() {
         String expected = systemApi.getUserHome() + fileApi.getFileSeparator() + "offline_documentation";
-        assertThat(dataAppProps.getOutputDir(), aFileWithCanonicalPath(equalTo(expected)));
+        assertThat(dataAppProps.getOutletDir(), aFileWithCanonicalPath(equalTo(expected)));
     }
 
 }

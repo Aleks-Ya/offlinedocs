@@ -44,6 +44,6 @@ public class CopyArtifactOperationTest extends TestBase {
         operation.execute(EmptyExecuteParams.instance);
         File destFile = fileNameStrategy.artifactToFile(destDir, artifact);
         assertThat(destFile, anExistingFile());
-        assertThat(destFile, aFileNamed(Matchers.equalTo(artifactName + "." + artifactType)));
+        assertThat(destFile, aFileNamed(Matchers.equalTo("SpringJavadoc-4.3.7.pdf")));
     }
 }

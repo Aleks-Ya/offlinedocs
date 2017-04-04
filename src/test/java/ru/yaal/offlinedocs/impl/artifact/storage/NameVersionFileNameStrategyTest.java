@@ -35,24 +35,22 @@ public class NameVersionFileNameStrategyTest extends TestBase {
 
     @Test
     public void artifactToFileName() {
-        String name = "HadoopJavadoc";
-        String type = "pdf";
         Artifact artifact =
-                new ArtifactImpl("Hadoop", name, "2.8.0", artifactTypeFactory.getTypeById(type), 100);
+                new ArtifactImpl("Hadoop", "HadoopJavadoc", "2.8.0", artifactTypeFactory.getTypeById("pdf"), 100);
         String actual = strategy.artifactToFileName(artifact);
-        String expected = name + "." + type;
+        String expected = "HadoopJavadoc-2.8.0.pdf";
         assertThat(actual, equalTo(expected));
     }
 
     @Test
-    public void name() {
+    public void getTypeById() {
         File rootDir = new File("root");
         String name = "HadoopJavadoc";
         String type = "pdf";
         Artifact artifact = new ArtifactImpl("Hadoop", name, "2.8.0",
                 artifactTypeFactory.getTypeById(type), 100);
         File actual = strategy.artifactToFile(rootDir, artifact);
-        String expected = rootDir.getAbsolutePath() + fileApi.getFileSeparator() + name + "." + type;
+        String expected = rootDir.getAbsolutePath() + fileApi.getFileSeparator() + "HadoopJavadoc-2.8.0.pdf";
         assertThat(actual, aFileWithCanonicalPath(equalTo(expected)));
     }
 }
