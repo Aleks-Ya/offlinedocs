@@ -13,11 +13,11 @@ import ru.yaal.offlinedocs.api.properties.DataAppProps;
 import ru.yaal.offlinedocs.impl.execution.EmptyExecuteParams;
 import ru.yaal.offlinedocs.impl.execution.EmptyResult;
 import ru.yaal.offlinedocs.impl.execution.job.AbstractJob;
-import ru.yaal.offlinedocs.impl.execution.operation.ArtifactDataOperationResult;
+import ru.yaal.offlinedocs.impl.execution.operation.ArtifactDataOpResult;
 import ru.yaal.offlinedocs.impl.execution.operation.copy.CopyArtifactInitParams;
-import ru.yaal.offlinedocs.impl.execution.operation.copy.CopyArtifactOperation;
+import ru.yaal.offlinedocs.impl.execution.operation.copy.CopyArtifactOp;
 import ru.yaal.offlinedocs.impl.execution.operation.download.storage.DownloadToStorageInitParams;
-import ru.yaal.offlinedocs.impl.execution.operation.download.storage.DownloadToStorageOperation;
+import ru.yaal.offlinedocs.impl.execution.operation.download.storage.DownloadToStorageOp;
 
 import java.io.File;
 
@@ -44,15 +44,15 @@ public class DownloadCopyJob extends AbstractJob<DownloadCopyInitParams, EmptyEx
     public EmptyResult execute(EmptyExecuteParams executeParams) {
         LOG.debug("Start");
         DownloadToStorageInitParams params = getInitParams().getDownloadParams();
-        Operation<DownloadToStorageInitParams, EmptyExecuteParams, ArtifactDataOperationResult> downloadOp =
-                executionFactory.getNewOperation(DownloadToStorageOperation.class, params);
-        ArtifactDataOperationResult downloadResult = downloadOp.execute(EmptyExecuteParams.instance);
+        Operation<DownloadToStorageInitParams, EmptyExecuteParams, ArtifactDataOpResult> downloadOp =
+                executionFactory.getNewOperation(DownloadToStorageOp.class, params);
+        ArtifactDataOpResult downloadResult = downloadOp.execute(EmptyExecuteParams.instance);
         Artifact artifact = downloadResult.getArtifactData().getArtifact();
 
         File destDir = fileNameStrategy.subDirInOutlet(dataAppProps.getOutletDir(), artifact);
         CopyArtifactInitParams copyParams = new CopyArtifactInitParams(artifact, destDir);
         Operation<CopyArtifactInitParams, EmptyExecuteParams, EmptyResult> copyOp =
-                executionFactory.getNewOperation(CopyArtifactOperation.class, copyParams);
+                executionFactory.getNewOperation(CopyArtifactOp.class, copyParams);
         copyOp.execute(EmptyExecuteParams.instance);
 
         return EmptyResult.instance;

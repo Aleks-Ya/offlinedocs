@@ -8,7 +8,7 @@ import ru.yaal.offlinedocs.api.execution.operation.Operation;
 /**
  * @author Yablokov Aleksey
  */
-public abstract class AbstractOperation<
+public abstract class AbstractOp<
         IP extends InitParams,
         EP extends ExecuteParams,
         R extends Result>
@@ -16,7 +16,7 @@ public abstract class AbstractOperation<
 
     private final IP initParams;
 
-    protected AbstractOperation(IP initParams) {
+    protected AbstractOp(IP initParams) {
         this.initParams = initParams;
     }
 

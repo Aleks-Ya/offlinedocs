@@ -10,7 +10,7 @@ import ru.yaal.offlinedocs.api.execution.Result;
 import ru.yaal.offlinedocs.api.execution.job.Job;
 import ru.yaal.offlinedocs.api.execution.operation.Operation;
 import ru.yaal.offlinedocs.impl.execution.job.AbstractJob;
-import ru.yaal.offlinedocs.impl.execution.operation.AbstractOperation;
+import ru.yaal.offlinedocs.impl.execution.operation.AbstractOp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +30,7 @@ public class SpringExecutionFactory implements ExecutionFactory {
 
     @Override
     public <IP extends InitParams, EP extends ExecuteParams, R extends Result, O extends Operation<IP, EP, R>>
-    O getNewOperation(Class<? extends AbstractOperation<IP, EP, R>> operationClass, IP initParams) {
+    O getNewOperation(Class<? extends AbstractOp<IP, EP, R>> operationClass, IP initParams) {
         //noinspection unchecked
         return (O) ctx.getBean(operationClass, initParams);
     }

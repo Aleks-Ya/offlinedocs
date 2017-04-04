@@ -14,8 +14,8 @@ import ru.yaal.offlinedocs.api.system.NetApi;
 import ru.yaal.offlinedocs.impl.artifact.ArtifactImpl;
 import ru.yaal.offlinedocs.impl.artifact.data.ByteArrayArtifactData;
 import ru.yaal.offlinedocs.impl.execution.EmptyExecuteParams;
-import ru.yaal.offlinedocs.impl.execution.operation.AbstractOperation;
-import ru.yaal.offlinedocs.impl.execution.operation.ArtifactDataOperationResult;
+import ru.yaal.offlinedocs.impl.execution.operation.AbstractOp;
+import ru.yaal.offlinedocs.impl.execution.operation.ArtifactDataOpResult;
 import ru.yaal.offlinedocs.impl.execution.operation.download.DownloadHelper;
 
 import java.io.InputStream;
@@ -27,10 +27,10 @@ import java.net.URL;
 @Component
 @Scope("prototype")
 @SuppressWarnings("SpringAutowiredFieldsWarningInspection")
-public class DownloadToStorageOperation
-        extends AbstractOperation<DownloadToStorageInitParams, EmptyExecuteParams, ArtifactDataOperationResult> {
+public class DownloadToStorageOp
+        extends AbstractOp<DownloadToStorageInitParams, EmptyExecuteParams, ArtifactDataOpResult> {
 
-    private final Logger LOG = LoggerFactory.getLogger(DownloadToStorageOperation.class);
+    private final Logger LOG = LoggerFactory.getLogger(DownloadToStorageOp.class);
     @Autowired
     private NetApi netApi;
     @Autowired
@@ -38,13 +38,13 @@ public class DownloadToStorageOperation
     @Autowired
     private ArtifactTypeFactory typeFactory;
 
-    public DownloadToStorageOperation(DownloadToStorageInitParams initParams) {
+    public DownloadToStorageOp(DownloadToStorageInitParams initParams) {
         super(initParams);
     }
 
     @Override
     @SneakyThrows
-    public ArtifactDataOperationResult execute(EmptyExecuteParams executeParams) {
+    public ArtifactDataOpResult execute(EmptyExecuteParams executeParams) {
         DownloadToStorageInitParams params = getInitParams();
         Artifact artifact = new ArtifactImpl(
                 params.getArtifactCategory(),
@@ -64,6 +64,6 @@ public class DownloadToStorageOperation
             storage.save(data);
             LOG.debug("Artifact downloaded: " + artifact);
         }
-        return new ArtifactDataOperationResult(data);
+        return new ArtifactDataOpResult(data);
     }
 }

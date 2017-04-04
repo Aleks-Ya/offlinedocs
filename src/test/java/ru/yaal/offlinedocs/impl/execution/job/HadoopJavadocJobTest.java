@@ -8,9 +8,9 @@ import ru.yaal.offlinedocs.api.execution.job.Job;
 import ru.yaal.offlinedocs.api.execution.operation.Operation;
 import ru.yaal.offlinedocs.impl.TestBase;
 import ru.yaal.offlinedocs.impl.execution.EmptyExecuteParams;
-import ru.yaal.offlinedocs.impl.execution.operation.ArtifactDataOperationResult;
+import ru.yaal.offlinedocs.impl.execution.operation.ArtifactDataOpResult;
 import ru.yaal.offlinedocs.impl.execution.operation.download.storage.DownloadToStorageInitParams;
-import ru.yaal.offlinedocs.impl.execution.operation.download.storage.DownloadToStorageOperation;
+import ru.yaal.offlinedocs.impl.execution.operation.download.storage.DownloadToStorageOp;
 
 import java.io.ByteArrayInputStream;
 import java.net.URL;
@@ -31,8 +31,8 @@ public class HadoopJavadocJobTest extends TestBase {
         URL artifactUrl = new URL("http://apache-mirror.rbc.ru/pub/apache/hadoop/common/hadoop-2.8.0/hadoop-2.8.0.tar.gz");
         DownloadToStorageInitParams initParams =
                 new DownloadToStorageInitParams(artifactCategory, artifactName, artifactVersion, artifactUrl, "pdf");
-        Operation<DownloadToStorageInitParams, EmptyExecuteParams, ArtifactDataOperationResult> operation =
-                executionFactory.getNewOperation(DownloadToStorageOperation.class, initParams);
+        Operation<DownloadToStorageInitParams, EmptyExecuteParams, ArtifactDataOpResult> operation =
+                executionFactory.getNewOperation(DownloadToStorageOp.class, initParams);
         byte[] isArray = {1, 2, 3, 4, 5};
         ByteArrayInputStream is = new ByteArrayInputStream(isArray);
         netApi.putEntry(artifactUrl, is);

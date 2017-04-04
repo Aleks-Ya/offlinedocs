@@ -22,7 +22,7 @@ import static org.junit.Assert.assertThat;
 /**
  * @author Yablokov Aleksey
  */
-public class CopyArtifactOperationTest extends TestBase {
+public class CopyArtifactOpTest extends TestBase {
 
     @Test
     public void execute() throws IOException {
@@ -39,9 +39,9 @@ public class CopyArtifactOperationTest extends TestBase {
         File destDir = Files.createTempDirectory(getClass().getSimpleName() + "_").toFile();
         destDir.deleteOnExit();
         CopyArtifactInitParams params = new CopyArtifactInitParams(artifact, destDir);
-        Operation<CopyArtifactInitParams, EmptyExecuteParams, EmptyResult> operation =
-                executionFactory.getNewOperation(CopyArtifactOperation.class, params);
-        operation.execute(EmptyExecuteParams.instance);
+        Operation<CopyArtifactInitParams, EmptyExecuteParams, EmptyResult> op =
+                executionFactory.getNewOperation(CopyArtifactOp.class, params);
+        op.execute(EmptyExecuteParams.instance);
         File destFile = fileNameStrategy.artifactToFile(destDir, artifact);
         assertThat(destFile, anExistingFile());
         assertThat(destFile, aFileNamed(Matchers.equalTo("SpringJavadoc-4.3.7.pdf")));

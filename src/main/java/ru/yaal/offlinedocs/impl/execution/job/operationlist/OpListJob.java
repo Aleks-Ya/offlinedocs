@@ -13,17 +13,17 @@ import ru.yaal.offlinedocs.impl.execution.job.AbstractJob;
  */
 @Component
 @Scope("prototype")
-public class OperationListJob extends AbstractJob<OperationListInitParams, EmptyExecuteParams, EmptyResult> {
-    private final Logger LOG = LoggerFactory.getLogger(OperationListJob.class);
+public class OpListJob extends AbstractJob<OpListInitParams, EmptyExecuteParams, EmptyResult> {
+    private final Logger LOG = LoggerFactory.getLogger(OpListJob.class);
 
-    public OperationListJob(OperationListInitParams initParams) {
+    public OpListJob(OpListInitParams initParams) {
         super(initParams);
     }
 
     @Override
     public EmptyResult execute(EmptyExecuteParams executeParams) {
         LOG.debug("Executing operations");
-        getInitParams().getOperations().forEach(operation -> operation.execute(EmptyExecuteParams.instance));
+        getInitParams().getOps().forEach(operation -> operation.execute(EmptyExecuteParams.instance));
         return EmptyResult.instance;
     }
 }

@@ -11,11 +11,11 @@ import ru.yaal.offlinedocs.impl.execution.EmptyExecuteParams;
 import ru.yaal.offlinedocs.impl.execution.EmptyResult;
 import ru.yaal.offlinedocs.impl.execution.job.downloadcopy.DownloadCopyInitParams;
 import ru.yaal.offlinedocs.impl.execution.job.downloadcopy.DownloadCopyJob;
-import ru.yaal.offlinedocs.impl.execution.job.operationlist.OperationListInitParams;
-import ru.yaal.offlinedocs.impl.execution.job.operationlist.OperationListJob;
-import ru.yaal.offlinedocs.impl.execution.operation.ArtifactDataOperationResult;
+import ru.yaal.offlinedocs.impl.execution.job.operationlist.OpListInitParams;
+import ru.yaal.offlinedocs.impl.execution.job.operationlist.OpListJob;
+import ru.yaal.offlinedocs.impl.execution.operation.ArtifactDataOpResult;
 import ru.yaal.offlinedocs.impl.execution.operation.download.storage.DownloadToStorageInitParams;
-import ru.yaal.offlinedocs.impl.execution.operation.download.storage.DownloadToStorageOperation;
+import ru.yaal.offlinedocs.impl.execution.operation.download.storage.DownloadToStorageOp;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -35,15 +35,15 @@ public class JobsConfig {
 
     @Bean
     @SneakyThrows
-    public Job<OperationListInitParams, EmptyExecuteParams, EmptyResult> hadoopJavadocJob() {
+    public Job<OpListInitParams, EmptyExecuteParams, EmptyResult> hadoopJavadocJob() {
         DownloadToStorageInitParams initParams = new DownloadToStorageInitParams(
                 "Hadoop", "HadoopJavadoc", "2.8.0",
                 new URL("http://apache-mirror.rbc.ru/pub/apache/hadoop/common/hadoop-2.8.0/hadoop-2.8.0.tar.gz"),
                 "tar.gz");
-        Operation<DownloadToStorageInitParams, EmptyExecuteParams, ArtifactDataOperationResult> downloadOperation =
-                factory.getNewOperation(DownloadToStorageOperation.class, initParams);
-        OperationListInitParams params = new OperationListInitParams(Collections.singletonList(downloadOperation));
-        return factory.getNewJob(OperationListJob.class, params);
+        Operation<DownloadToStorageInitParams, EmptyExecuteParams, ArtifactDataOpResult> downloadOperation =
+                factory.getNewOperation(DownloadToStorageOp.class, initParams);
+        OpListInitParams params = new OpListInitParams(Collections.singletonList(downloadOperation));
+        return factory.getNewJob(OpListJob.class, params);
     }
 
     @Bean

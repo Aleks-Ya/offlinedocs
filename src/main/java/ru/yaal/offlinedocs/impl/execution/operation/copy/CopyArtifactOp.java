@@ -13,7 +13,7 @@ import ru.yaal.offlinedocs.api.artifact.storage.ArtifactStorage;
 import ru.yaal.offlinedocs.api.artifact.storage.FileNameStrategy;
 import ru.yaal.offlinedocs.impl.execution.EmptyExecuteParams;
 import ru.yaal.offlinedocs.impl.execution.EmptyResult;
-import ru.yaal.offlinedocs.impl.execution.operation.AbstractOperation;
+import ru.yaal.offlinedocs.impl.execution.operation.AbstractOp;
 
 import java.io.File;
 import java.io.InputStream;
@@ -24,16 +24,16 @@ import java.io.InputStream;
 @Component
 @Scope("prototype")
 @SuppressWarnings("SpringAutowiredFieldsWarningInspection")
-public class CopyArtifactOperation
-        extends AbstractOperation<CopyArtifactInitParams, EmptyExecuteParams, EmptyResult> {
+public class CopyArtifactOp
+        extends AbstractOp<CopyArtifactInitParams, EmptyExecuteParams, EmptyResult> {
 
-    private final Logger LOG = LoggerFactory.getLogger(CopyArtifactOperation.class);
+    private final Logger LOG = LoggerFactory.getLogger(CopyArtifactOp.class);
     @Autowired
     private ArtifactStorage storage;
     @Autowired
     private FileNameStrategy fileNameStrategy;
 
-    public CopyArtifactOperation(CopyArtifactInitParams initParams) {
+    public CopyArtifactOp(CopyArtifactInitParams initParams) {
         super(initParams);
     }
 

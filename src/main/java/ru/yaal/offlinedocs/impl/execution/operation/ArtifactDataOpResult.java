@@ -6,10 +6,10 @@ import ru.yaal.offlinedocs.api.execution.Result;
 /**
  * @author Yablokov Aleksey
  */
-public class ArtifactDataOperationResult implements Result {
+public class ArtifactDataOpResult implements Result {
     private final ArtifactData data;
 
-    public ArtifactDataOperationResult(ArtifactData data) {
+    public ArtifactDataOpResult(ArtifactData data) {
         this.data = data;
     }
 

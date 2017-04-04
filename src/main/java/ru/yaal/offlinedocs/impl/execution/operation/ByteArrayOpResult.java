@@ -5,10 +5,10 @@ import ru.yaal.offlinedocs.api.execution.Result;
 /**
  * @author Yablokov Aleksey
  */
-public class ByteArrayOperationResult implements Result {
+public class ByteArrayOpResult implements Result {
     private final byte[] data;
 
-    public ByteArrayOperationResult(byte[] data) {
+    public ByteArrayOpResult(byte[] data) {
         this.data = data;
     }
 
