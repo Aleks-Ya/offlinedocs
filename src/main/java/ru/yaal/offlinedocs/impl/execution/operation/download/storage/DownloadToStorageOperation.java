@@ -4,7 +4,6 @@ import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import ru.yaal.offlinedocs.api.artifact.Artifact;
@@ -16,10 +15,8 @@ import ru.yaal.offlinedocs.impl.artifact.data.ByteArrayArtifactData;
 import ru.yaal.offlinedocs.impl.execution.EmptyExecuteParams;
 import ru.yaal.offlinedocs.impl.execution.operation.AbstractOperation;
 import ru.yaal.offlinedocs.impl.execution.operation.ArtifactDataOperationResult;
+import ru.yaal.offlinedocs.impl.execution.operation.download.DownloadHelper;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
@@ -45,30 +42,15 @@ public class DownloadToStorageOperation
     @Override
     @SneakyThrows
     public ArtifactDataOperationResult execute(EmptyExecuteParams executeParams) {
-        URL url = getInitParameters().getURL();
+        URL url = getInitParameters().getArtifactUrl();
         LOG.debug("Start downloading " + url);
         InputStream is = netApi.openUrl(url);
-        byte[] bytes = inputStreamToByteArray(is);
+        byte[] bytes = DownloadHelper.inputStreamToByteArray(is, getInitParameters().getLogEveryBytes());
         Artifact artifact = new ArtifactImpl(
                 getInitParameters().getArtifactName(), getInitParameters().getArtifactVersion(), bytes.length);
         ArtifactData data = new ByteArrayArtifactData(artifact, bytes);
         storage.save(data);
         LOG.debug("Artifact downloaded " + artifact);
         return new ArtifactDataOperationResult(data);
-    }
-
-    private byte[] inputStreamToByteArray(InputStream is) throws IOException {
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        BufferedInputStream bis = new BufferedInputStream(is);
-        long loaded = 0;
-        int b;
-        while ((b = bis.read()) != -1) {
-            loaded++;
-            if (loaded % 100_000 == 0) {
-                LOG.debug("Downloaded {} bytes", loaded);
-            }
-            out.write(b);
-        }
-        return out.toByteArray();
     }
 }

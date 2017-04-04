@@ -1,6 +1,5 @@
 package ru.yaal.offlinedocs.impl.execution.operation.download.bytes;
 
-import com.google.common.io.ByteStreams;
 import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +10,7 @@ import ru.yaal.offlinedocs.api.system.NetApi;
 import ru.yaal.offlinedocs.impl.execution.EmptyExecuteParams;
 import ru.yaal.offlinedocs.impl.execution.operation.AbstractOperation;
 import ru.yaal.offlinedocs.impl.execution.operation.ByteArrayOperationResult;
+import ru.yaal.offlinedocs.impl.execution.operation.download.DownloadHelper;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -36,10 +36,10 @@ public class DownloadToByteArrayOperation
     @Override
     @SneakyThrows
     public ByteArrayOperationResult execute(EmptyExecuteParams executeParams) {
-        URL url = getInitParameters().getURL();
+        URL url = getInitParameters().getArtifactUrl();
         LOG.debug("Start downloading " + url);
         InputStream is = netApi.openUrl(url);
-        byte[] bytes = ByteStreams.toByteArray(is);
+        byte[] bytes = DownloadHelper.inputStreamToByteArray(is, getInitParameters().getLogEveryBytes());
         LOG.debug("URL downloaded '{}' ({} bytes)", url, bytes.length);
         return new ByteArrayOperationResult(bytes);
     }
