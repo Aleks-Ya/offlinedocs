@@ -9,6 +9,7 @@ import ru.yaal.offlinedocs.impl.artifact.ArtifactImpl;
 
 import java.io.File;
 
+import static java.io.File.separator;
 import static org.hamcrest.Matchers.endsWith;
 import static org.junit.Assert.assertThat;
 
@@ -26,7 +27,7 @@ public class NameVersionFileNameStrategyTest extends TestBase {
         Artifact artifact = new ArtifactImpl("Hadoop", "HadoopJavadoc", "2.8.0",
                 artifactTypeFactory.getTypeById("pdf"), 100);
         File file = strategy.toFile(rootDir, artifact);
-        String expected = "HadoopJavadoc" + File.separator + "2.8.0" + File.separator + "object.bin";
+        String expected = "Hadoop" + separator + "HadoopJavadoc" + separator + "2.8.0" + separator + "HadoopJavadoc.pdf";
         assertThat(file, FileMatchers.aFileWithAbsolutePath(endsWith(expected)));
     }
 

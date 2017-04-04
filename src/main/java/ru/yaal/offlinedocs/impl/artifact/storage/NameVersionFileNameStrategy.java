@@ -6,6 +6,8 @@ import ru.yaal.offlinedocs.api.artifact.storage.FileNameStrategy;
 
 import java.io.File;
 
+import static java.io.File.separator;
+
 /**
  * @author Yablokov Aleksey
  */
@@ -13,7 +15,8 @@ import java.io.File;
 public class NameVersionFileNameStrategy implements FileNameStrategy {
     @Override
     public File toFile(File rootDir, Artifact artifact) {
-        String path = artifact.getName() + File.separator + artifact.getVersion() + File.separator + "object.bin";
+        String path = artifact.getCategory() + separator + artifact.getName() + separator
+                + artifact.getVersion() + separator + artifact.getName() + "." + artifact.getType().getFileExtension();
         return new File(rootDir, path);
     }
 }
