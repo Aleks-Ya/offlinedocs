@@ -1,34 +1,43 @@
 package ru.yaal.offlinedocs.impl.artifact.data;
 
 import lombok.Getter;
+import lombok.SneakyThrows;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.yaal.offlinedocs.api.artifact.Artifact;
 import ru.yaal.offlinedocs.api.artifact.data.ArtifactData;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
+import java.nio.file.Files;
 
 /**
  * @author Yablokov Aleksey
  */
 public class ByteArrayArtifactData implements ArtifactData {
+    public static final Logger LOG = LoggerFactory.getLogger(ByteArrayArtifactData.class);
     @Getter
     private final Artifact artifact;
-    private final byte[] bytes;
+    private final File artifactFile;
 
+    @SneakyThrows
     public ByteArrayArtifactData(Artifact artifact, byte[] bytes) {
         this.artifact = artifact;
-        this.bytes = bytes;
+        artifactFile = File.createTempFile("ByteArrayArtifactData_", ".tmp");
+        artifactFile.deleteOnExit();
+        Files.write(artifactFile.toPath(), bytes);
+        LOG.debug("Temp file created: " + artifactFile.getAbsolutePath());
     }
 
     @Override
+    @SneakyThrows
     public InputStream getData() {
-        return new ByteArrayInputStream(bytes);
+        return new FileInputStream(artifactFile);
     }
 
     @Override
     public File getFile() {
-        throw new NotImplementedException();
+        return artifactFile;
     }
 }

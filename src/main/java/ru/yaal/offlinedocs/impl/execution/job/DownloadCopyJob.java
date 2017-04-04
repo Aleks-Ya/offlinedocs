@@ -20,7 +20,7 @@ import java.io.File;
  */
 @Component
 @Scope("prototype")
-public class DownloadCopyJob extends AbstractJob<DownloadCopyJob.InitParams, EmptyExecuteParams, EmptyResult> {
+class DownloadCopyJob extends AbstractJob<DownloadCopyJob.InitParams, EmptyExecuteParams, EmptyResult> {
     private final Logger LOG = LoggerFactory.getLogger(DownloadCopyJob.class);
 
     public DownloadCopyJob(InitParams initParams) {
@@ -36,7 +36,7 @@ public class DownloadCopyJob extends AbstractJob<DownloadCopyJob.InitParams, Emp
         ArtifactDataOpResult downloadResult = downloadOp.execute(EmptyExecuteParams.instance);
         Artifact artifact = downloadResult.getArtifactData().getArtifact();
 
-        File destDir = fileNameStrategy.subDirInOutlet(dataAppProps.getOutletDir(), artifact);
+        File destDir = outletStorage.getArtifactDir(artifact);
         CopyArtifactOp.InitParams copyParams = new CopyArtifactOp.InitParams(artifact, destDir);
         Operation<CopyArtifactOp.InitParams, EmptyExecuteParams, EmptyResult> copyOp =
                 executionFactory.getNewOperation(CopyArtifactOp.class, copyParams);

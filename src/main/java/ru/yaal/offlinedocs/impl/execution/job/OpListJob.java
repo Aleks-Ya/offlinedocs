@@ -16,7 +16,7 @@ import java.util.List;
  */
 @Component
 @Scope("prototype")
-public class OpListJob extends AbstractJob<OpListJob.InitParams, EmptyExecuteParams, EmptyResult> {
+class OpListJob extends AbstractJob<OpListJob.InitParams, EmptyExecuteParams, EmptyResult> {
     private final Logger LOG = LoggerFactory.getLogger(OpListJob.class);
 
     public OpListJob(InitParams initParams) {

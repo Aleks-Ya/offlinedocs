@@ -4,7 +4,7 @@ import org.junit.Test;
 import ru.yaal.offlinedocs.impl.TestBase;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.io.FileMatchers.aFileWithCanonicalPath;
 
 /**
@@ -13,8 +13,8 @@ import static org.hamcrest.io.FileMatchers.aFileWithCanonicalPath;
 public class DataAppPropsImplTest extends TestBase {
     @Test
     public void getOutputDir() {
-        String expected = systemApi.getUserHome() + fileApi.getFileSeparator() + "offline_documentation";
-        assertThat(dataAppProps.getOutletDir(), aFileWithCanonicalPath(equalTo(expected)));
+        String expected = fileApi.getFileSeparator() + "offline_documentation";
+        assertThat(dataAppProps.getOutletDir(), aFileWithCanonicalPath(endsWith(expected)));
     }
 
 }

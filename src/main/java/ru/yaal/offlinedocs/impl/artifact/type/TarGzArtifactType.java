@@ -7,7 +7,7 @@ import ru.yaal.offlinedocs.api.artifact.type.ArtifactType;
  * @author Yablokov Aleksey
  */
 @Component(TarGzArtifactType.ID)
-public class TarGzArtifactType implements ArtifactType {
+class TarGzArtifactType implements ArtifactType {
     static final String ID = "tar.gz";
 
     @Override

@@ -1,13 +1,13 @@
 package ru.yaal.offlinedocs.impl.execution.job;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import ru.yaal.offlinedocs.api.artifact.storage.FileNameStrategy;
 import ru.yaal.offlinedocs.api.execution.ExecuteParams;
 import ru.yaal.offlinedocs.api.execution.ExecutionFactory;
 import ru.yaal.offlinedocs.api.execution.InitParams;
 import ru.yaal.offlinedocs.api.execution.Result;
 import ru.yaal.offlinedocs.api.execution.job.Job;
 import ru.yaal.offlinedocs.api.properties.DataAppProps;
+import ru.yaal.offlinedocs.api.storage.OutletStorage;
 
 /**
  * @author Yablokov Aleksey
@@ -26,7 +26,7 @@ public abstract class AbstractJob<
     @Autowired
     protected DataAppProps dataAppProps;
     @Autowired
-    protected FileNameStrategy fileNameStrategy;
+    protected OutletStorage outletStorage;
 
     protected AbstractJob(IP initParams) {
         this.initParams = initParams;

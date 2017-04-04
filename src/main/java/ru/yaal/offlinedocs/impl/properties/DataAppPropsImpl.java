@@ -11,9 +11,10 @@ import java.io.File;
  * @author Yablokov Aleksey
  */
 @Component
-public class DataAppPropsImpl implements DataAppProps {
-    public static final String OUTLET_DIR_PROP = "dir.outlet";
-    public static final String TMP_DIR_PROP = "dir.tmp";
+class DataAppPropsImpl implements DataAppProps {
+    static final String OUTLET_DIR_PROP = "dir.outlet";
+    static final String TEMP_DIR_PROP = "dir.temp";
+    static final String STORAGE_DIR_PROP = "dir.storage";
     private final StringAppProps props;
 
     @Autowired
@@ -27,7 +28,12 @@ public class DataAppPropsImpl implements DataAppProps {
     }
 
     @Override
-    public File getTmpDirectory() {
-        return new File(props.getProperty(TMP_DIR_PROP));
+    public File getArtifactStorageDir() {
+        return new File(props.getProperty(STORAGE_DIR_PROP));
+    }
+
+    @Override
+    public File getTempDir() {
+        return new File(props.getProperty(TEMP_DIR_PROP));
     }
 }

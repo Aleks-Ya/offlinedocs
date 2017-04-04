@@ -7,7 +7,7 @@ import ru.yaal.offlinedocs.api.artifact.type.ArtifactType;
  * @author Yablokov Aleksey
  */
 @Component(ZipArtifactType.ID)
-public class ZipArtifactType implements ArtifactType {
+class ZipArtifactType implements ArtifactType {
     static final String ID = "zip";
 
     @Override

@@ -11,7 +11,7 @@ import java.util.Map;
  * @author Yablokov Aleksey
  */
 @Component
-public class ArtifactTypeFactoryImpl implements ArtifactTypeFactory {
+class ArtifactTypeFactoryImpl implements ArtifactTypeFactory {
     private final Map<String, ArtifactType> types;
 
     @Autowired

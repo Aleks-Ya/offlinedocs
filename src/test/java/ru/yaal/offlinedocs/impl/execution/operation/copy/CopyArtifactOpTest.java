@@ -1,22 +1,19 @@
 package ru.yaal.offlinedocs.impl.execution.operation.copy;
 
-import org.hamcrest.Matchers;
 import org.junit.Test;
 import ru.yaal.offlinedocs.api.artifact.Artifact;
-import ru.yaal.offlinedocs.api.artifact.data.ArtifactData;
 import ru.yaal.offlinedocs.api.execution.operation.Operation;
 import ru.yaal.offlinedocs.impl.TestBase;
 import ru.yaal.offlinedocs.impl.artifact.ArtifactImpl;
-import ru.yaal.offlinedocs.impl.artifact.data.ByteArrayArtifactData;
 import ru.yaal.offlinedocs.impl.execution.EmptyExecuteParams;
 import ru.yaal.offlinedocs.impl.execution.EmptyResult;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 
-import static org.hamcrest.io.FileMatchers.aFileNamed;
-import static org.hamcrest.io.FileMatchers.anExistingFile;
+import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.io.FileMatchers.aFileWithSize;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -32,18 +29,16 @@ public class CopyArtifactOpTest extends TestBase {
         Artifact artifact = new ArtifactImpl("Spring", artifactName, artifactVersion,
                 artifactTypeFactory.getTypeById(artifactType));
 
-        byte[] artifactArray = {1, 2, 3, 4, 5};
-        ArtifactData data = new ByteArrayArtifactData(artifact, artifactArray);
-        artifactStorage.save(data);
+        ByteArrayInputStream is = new ByteArrayInputStream(new byte[]{1, 2, 3, 4, 5});
+        artifactStorage.save(artifact, is);
 
-        File destDir = Files.createTempDirectory(getClass().getSimpleName() + "_").toFile();
-        destDir.deleteOnExit();
-        CopyArtifactOp.InitParams params = new CopyArtifactOp.InitParams(artifact, destDir);
+        File destFile = File.createTempFile(getClass().getSimpleName() + "_", ".tmp");
+        destFile.deleteOnExit();
+        assertThat(destFile, aFileWithSize(0));
+        CopyArtifactOp.InitParams params = new CopyArtifactOp.InitParams(artifact, destFile);
         Operation<CopyArtifactOp.InitParams, EmptyExecuteParams, EmptyResult> op =
                 executionFactory.getNewOperation(CopyArtifactOp.class, params);
         op.execute(EmptyExecuteParams.instance);
-        File destFile = fileNameStrategy.artifactToFile(destDir, artifact);
-        assertThat(destFile, anExistingFile());
-        assertThat(destFile, aFileNamed(Matchers.equalTo("SpringJavadoc-4.3.7.pdf")));
+        assertThat(destFile, aFileWithSize(greaterThan(0L)));
     }
 }

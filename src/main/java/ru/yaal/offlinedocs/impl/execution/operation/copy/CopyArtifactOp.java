@@ -34,8 +34,7 @@ public class CopyArtifactOp
     @SneakyThrows
     public EmptyResult execute(EmptyExecuteParams executeParams) {
         Artifact artifact = getInitParams().getArtifact();
-        File destDir = getInitParams().getDestinationDir();
-        File destFile = fileNameStrategy.artifactToFile(destDir, artifact);
+        File destFile = getInitParams().getDestFile();
         LOG.debug("Coping {} to {}", artifact, destFile.getAbsolutePath());
 
         ArtifactData data = artifactStorage.read(artifact);
@@ -49,11 +48,11 @@ public class CopyArtifactOp
     @Getter
     public static class InitParams implements ru.yaal.offlinedocs.api.execution.InitParams {
         private final Artifact artifact;
-        private final File destinationDir;
+        private final File destFile;
 
-        public InitParams(Artifact artifact, File destinationDir) {
+        public InitParams(Artifact artifact, File destFile) {
             this.artifact = artifact;
-            this.destinationDir = destinationDir;
+            this.destFile = destFile;
         }
     }
 }

@@ -9,11 +9,9 @@ import org.springframework.stereotype.Component;
 import ru.yaal.offlinedocs.api.artifact.Artifact;
 import ru.yaal.offlinedocs.api.artifact.data.ArtifactData;
 import ru.yaal.offlinedocs.impl.artifact.ArtifactImpl;
-import ru.yaal.offlinedocs.impl.artifact.data.ByteArrayArtifactData;
 import ru.yaal.offlinedocs.impl.execution.EmptyExecuteParams;
 import ru.yaal.offlinedocs.impl.execution.operation.AbstractOp;
 import ru.yaal.offlinedocs.impl.execution.operation.ArtifactDataOpResult;
-import ru.yaal.offlinedocs.impl.execution.operation.download.DownloadHelper;
 import ru.yaal.offlinedocs.impl.execution.operation.download.bytes.DownloadToByteArrayOp;
 
 import java.io.InputStream;
@@ -50,10 +48,7 @@ public class DownloadToStorageOp
             URL url = params.getArtifactUrl();
             LOG.debug("Start downloading: " + url);
             InputStream is = netApi.openUrl(url);
-            byte[] bytes = DownloadHelper.inputStreamToByteArray(is, params.getLogEveryBytes());
-            data = new ByteArrayArtifactData(artifact, bytes);
-            artifactStorage.save(data);
-            data = artifactStorage.read(data.getArtifact());
+            data = artifactStorage.save(artifact, is);
             LOG.debug("Artifact downloaded: " + artifact);
         }
         return new ArtifactDataOpResult(data);

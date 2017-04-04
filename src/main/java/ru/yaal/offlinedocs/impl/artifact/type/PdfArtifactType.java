@@ -7,7 +7,7 @@ import ru.yaal.offlinedocs.api.artifact.type.ArtifactType;
  * @author Yablokov Aleksey
  */
 @Component(PdfArtifactType.ID)
-public class PdfArtifactType implements ArtifactType {
+class PdfArtifactType implements ArtifactType {
     static final String ID = "pdf";
 
     @Override

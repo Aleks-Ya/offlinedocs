@@ -11,7 +11,6 @@ import ru.yaal.offlinedocs.api.execution.operation.Operation;
 import ru.yaal.offlinedocs.impl.execution.EmptyExecuteParams;
 import ru.yaal.offlinedocs.impl.execution.EmptyResult;
 import ru.yaal.offlinedocs.impl.execution.operation.ArtifactDataOpResult;
-import ru.yaal.offlinedocs.impl.execution.operation.copy.CopyArtifactOp;
 import ru.yaal.offlinedocs.impl.execution.operation.download.storage.DownloadToStorageOp;
 import ru.yaal.offlinedocs.impl.execution.operation.unpack.UnpackZipOp;
 
@@ -22,7 +21,7 @@ import java.io.File;
  */
 @Component
 @Scope("prototype")
-public class DownloadUnzipJob extends AbstractJob<DownloadUnzipJob.InitParams, EmptyExecuteParams, EmptyResult> {
+class DownloadUnzipJob extends AbstractJob<DownloadUnzipJob.InitParams, EmptyExecuteParams, EmptyResult> {
     private final Logger LOG = LoggerFactory.getLogger(DownloadUnzipJob.class);
 
     public DownloadUnzipJob(InitParams initParams) {
@@ -39,7 +38,7 @@ public class DownloadUnzipJob extends AbstractJob<DownloadUnzipJob.InitParams, E
         ArtifactData artifactData = downloadResult.getArtifactData();
         Artifact artifact = artifactData.getArtifact();
 
-        File destDir = fileNameStrategy.subDirInOutlet(dataAppProps.getOutletDir(), artifact);
+        File destDir = outletStorage.getArtifactDir(artifact);
         UnpackZipOp.InitParams copyParams = new UnpackZipOp.InitParams(artifactData.getFile(), destDir);
         Operation<UnpackZipOp.InitParams, EmptyExecuteParams, EmptyResult> copyOp =
                 executionFactory.getNewOperation(UnpackZipOp.class, copyParams);
