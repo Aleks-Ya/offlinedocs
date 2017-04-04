@@ -17,6 +17,7 @@ import ru.yaal.offlinedocs.impl.execution.operation.ArtifactDataOperationResult;
 import ru.yaal.offlinedocs.impl.execution.operation.download.storage.DownloadToStorageInitParams;
 import ru.yaal.offlinedocs.impl.execution.operation.download.storage.DownloadToStorageOperation;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collections;
 
@@ -48,10 +49,21 @@ public class JobsConfig {
     @Bean
     @SneakyThrows
     public Job<DownloadCopyInitParams, EmptyExecuteParams, EmptyResult> springReference437Pdf() {
-        DownloadToStorageInitParams opParams = new DownloadToStorageInitParams(
-                "Spring", "SpringReferencePdf", "4.3.7",
-                new URL("http://docs.spring.io/spring/docs/4.3.7.RELEASE/spring-framework-reference/pdf/spring-framework-reference.pdf"),
+        return makeDownloadCopyJob("Spring", "SpringReferencePdf", "4.3.7",
+                "http://docs.spring.io/spring/docs/4.3.7.RELEASE/spring-framework-reference/pdf/spring-framework-reference.pdf",
                 "pdf");
+    }
+
+    private Job<DownloadCopyInitParams, EmptyExecuteParams, EmptyResult> makeDownloadCopyJob(
+            String artifactCategory,
+            String artifactName,
+            String artifactVersion,
+            String artifactUrl,
+            String artifactTypeId)
+            throws MalformedURLException {
+
+        DownloadToStorageInitParams opParams = new DownloadToStorageInitParams(
+                artifactCategory, artifactName, artifactVersion, new URL(artifactUrl), artifactTypeId);
         DownloadCopyInitParams jobParams = new DownloadCopyInitParams(opParams);
         return factory.getNewJob(DownloadCopyJob.class, jobParams);
     }
