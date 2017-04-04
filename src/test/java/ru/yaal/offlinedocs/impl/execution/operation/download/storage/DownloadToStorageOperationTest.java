@@ -29,13 +29,12 @@ public class DownloadToStorageOperationTest extends TestBase {
                 new DownloadToStorageInitParams(artifactCategory, artifactName, artifactVersion, artifactUrl, "pdf");
         Operation<DownloadToStorageInitParams, EmptyExecuteParams, ArtifactDataOperationResult> operation =
                 executionFactory.getNewOperation(DownloadToStorageOperation.class, initParams);
-        byte[] isArray = {1, 2, 3, 4, 5};
-        ByteArrayInputStream is = new ByteArrayInputStream(isArray);
+        ByteArrayInputStream is = new ByteArrayInputStream(new byte[]{1, 2, 3, 4, 5});
         netApi.putEntry(artifactUrl, is);
 
         ArtifactDataOperationResult result = operation.execute(EmptyExecuteParams.instance);
         ArtifactImpl expArtifact = new ArtifactImpl(artifactCategory, artifactName, artifactVersion,
-                artifactTypeFactory.getTypeById("pdf"), isArray.length);
+                artifactTypeFactory.getTypeById("pdf"));
 
         ArtifactData artifactData = result.getArtifactData();
         assertThat(artifactData.getArtifact(), equalTo(expArtifact));

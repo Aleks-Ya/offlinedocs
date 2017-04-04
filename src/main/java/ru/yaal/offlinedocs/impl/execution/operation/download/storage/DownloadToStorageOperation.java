@@ -54,8 +54,7 @@ public class DownloadToStorageOperation
                 initParams.getArtifactCategory(),
                 initParams.getArtifactName(),
                 initParams.getArtifactVersion(),
-                typeFactory.getTypeById(initParams.getArtifactTypeId()),
-                bytes.length);
+                typeFactory.getTypeById(initParams.getArtifactTypeId()));
         ArtifactData data = new ByteArrayArtifactData(artifact, bytes);
         storage.save(data);
         LOG.debug("Artifact downloaded " + artifact);

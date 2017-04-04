@@ -30,7 +30,7 @@ public class CopyArtifactOperationTest extends TestBase {
         String artifactVersion = "4.3.7";
         String artifactType = "pdf";
         Artifact artifact = new ArtifactImpl("Spring", artifactName, artifactVersion,
-                artifactTypeFactory.getTypeById(artifactType), 100);
+                artifactTypeFactory.getTypeById(artifactType));
 
         byte[] artifactArray = {1, 2, 3, 4, 5};
         ArtifactData data = new ByteArrayArtifactData(artifact, artifactArray);

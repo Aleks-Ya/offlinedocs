@@ -13,6 +13,4 @@ public interface Artifact {
     String getVersion();
 
     ArtifactType getType();
-
-    int getSize();
 }

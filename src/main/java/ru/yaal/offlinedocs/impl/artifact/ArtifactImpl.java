@@ -17,13 +17,11 @@ public class ArtifactImpl implements Artifact {
     private String name;
     private String version;
     private ArtifactType type;
-    private int size;
 
-    public ArtifactImpl(String category, String name, String version, ArtifactType type, int size) {
+    public ArtifactImpl(String category, String name, String version, ArtifactType type) {
         this.category = category;
         this.name = name;
         this.version = version;
         this.type = type;
-        this.size = size;
     }
 }
