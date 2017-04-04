@@ -1,6 +1,8 @@
 package ru.yaal.offlinedocs.impl.execution.job;
 
 import lombok.SneakyThrows;
+import org.codehaus.plexus.components.io.fileselectors.FileSelector;
+import org.codehaus.plexus.components.io.fileselectors.IncludeExcludeFileSelector;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,9 +28,12 @@ public class JobsConfig {
 
     @Bean
     public Job<DownloadUnTarGzJob.InitParams, EmptyExecuteParams, EmptyResult> hadoopJavadocJob() {
+        IncludeExcludeFileSelector selector = new IncludeExcludeFileSelector();
+        selector.setIncludes(new String[]{"hadoop-2.8.0/share/doc/hadoop/**"});
+
         return makeDownloadUnTarGzJob("Hadoop", "HadoopJavadoc", "2.8.0",
                 "http://apache-mirror.rbc.ru/pub/apache/hadoop/common/hadoop-2.8.0/hadoop-2.8.0.tar.gz",
-                "tar.gz");
+                "tar.gz", new FileSelector[]{selector});
     }
 
     @Bean
@@ -57,12 +62,13 @@ public class JobsConfig {
             String artifactName,
             String artifactVersion,
             String artifactUrl,
-            String artifactTypeId) {
+            String artifactTypeId,
+            FileSelector[] fileSelectors) {
 
         DownloadToStorageOp.InitParams opParams = new DownloadToStorageOp.InitParams(
                 artifactCategory, artifactName, artifactVersion,
                 new URL(artifactUrl), artifactTypeId);
-        DownloadUnTarGzJob.InitParams jobParams = new DownloadUnTarGzJob.InitParams(opParams);
+        DownloadUnTarGzJob.InitParams jobParams = new DownloadUnTarGzJob.InitParams(opParams, fileSelectors);
         return factory.getNewJob(DownloadUnTarGzJob.class, jobParams);
     }
 

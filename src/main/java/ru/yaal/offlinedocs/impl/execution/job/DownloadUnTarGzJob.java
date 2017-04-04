@@ -1,6 +1,7 @@
 package ru.yaal.offlinedocs.impl.execution.job;
 
 import lombok.Getter;
+import org.codehaus.plexus.components.io.fileselectors.FileSelector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
@@ -39,7 +40,8 @@ class DownloadUnTarGzJob extends AbstractJob<DownloadUnTarGzJob.InitParams, Empt
         Artifact artifact = artifactData.getArtifact();
 
         File destDir = outletStorage.getArtifactDir(artifact);
-        UnpackTarGzOp.InitParams unTarGzParams = new UnpackTarGzOp.InitParams(artifactData.getFile(), destDir);
+        FileSelector[] fileSelectors = getInitParams().getFileSelectors();
+        UnpackTarGzOp.InitParams unTarGzParams = new UnpackTarGzOp.InitParams(artifactData.getFile(), destDir, fileSelectors);
         Operation<UnpackTarGzOp.InitParams, EmptyExecuteParams, EmptyResult> unpackOp =
                 executionFactory.getNewOperation(UnpackTarGzOp.class, unTarGzParams);
         unpackOp.execute(EmptyExecuteParams.instance);
@@ -50,9 +52,11 @@ class DownloadUnTarGzJob extends AbstractJob<DownloadUnTarGzJob.InitParams, Empt
     @Getter
     public static class InitParams implements ru.yaal.offlinedocs.api.execution.InitParams {
         private final DownloadToStorageOp.InitParams downloadParams;
+        private final FileSelector[] fileSelectors;
 
-        public InitParams(DownloadToStorageOp.InitParams downloadParams) {
+        public InitParams(DownloadToStorageOp.InitParams downloadParams, FileSelector[] fileSelectors) {
             this.downloadParams = downloadParams;
+            this.fileSelectors = fileSelectors;
         }
     }
 }

@@ -3,6 +3,7 @@ package ru.yaal.offlinedocs.impl.execution.operation.unpack;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import org.codehaus.plexus.archiver.tar.TarGZipUnArchiver;
+import org.codehaus.plexus.components.io.fileselectors.FileSelector;
 import org.codehaus.plexus.logging.console.ConsoleLogger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +41,7 @@ public class UnpackTarGzOp extends AbstractOp<UnpackTarGzOp.InitParams, EmptyExe
         ua.setSourceFile(srcFile);
         ua.enableLogging(new ConsoleLogger(org.codehaus.plexus.logging.Logger.LEVEL_DEBUG, "console_logger"));
         ua.setDestDirectory(destDir);
+        ua.setFileSelectors(getInitParams().getFileSelectors());
         ua.extract();
 
         LOG.debug("Unpacked: {} to {}", srcFile, destDir);
@@ -50,10 +52,12 @@ public class UnpackTarGzOp extends AbstractOp<UnpackTarGzOp.InitParams, EmptyExe
     public static class InitParams implements ru.yaal.offlinedocs.api.execution.InitParams {
         private final File srcFile;
         private final File destDir;
+        private final FileSelector[] fileSelectors;
 
-        public InitParams(File srcFile, File destDir) {
+        public InitParams(File srcFile, File destDir, FileSelector[] fileSelectors) {
             this.srcFile = srcFile;
             this.destDir = destDir;
+            this.fileSelectors = fileSelectors;
         }
     }
 }

@@ -22,7 +22,7 @@ public class UnpackTarGzOpTest extends TestBase {
         File srcFile = new File(getClass().getResource("my.tar.gz").getFile());
         File destDir = Files.createTempDirectory(getClass().getSimpleName() + "_").toFile();
         destDir.deleteOnExit();
-        UnpackTarGzOp.InitParams params = new UnpackTarGzOp.InitParams(srcFile, destDir);
+        UnpackTarGzOp.InitParams params = new UnpackTarGzOp.InitParams(srcFile, destDir, null);
         Operation<UnpackTarGzOp.InitParams, EmptyExecuteParams, EmptyResult> op = executionFactory.getNewOperation(UnpackTarGzOp.class, params);
         op.execute(EmptyExecuteParams.instance);
         assertThat(destDir.list(), Matchers.arrayContaining("mytar"));
