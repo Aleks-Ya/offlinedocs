@@ -35,8 +35,8 @@ public class JobsConfig {
     public Job<OperationListInitParams, EmptyExecuteParams, EmptyResult> hadoopJavadocJob() {
         DownloadToStorageInitParams initParams = new DownloadToStorageInitParams(
                 "Hadoop", "HadoopJavadoc", "2.8.0",
-                new URL("http://apache-mirror.rbc.ru/pub/apache/hadoop/common/hadoop-2.8.0/hadoop-2.8.0.tar.gz")
-        );
+                new URL("http://apache-mirror.rbc.ru/pub/apache/hadoop/common/hadoop-2.8.0/hadoop-2.8.0.tar.gz"),
+                "tar.gz");
         Operation<DownloadToStorageInitParams, EmptyExecuteParams, ArtifactDataOperationResult> downloadOperation =
                 factory.getNewOperation(DownloadToStorageOperation.class, initParams);
         OperationListInitParams params = new OperationListInitParams(Collections.singletonList(downloadOperation));
@@ -48,7 +48,8 @@ public class JobsConfig {
     public Job<OperationListInitParams, EmptyExecuteParams, EmptyResult> springReference437Pdf() {
         DownloadToStorageInitParams initParams = new DownloadToStorageInitParams(
                 "Spring", "SpringReferencePdf", "4.3.7",
-                new URL("http://docs.spring.io/spring/docs/4.3.7.RELEASE/spring-framework-reference/pdf/spring-framework-reference.pdf"));
+                new URL("http://docs.spring.io/spring/docs/4.3.7.RELEASE/spring-framework-reference/pdf/spring-framework-reference.pdf"),
+                "pdf");
         Operation<DownloadToStorageInitParams, EmptyExecuteParams, ArtifactDataOperationResult> downloadOperation =
                 factory.getNewOperation(DownloadToStorageOperation.class, initParams);
         OperationListInitParams params = new OperationListInitParams(Collections.singletonList(downloadOperation));

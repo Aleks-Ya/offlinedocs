@@ -6,6 +6,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.yaal.offlinedocs.api.artifact.storage.ArtifactStorage;
+import ru.yaal.offlinedocs.api.artifact.type.ArtifactTypeFactory;
 import ru.yaal.offlinedocs.api.execution.ExecutionFactory;
 import ru.yaal.offlinedocs.spring.Profiles;
 
@@ -25,4 +26,7 @@ public abstract class TestBase {
 
     @Autowired
     protected MockNetApi netApi;
+
+    @Autowired
+    protected ArtifactTypeFactory artifactTypeFactory;
 }

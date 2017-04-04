@@ -13,12 +13,14 @@ public class DownloadToStorageInitParams extends DownloadToByteArrayInitParams {
     private final String artifactCategory;
     private final String artifactName;
     private final String artifactVersion;
+    private final String artifactTypeId;
 
     public DownloadToStorageInitParams(
-            String artifactCategory, String artifactName, String artifactVersion, URL artifactUrl) {
+            String artifactCategory, String artifactName, String artifactVersion, URL artifactUrl, String artifactTypeId) {
         super(artifactUrl);
         this.artifactCategory = artifactCategory;
         this.artifactName = artifactName;
         this.artifactVersion = artifactVersion;
+        this.artifactTypeId = artifactTypeId;
     }
 }

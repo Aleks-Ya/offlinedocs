@@ -34,7 +34,8 @@ public class DownloadToStorageOperationTest extends TestBase {
         String artifactName = "SpringReferencePdf";
         String artifactVersion = "4.3.7";
         URL artifactUrl = new URL("http://docs.spring.io/spring/docs/4.3.7.RELEASE/spring-framework-reference/pdf/spring-framework-reference.pdf");
-        DownloadToStorageInitParams initParams = new DownloadToStorageInitParams(artifactCategory, artifactName, artifactVersion, artifactUrl);
+        DownloadToStorageInitParams initParams =
+                new DownloadToStorageInitParams(artifactCategory, artifactName, artifactVersion, artifactUrl, "pdf");
         Operation<DownloadToStorageInitParams, EmptyExecuteParams, ArtifactDataOperationResult> operation =
                 factory.getNewOperation(DownloadToStorageOperation.class, initParams);
         byte[] isArray = {1, 2, 3, 4, 5};
@@ -42,7 +43,8 @@ public class DownloadToStorageOperationTest extends TestBase {
         netApi.putEntry(artifactUrl, is);
 
         ArtifactDataOperationResult result = operation.execute(EmptyExecuteParams.instance);
-        ArtifactImpl expArtifact = new ArtifactImpl(artifactCategory, artifactName, artifactVersion, isArray.length);
+        ArtifactImpl expArtifact = new ArtifactImpl(artifactCategory, artifactName, artifactVersion,
+                artifactTypeFactory.getTypeById("pdf"), isArray.length);
 
         ArtifactData artifactData = result.getArtifactData();
         assertThat(artifactData.getArtifact(), equalTo(expArtifact));
