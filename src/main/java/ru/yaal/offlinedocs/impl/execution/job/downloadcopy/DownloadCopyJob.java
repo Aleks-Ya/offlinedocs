@@ -2,14 +2,10 @@ package ru.yaal.offlinedocs.impl.execution.job.downloadcopy;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import ru.yaal.offlinedocs.api.artifact.Artifact;
-import ru.yaal.offlinedocs.api.artifact.storage.FileNameStrategy;
-import ru.yaal.offlinedocs.api.execution.ExecutionFactory;
 import ru.yaal.offlinedocs.api.execution.operation.Operation;
-import ru.yaal.offlinedocs.api.properties.DataAppProps;
 import ru.yaal.offlinedocs.impl.execution.EmptyExecuteParams;
 import ru.yaal.offlinedocs.impl.execution.EmptyResult;
 import ru.yaal.offlinedocs.impl.execution.job.AbstractJob;
@@ -26,15 +22,8 @@ import java.io.File;
  */
 @Component
 @Scope("prototype")
-@SuppressWarnings("SpringAutowiredFieldsWarningInspection")
 public class DownloadCopyJob extends AbstractJob<DownloadCopyInitParams, EmptyExecuteParams, EmptyResult> {
     private final Logger LOG = LoggerFactory.getLogger(DownloadCopyJob.class);
-    @Autowired
-    private ExecutionFactory executionFactory;
-    @Autowired
-    private DataAppProps dataAppProps;
-    @Autowired
-    private FileNameStrategy fileNameStrategy;
 
     public DownloadCopyJob(DownloadCopyInitParams initParams) {
         super(initParams);

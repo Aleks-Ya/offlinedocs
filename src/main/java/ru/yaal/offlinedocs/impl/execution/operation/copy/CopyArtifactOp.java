@@ -4,13 +4,10 @@ import lombok.SneakyThrows;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import ru.yaal.offlinedocs.api.artifact.Artifact;
 import ru.yaal.offlinedocs.api.artifact.data.ArtifactData;
-import ru.yaal.offlinedocs.api.artifact.storage.ArtifactStorage;
-import ru.yaal.offlinedocs.api.artifact.storage.FileNameStrategy;
 import ru.yaal.offlinedocs.impl.execution.EmptyExecuteParams;
 import ru.yaal.offlinedocs.impl.execution.EmptyResult;
 import ru.yaal.offlinedocs.impl.execution.operation.AbstractOp;
@@ -23,15 +20,10 @@ import java.io.InputStream;
  */
 @Component
 @Scope("prototype")
-@SuppressWarnings("SpringAutowiredFieldsWarningInspection")
 public class CopyArtifactOp
         extends AbstractOp<CopyArtifactInitParams, EmptyExecuteParams, EmptyResult> {
 
     private final Logger LOG = LoggerFactory.getLogger(CopyArtifactOp.class);
-    @Autowired
-    private ArtifactStorage storage;
-    @Autowired
-    private FileNameStrategy fileNameStrategy;
 
     public CopyArtifactOp(CopyArtifactInitParams initParams) {
         super(initParams);
@@ -45,7 +37,7 @@ public class CopyArtifactOp
         File destFile = fileNameStrategy.artifactToFile(destDir, artifact);
         LOG.debug("Coping {} to {}", artifact, destFile.getAbsolutePath());
 
-        ArtifactData data = storage.read(artifact);
+        ArtifactData data = artifactStorage.read(artifact);
         InputStream is = data.getData();
         FileUtils.copyInputStreamToFile(is, destFile);
         LOG.debug("Copied: {} to {}", artifact, destFile.getAbsolutePath());

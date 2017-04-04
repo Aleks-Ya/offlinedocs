@@ -3,10 +3,8 @@ package ru.yaal.offlinedocs.impl.execution.operation.download.bytes;
 import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import ru.yaal.offlinedocs.api.system.NetApi;
 import ru.yaal.offlinedocs.impl.execution.EmptyExecuteParams;
 import ru.yaal.offlinedocs.impl.execution.operation.AbstractOp;
 import ru.yaal.offlinedocs.impl.execution.operation.ByteArrayOpResult;
@@ -24,10 +22,6 @@ public class DownloadToByteArrayOp
         extends AbstractOp<DownloadToByteArrayInitParams, EmptyExecuteParams, ByteArrayOpResult> {
 
     private final Logger LOG = LoggerFactory.getLogger(DownloadToByteArrayOp.class);
-
-    @Autowired
-    @SuppressWarnings("SpringAutowiredFieldsWarningInspection")
-    private NetApi netApi;
 
     public DownloadToByteArrayOp(DownloadToByteArrayInitParams initParams) {
         super(initParams);
