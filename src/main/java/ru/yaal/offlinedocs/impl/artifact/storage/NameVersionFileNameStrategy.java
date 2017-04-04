@@ -27,4 +27,14 @@ public class NameVersionFileNameStrategy implements FileNameStrategy {
                 + artifact.getVersion() + sep + artifact.getName() + "." + artifact.getType().getFileExtension();
         return new File(rootDir, path);
     }
+
+    @Override
+    public String artifactToFileName(Artifact artifact) {
+        return artifact.getName() + "." + artifact.getType().getFileExtension();
+    }
+
+    @Override
+    public File artifactToFile(File rootDir, Artifact artifact) {
+        return new File(rootDir, artifactToFileName(artifact));
+    }
 }

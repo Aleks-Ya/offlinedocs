@@ -9,4 +9,8 @@ import java.io.File;
  */
 public interface FileNameStrategy {
     File toFile(File rootDir, Artifact artifact);
+
+    String artifactToFileName(Artifact artifact);
+
+    File artifactToFile(File rootDir, Artifact artifact);
 }

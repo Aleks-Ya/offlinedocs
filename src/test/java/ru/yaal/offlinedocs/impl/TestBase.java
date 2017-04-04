@@ -6,6 +6,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.yaal.offlinedocs.api.artifact.storage.ArtifactStorage;
+import ru.yaal.offlinedocs.api.artifact.storage.FileNameStrategy;
 import ru.yaal.offlinedocs.api.artifact.type.ArtifactTypeFactory;
 import ru.yaal.offlinedocs.api.execution.ExecutionFactory;
 import ru.yaal.offlinedocs.api.properties.DataAppProps;
@@ -22,10 +23,10 @@ import ru.yaal.offlinedocs.spring.Profiles;
 public abstract class TestBase {
 
     @Autowired
-    protected ArtifactStorage storage;
+    protected ArtifactStorage artifactStorage;
 
     @Autowired
-    protected ExecutionFactory factory;
+    protected ExecutionFactory executionFactory;
 
     @Autowired
     protected MockNetApi netApi;
@@ -41,4 +42,7 @@ public abstract class TestBase {
 
     @Autowired
     protected SystemApi systemApi;
+
+    @Autowired
+    protected FileNameStrategy fileNameStrategy;
 }

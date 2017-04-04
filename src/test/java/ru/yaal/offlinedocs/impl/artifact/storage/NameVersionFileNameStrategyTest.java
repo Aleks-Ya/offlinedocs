@@ -1,6 +1,5 @@
 package ru.yaal.offlinedocs.impl.artifact.storage;
 
-import org.hamcrest.io.FileMatchers;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.yaal.offlinedocs.api.artifact.Artifact;
@@ -10,6 +9,9 @@ import ru.yaal.offlinedocs.impl.artifact.ArtifactImpl;
 import java.io.File;
 
 import static org.hamcrest.Matchers.endsWith;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.io.FileMatchers.aFileWithAbsolutePath;
+import static org.hamcrest.io.FileMatchers.aFileWithCanonicalPath;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -28,7 +30,29 @@ public class NameVersionFileNameStrategyTest extends TestBase {
         File file = strategy.toFile(rootDir, artifact);
         String sep = fileApi.getFileSeparator();
         String expected = "Hadoop" + sep + "HadoopJavadoc" + sep + "2.8.0" + sep + "HadoopJavadoc.pdf";
-        assertThat(file, FileMatchers.aFileWithAbsolutePath(endsWith(expected)));
+        assertThat(file, aFileWithAbsolutePath(endsWith(expected)));
     }
 
+    @Test
+    public void artifactToFileName() {
+        String name = "HadoopJavadoc";
+        String type = "pdf";
+        Artifact artifact =
+                new ArtifactImpl("Hadoop", name, "2.8.0", artifactTypeFactory.getTypeById(type), 100);
+        String actual = strategy.artifactToFileName(artifact);
+        String expected = name + "." + type;
+        assertThat(actual, equalTo(expected));
+    }
+
+    @Test
+    public void name() {
+        File rootDir = new File("root");
+        String name = "HadoopJavadoc";
+        String type = "pdf";
+        Artifact artifact = new ArtifactImpl("Hadoop", name, "2.8.0",
+                artifactTypeFactory.getTypeById(type), 100);
+        File actual = strategy.artifactToFile(rootDir, artifact);
+        String expected = rootDir.getAbsolutePath() + fileApi.getFileSeparator() + name + "." + type;
+        assertThat(actual, aFileWithCanonicalPath(equalTo(expected)));
+    }
 }
