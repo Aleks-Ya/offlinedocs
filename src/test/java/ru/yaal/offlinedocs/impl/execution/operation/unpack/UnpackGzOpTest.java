@@ -1,10 +1,11 @@
-package ru.yaal.offlinedocs.impl.execution.operation.unpack.gz;
+package ru.yaal.offlinedocs.impl.execution.operation.unpack;
 
 import org.junit.Test;
 import ru.yaal.offlinedocs.api.execution.operation.Operation;
 import ru.yaal.offlinedocs.impl.TestBase;
 import ru.yaal.offlinedocs.impl.execution.EmptyExecuteParams;
 import ru.yaal.offlinedocs.impl.execution.EmptyResult;
+import ru.yaal.offlinedocs.impl.execution.operation.unpack.UnpackGzOp;
 
 import java.io.File;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package ru.yaal.offlinedocs.impl.execution.operation.unpack.gz;
+package ru.yaal.offlinedocs.impl.execution.operation.unpack;
 
 import lombok.Getter;
 import lombok.SneakyThrows;
