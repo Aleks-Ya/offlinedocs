@@ -1,5 +1,6 @@
-package ru.yaal.offlinedocs.impl.execution.job.downloadcopy;
+package ru.yaal.offlinedocs.impl.execution.job;
 
+import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
@@ -8,7 +9,6 @@ import ru.yaal.offlinedocs.api.artifact.Artifact;
 import ru.yaal.offlinedocs.api.execution.operation.Operation;
 import ru.yaal.offlinedocs.impl.execution.EmptyExecuteParams;
 import ru.yaal.offlinedocs.impl.execution.EmptyResult;
-import ru.yaal.offlinedocs.impl.execution.job.AbstractJob;
 import ru.yaal.offlinedocs.impl.execution.operation.ArtifactDataOpResult;
 import ru.yaal.offlinedocs.impl.execution.operation.copy.CopyArtifactOp;
 import ru.yaal.offlinedocs.impl.execution.operation.download.storage.DownloadToStorageOp;
@@ -20,10 +20,10 @@ import java.io.File;
  */
 @Component
 @Scope("prototype")
-public class DownloadCopyJob extends AbstractJob<DownloadCopyInitParams, EmptyExecuteParams, EmptyResult> {
+public class DownloadCopyJob extends AbstractJob<DownloadCopyJob.InitParams, EmptyExecuteParams, EmptyResult> {
     private final Logger LOG = LoggerFactory.getLogger(DownloadCopyJob.class);
 
-    public DownloadCopyJob(DownloadCopyInitParams initParams) {
+    public DownloadCopyJob(InitParams initParams) {
         super(initParams);
     }
 
@@ -43,5 +43,14 @@ public class DownloadCopyJob extends AbstractJob<DownloadCopyInitParams, EmptyEx
         copyOp.execute(EmptyExecuteParams.instance);
 
         return EmptyResult.instance;
+    }
+
+    @Getter
+    public static class InitParams implements ru.yaal.offlinedocs.api.execution.InitParams {
+        private final DownloadToStorageOp.InitParams downloadParams;
+
+        public InitParams(DownloadToStorageOp.InitParams downloadParams) {
+            this.downloadParams = downloadParams;
+        }
     }
 }

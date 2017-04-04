@@ -1,4 +1,4 @@
-package ru.yaal.offlinedocs.impl.execution.job.operationlist;
+package ru.yaal.offlinedocs.impl.execution.job;
 
 import lombok.Getter;
 import org.slf4j.Logger;
@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 import ru.yaal.offlinedocs.api.execution.operation.Operation;
 import ru.yaal.offlinedocs.impl.execution.EmptyExecuteParams;
 import ru.yaal.offlinedocs.impl.execution.EmptyResult;
-import ru.yaal.offlinedocs.impl.execution.job.AbstractJob;
 
 import java.util.List;
 

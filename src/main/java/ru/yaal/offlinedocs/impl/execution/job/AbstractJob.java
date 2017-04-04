@@ -12,7 +12,7 @@ import ru.yaal.offlinedocs.api.properties.DataAppProps;
 /**
  * @author Yablokov Aleksey
  */
-@SuppressWarnings("SpringAutowiredFieldsWarningInspection")
+@SuppressWarnings({"SpringAutowiredFieldsWarningInspection", "WeakerAccess"})
 public abstract class AbstractJob<
         IP extends InitParams,
         EP extends ExecuteParams,

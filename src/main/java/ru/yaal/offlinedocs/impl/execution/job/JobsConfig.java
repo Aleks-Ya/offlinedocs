@@ -9,9 +9,6 @@ import ru.yaal.offlinedocs.api.execution.job.Job;
 import ru.yaal.offlinedocs.api.execution.operation.Operation;
 import ru.yaal.offlinedocs.impl.execution.EmptyExecuteParams;
 import ru.yaal.offlinedocs.impl.execution.EmptyResult;
-import ru.yaal.offlinedocs.impl.execution.job.downloadcopy.DownloadCopyInitParams;
-import ru.yaal.offlinedocs.impl.execution.job.downloadcopy.DownloadCopyJob;
-import ru.yaal.offlinedocs.impl.execution.job.operationlist.OpListJob;
 import ru.yaal.offlinedocs.impl.execution.operation.ArtifactDataOpResult;
 import ru.yaal.offlinedocs.impl.execution.operation.download.storage.DownloadToStorageOp;
 
@@ -46,13 +43,13 @@ public class JobsConfig {
 
     @Bean
     @SneakyThrows
-    public Job<DownloadCopyInitParams, EmptyExecuteParams, EmptyResult> springReference437Pdf() {
+    public Job<DownloadCopyJob.InitParams, EmptyExecuteParams, EmptyResult> springReference437Pdf() {
         return makeDownloadCopyJob("Spring", "SpringReferencePdf", "4.3.7",
                 "http://docs.spring.io/spring/docs/4.3.7.RELEASE/spring-framework-reference/pdf/spring-framework-reference.pdf",
                 "pdf");
     }
 
-    private Job<DownloadCopyInitParams, EmptyExecuteParams, EmptyResult> makeDownloadCopyJob(
+    private Job<DownloadCopyJob.InitParams, EmptyExecuteParams, EmptyResult> makeDownloadCopyJob(
             String artifactCategory,
             String artifactName,
             String artifactVersion,
@@ -62,7 +59,7 @@ public class JobsConfig {
 
         DownloadToStorageOp.InitParams opParams = new DownloadToStorageOp.InitParams(
                 artifactCategory, artifactName, artifactVersion, new URL(artifactUrl), artifactTypeId);
-        DownloadCopyInitParams jobParams = new DownloadCopyInitParams(opParams);
+        DownloadCopyJob.InitParams jobParams = new DownloadCopyJob.InitParams(opParams);
         return factory.getNewJob(DownloadCopyJob.class, jobParams);
     }
 }
