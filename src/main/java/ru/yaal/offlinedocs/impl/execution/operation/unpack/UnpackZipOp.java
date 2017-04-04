@@ -32,16 +32,18 @@ public class UnpackZipOp extends AbstractOp<UnpackZipOp.InitParams, EmptyExecute
     @SneakyThrows
     public EmptyResult execute(EmptyExecuteParams executeParams) {
         File srcFile = getInitParams().getSrcFile();
-        File destFile = getInitParams().getDestDir();
-        LOG.info("Unpacking {} to {}", srcFile, destFile);
+        File destDir = getInitParams().getDestDir();
+        //noinspection ResultOfMethodCallIgnored
+        destDir.mkdirs();
+        LOG.info("Unpacking {} to {}", srcFile, destDir);
 
-        final ZipUnArchiver ua = new ZipUnArchiver();
+        ZipUnArchiver ua = new ZipUnArchiver();
         ua.setSourceFile(srcFile);
         ua.enableLogging(new ConsoleLogger(org.codehaus.plexus.logging.Logger.LEVEL_DEBUG, "console_logger"));
-        ua.setDestDirectory(destFile);
+        ua.setDestDirectory(destDir);
         ua.extract();
 
-        LOG.debug("Unpacked: {} to {}", srcFile, destFile);
+        LOG.debug("Unpacked: {} to {}", srcFile, destDir);
         return EmptyResult.instance;
     }
 

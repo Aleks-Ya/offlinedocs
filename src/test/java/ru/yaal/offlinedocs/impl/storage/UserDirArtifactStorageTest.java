@@ -14,6 +14,7 @@ import static org.junit.Assert.assertThat;
 
 /**
  * @author Yablokov Aleksey
+ *         TODO download file to temp dir and then copy to artifact storage
  */
 public class UserDirArtifactStorageTest extends TestBase {
     @Test
@@ -23,7 +24,7 @@ public class UserDirArtifactStorageTest extends TestBase {
         ByteArrayInputStream is = new ByteArrayInputStream(new byte[]{1, 2, 3});
         File artifactFile = artifactStorage.save(artifact, is).getFile();
         String sep = fileApi.getFileSeparator();
-        String expected = "Hadoop" + sep + "HadoopJavadoc" + sep + "2.8.0" + sep + "HadoopJavadoc.pdf";
+        String expected = "Hadoop" + sep + "HadoopJavadoc" + sep + "2.8.0" + sep + "HadoopJavadoc-2.8.0.pdf";
         assertThat(artifactFile, aFileWithAbsolutePath(endsWith(expected)));
     }
 

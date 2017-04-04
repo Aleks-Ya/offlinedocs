@@ -69,8 +69,8 @@ class UserDirArtifactStorage implements ArtifactStorage {
     }
 
     private File subDirInStorage(File storageDir, Artifact artifact) {
-        String path = artifact.getCategory() + sep + artifact.getName() + sep
-                + artifact.getVersion() + sep + artifact.getName() + "." + artifact.getType().getFileExtension();
+        String file = artifact.getName() + "-" + artifact.getVersion() + "." + artifact.getType().getFileExtension();
+        String path = artifact.getCategory() + sep + artifact.getName() + sep + artifact.getVersion() + sep + file;
         return new File(storageDir, path);
     }
 }
