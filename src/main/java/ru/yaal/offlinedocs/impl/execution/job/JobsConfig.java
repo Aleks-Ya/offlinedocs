@@ -44,9 +44,36 @@ public class JobsConfig {
     @Bean
     @SneakyThrows
     public Job<DownloadUnzipJob.InitParams, EmptyExecuteParams, EmptyResult> jdk8Documentation() {
+        return makeDownloadUnzipJob(
+                "JavaSE",
+                "JdkDocumentation",
+                "8",
+                "https://getfile.dokpub.com/yandex/get/https://yadi.sk/d/69Dngbhw3GfQyy",
+                "zip");
+    }
+
+    @Bean
+    @SneakyThrows
+    public Job<DownloadUnzipJob.InitParams, EmptyExecuteParams, EmptyResult> hiveJavadoc() {
+        return makeDownloadUnzipJob(
+                "Hive",
+                "HiveJavadoc",
+                "2.2.1",
+                "https://repository.apache.org/service/local/repositories/releases/content/org/apache/hive/hive-storage-api/2.2.1/hive-storage-api-2.2.1-javadoc.jar",
+                "jar");
+    }
+
+    private Job<DownloadUnzipJob.InitParams, EmptyExecuteParams, EmptyResult> makeDownloadUnzipJob(
+            String artifactCategory,
+            String artifactName,
+            String artifactVersion,
+            String artifactUrl,
+            String artifactTypeId)
+            throws MalformedURLException {
+
         DownloadToStorageOp.InitParams opParams = new DownloadToStorageOp.InitParams(
-                "JavaSE", "JdkDocumentation", "8",
-                new URL("https://getfile.dokpub.com/yandex/get/https://yadi.sk/d/69Dngbhw3GfQyy"), "zip");
+                artifactCategory, artifactName, artifactVersion,
+                new URL(artifactUrl), artifactTypeId);
         DownloadUnzipJob.InitParams jobParams = new DownloadUnzipJob.InitParams(opParams);
         return factory.getNewJob(DownloadUnzipJob.class, jobParams);
     }
