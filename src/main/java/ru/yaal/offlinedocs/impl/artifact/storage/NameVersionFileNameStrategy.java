@@ -13,7 +13,7 @@ import java.io.File;
 public class NameVersionFileNameStrategy implements FileNameStrategy {
     @Override
     public File toFile(File rootDir, Artifact artifact) {
-        String path = artifact.getName() + File.pathSeparator + artifact.getVersion() + "object.bin";
+        String path = artifact.getName() + File.separator + artifact.getVersion() + File.separator + "object.bin";
         return new File(rootDir, path);
     }
 }
