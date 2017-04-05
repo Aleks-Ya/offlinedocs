@@ -9,4 +9,6 @@ import ru.yaal.offlinedocs.api.execution.Result;
  */
 public interface Operation<IP extends InitParams, EP extends ExecParams, R extends Result> {
     R execute(EP parameters);
+
+    OpId getId();
 }

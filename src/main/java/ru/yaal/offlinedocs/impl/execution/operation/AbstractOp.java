@@ -5,6 +5,7 @@ import ru.yaal.offlinedocs.api.artifact.type.ArtifactTypeFactory;
 import ru.yaal.offlinedocs.api.execution.ExecParams;
 import ru.yaal.offlinedocs.api.execution.InitParams;
 import ru.yaal.offlinedocs.api.execution.Result;
+import ru.yaal.offlinedocs.api.execution.operation.OpId;
 import ru.yaal.offlinedocs.api.execution.operation.Operation;
 import ru.yaal.offlinedocs.api.storage.ArtifactStorage;
 import ru.yaal.offlinedocs.api.system.NetApi;
@@ -20,6 +21,7 @@ public abstract class AbstractOp<
         implements Operation<IP, EP, R> {
 
     private final IP initParams;
+    private final OpId opId;
 
     @Autowired
     protected ArtifactStorage artifactStorage;
@@ -28,8 +30,14 @@ public abstract class AbstractOp<
     @Autowired
     protected ArtifactTypeFactory artifactTypeFactory;
 
-    protected AbstractOp(IP initParams) {
+    protected AbstractOp(OpId opId, IP initParams) {
+        this.opId = opId;
         this.initParams = initParams;
+    }
+
+    @Override
+    public OpId getId() {
+        return opId;
     }
 
     public IP getInitParams() {

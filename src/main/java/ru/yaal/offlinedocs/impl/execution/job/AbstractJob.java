@@ -36,7 +36,7 @@ public abstract class AbstractJob<
     }
 
     @Override
-    public JobId getId() {
+    public JobId getJobId() {
         return jobId;
     }
 

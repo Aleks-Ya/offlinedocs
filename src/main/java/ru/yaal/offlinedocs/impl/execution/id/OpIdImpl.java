@@ -2,14 +2,14 @@ package ru.yaal.offlinedocs.impl.execution.id;
 
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
-import ru.yaal.offlinedocs.api.execution.job.JobId;
+import ru.yaal.offlinedocs.api.execution.operation.OpId;
 
 /**
  * @author Yablokov Aleksey
  */
 @EqualsAndHashCode
 @RequiredArgsConstructor
-class JobIdImpl implements JobId {
+class OpIdImpl implements OpId {
     private final String id;
 
     @Override

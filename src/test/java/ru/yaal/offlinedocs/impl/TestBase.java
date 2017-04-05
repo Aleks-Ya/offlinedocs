@@ -7,12 +7,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.yaal.offlinedocs.api.artifact.type.ArtifactTypeFactory;
 import ru.yaal.offlinedocs.api.execution.ExecFactory;
-import ru.yaal.offlinedocs.api.execution.id.IdFactory;
 import ru.yaal.offlinedocs.api.properties.DataAppProps;
 import ru.yaal.offlinedocs.api.storage.ArtifactStorage;
 import ru.yaal.offlinedocs.api.storage.OutletStorage;
 import ru.yaal.offlinedocs.api.system.FileApi;
-import ru.yaal.offlinedocs.api.system.SystemApi;
 import ru.yaal.offlinedocs.spring.Profiles;
 
 /**
@@ -43,11 +41,4 @@ public abstract class TestBase {
 
     @Autowired
     protected FileApi fileApi;
-
-    @Autowired
-    protected SystemApi systemApi;
-
-    @Autowired
-    protected IdFactory idFactory;
-
 }

@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import ru.yaal.offlinedocs.api.execution.operation.OpId;
 import ru.yaal.offlinedocs.impl.execution.EmptyExecParams;
 import ru.yaal.offlinedocs.impl.execution.EmptyResult;
 import ru.yaal.offlinedocs.impl.execution.operation.AbstractOp;
@@ -23,8 +24,8 @@ public class UnpackZipOp extends AbstractOp<UnpackZipOp.InitParams, EmptyExecPar
 
     private final Logger LOG = LoggerFactory.getLogger(UnpackZipOp.class);
 
-    public UnpackZipOp(InitParams initParams) {
-        super(initParams);
+    public UnpackZipOp(OpId opId, InitParams initParams) {
+        super(opId, initParams);
     }
 
     @Override

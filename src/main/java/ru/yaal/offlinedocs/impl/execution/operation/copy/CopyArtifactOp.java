@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import ru.yaal.offlinedocs.api.artifact.Artifact;
 import ru.yaal.offlinedocs.api.artifact.data.ArtifactData;
+import ru.yaal.offlinedocs.api.execution.operation.OpId;
 import ru.yaal.offlinedocs.impl.execution.EmptyExecParams;
 import ru.yaal.offlinedocs.impl.execution.EmptyResult;
 import ru.yaal.offlinedocs.impl.execution.operation.AbstractOp;
@@ -26,8 +27,8 @@ public class CopyArtifactOp
 
     private final Logger LOG = LoggerFactory.getLogger(CopyArtifactOp.class);
 
-    public CopyArtifactOp(InitParams initParams) {
-        super(initParams);
+    public CopyArtifactOp(OpId opId, InitParams initParams) {
+        super(opId, initParams);
     }
 
     @Override

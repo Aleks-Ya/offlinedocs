@@ -35,12 +35,12 @@ class DownloadCopyJob extends AbstractJob<DownloadCopyJob.InitParams, EmptyExecP
         LOG.debug("Start");
         DownloadToStorageOp.InitParams params = getInitParams().getDownloadParams();
         ArtifactDataOpResult downloadResult =
-                execFactory.getNewOperation(DownloadToStorageOp.class, params).execute(EmptyExecParams.instance);
+                execFactory.getNewOperation(getJobId(), DownloadToStorageOp.class, params).execute(EmptyExecParams.instance);
         Artifact artifact = downloadResult.getArtifactData().getArtifact();
 
         File destDir = outletStorage.getArtifactFile(artifact);
         CopyArtifactOp.InitParams copyParams = new CopyArtifactOp.InitParams(artifact, destDir);
-        execFactory.getNewOperation(CopyArtifactOp.class, copyParams).execute(EmptyExecParams.instance);
+        execFactory.getNewOperation(getJobId(), CopyArtifactOp.class, copyParams).execute(EmptyExecParams.instance);
 
         return EmptyResult.instance;
     }

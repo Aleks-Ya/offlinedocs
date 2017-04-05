@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import ru.yaal.offlinedocs.api.artifact.Artifact;
 import ru.yaal.offlinedocs.api.artifact.data.ArtifactData;
+import ru.yaal.offlinedocs.api.execution.operation.OpId;
 import ru.yaal.offlinedocs.impl.artifact.ArtifactImpl;
 import ru.yaal.offlinedocs.impl.execution.EmptyExecParams;
 import ru.yaal.offlinedocs.impl.execution.operation.AbstractOp;
@@ -29,8 +30,8 @@ public class DownloadToStorageOp
 
     private final Logger LOG = LoggerFactory.getLogger(DownloadToStorageOp.class);
 
-    public DownloadToStorageOp(InitParams initParams) {
-        super(initParams);
+    public DownloadToStorageOp(OpId opId, InitParams initParams) {
+        super(opId, initParams);
     }
 
     @Override

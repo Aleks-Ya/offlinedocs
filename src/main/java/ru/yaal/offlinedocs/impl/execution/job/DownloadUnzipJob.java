@@ -35,13 +35,13 @@ class DownloadUnzipJob extends AbstractJob<DownloadUnzipJob.InitParams, EmptyExe
         LOG.debug("Start");
         DownloadToStorageOp.InitParams params = getInitParams().getDownloadParams();
         ArtifactDataOpResult downloadResult =
-                execFactory.getNewOperation(DownloadToStorageOp.class, params).execute(EmptyExecParams.instance);
+                execFactory.getNewOperation(getJobId(), DownloadToStorageOp.class, params).execute(EmptyExecParams.instance);
         ArtifactData artifactData = downloadResult.getArtifactData();
         Artifact artifact = artifactData.getArtifact();
 
         File destDir = outletStorage.getArtifactDir(artifact);
         UnpackZipOp.InitParams copyParams = new UnpackZipOp.InitParams(artifactData.getFile(), destDir);
-        execFactory.getNewOperation(UnpackZipOp.class, copyParams).execute(EmptyExecParams.instance);
+        execFactory.getNewOperation(getJobId(), UnpackZipOp.class, copyParams).execute(EmptyExecParams.instance);
 
         return EmptyResult.instance;
     }
