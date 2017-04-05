@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import ru.yaal.offlinedocs.api.artifact.Artifact;
 import ru.yaal.offlinedocs.api.artifact.data.ArtifactData;
+import ru.yaal.offlinedocs.api.execution.job.JobId;
 import ru.yaal.offlinedocs.impl.execution.EmptyExecParams;
 import ru.yaal.offlinedocs.impl.execution.EmptyResult;
 import ru.yaal.offlinedocs.impl.execution.operation.ArtifactDataOpResult;
@@ -24,8 +25,8 @@ import java.io.File;
 class DownloadUnTarGzJob extends AbstractJob<DownloadUnTarGzJob.InitParams, EmptyExecParams, EmptyResult> {
     private final Logger LOG = LoggerFactory.getLogger(DownloadUnTarGzJob.class);
 
-    public DownloadUnTarGzJob(InitParams initParams) {
-        super(initParams);
+    public DownloadUnTarGzJob(JobId jobId, InitParams initParams) {
+        super(jobId, initParams);
     }
 
     @Override

@@ -21,11 +21,11 @@ import java.net.URL;
  */
 @Configuration
 public class JobsConfig {
-    private final ExecFactory factory;
+    private final ExecFactory execFactory;
 
     @Autowired
-    public JobsConfig(ExecFactory factory) {
-        this.factory = factory;
+    public JobsConfig(ExecFactory execFactory) {
+        this.execFactory = execFactory;
     }
 
     @Bean
@@ -71,7 +71,7 @@ public class JobsConfig {
                 artifactCategory, artifactName, artifactVersion,
                 new URL(artifactUrl), artifactTypeId);
         DownloadUnTarGzJob.InitParams jobParams = new DownloadUnTarGzJob.InitParams(opParams, fileSelectors);
-        return factory.getNewJob(DownloadUnTarGzJob.class, jobParams);
+        return execFactory.getNewJob(DownloadUnTarGzJob.class, jobParams);
     }
 
     @SneakyThrows
@@ -86,7 +86,7 @@ public class JobsConfig {
                 artifactCategory, artifactName, artifactVersion,
                 new URL(artifactUrl), artifactTypeId);
         DownloadUnzipJob.InitParams jobParams = new DownloadUnzipJob.InitParams(opParams);
-        return factory.getNewJob(DownloadUnzipJob.class, jobParams);
+        return execFactory.getNewJob(DownloadUnzipJob.class, jobParams);
     }
 
     @Bean
@@ -107,6 +107,6 @@ public class JobsConfig {
         DownloadToStorageOp.InitParams opParams = new DownloadToStorageOp.InitParams(
                 artifactCategory, artifactName, artifactVersion, new URL(artifactUrl), artifactTypeId);
         DownloadCopyJob.InitParams jobParams = new DownloadCopyJob.InitParams(opParams);
-        return factory.getNewJob(DownloadCopyJob.class, jobParams);
+        return execFactory.getNewJob(DownloadCopyJob.class, jobParams);
     }
 }

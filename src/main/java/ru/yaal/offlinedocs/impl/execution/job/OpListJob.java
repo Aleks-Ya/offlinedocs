@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import ru.yaal.offlinedocs.api.execution.job.JobId;
 import ru.yaal.offlinedocs.api.execution.operation.Operation;
 import ru.yaal.offlinedocs.impl.execution.EmptyExecParams;
 import ru.yaal.offlinedocs.impl.execution.EmptyResult;
@@ -19,8 +20,8 @@ import java.util.List;
 class OpListJob extends AbstractJob<OpListJob.InitParams, EmptyExecParams, EmptyResult> {
     private final Logger LOG = LoggerFactory.getLogger(OpListJob.class);
 
-    public OpListJob(InitParams initParams) {
-        super(initParams);
+    public OpListJob(JobId jobId, InitParams initParams) {
+        super(jobId, initParams);
     }
 
     @Override

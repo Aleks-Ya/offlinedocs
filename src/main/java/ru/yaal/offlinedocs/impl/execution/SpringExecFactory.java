@@ -7,7 +7,9 @@ import ru.yaal.offlinedocs.api.execution.ExecFactory;
 import ru.yaal.offlinedocs.api.execution.ExecParams;
 import ru.yaal.offlinedocs.api.execution.InitParams;
 import ru.yaal.offlinedocs.api.execution.Result;
+import ru.yaal.offlinedocs.api.execution.id.IdFactory;
 import ru.yaal.offlinedocs.api.execution.job.Job;
+import ru.yaal.offlinedocs.api.execution.job.JobId;
 import ru.yaal.offlinedocs.api.execution.operation.Operation;
 import ru.yaal.offlinedocs.impl.execution.job.AbstractJob;
 import ru.yaal.offlinedocs.impl.execution.operation.AbstractOp;
@@ -21,27 +23,29 @@ import java.util.List;
  * @author Yablokov Aleksey
  */
 @Component
+@SuppressWarnings("unchecked")
 public class SpringExecFactory implements ExecFactory {
     private final ApplicationContext ctx;
+    private final IdFactory idFactory;
     private List<Job<? extends InitParams, ? extends ExecParams, ? extends Result>> allJobs = new ArrayList<>();
 
     @Autowired
-    public SpringExecFactory(ApplicationContext ctx) {
+    public SpringExecFactory(ApplicationContext ctx, IdFactory idFactory) {
         this.ctx = ctx;
+        this.idFactory = idFactory;
     }
 
     @Override
     public <IP extends InitParams, EP extends ExecParams, R extends Result, O extends Operation<IP, EP, R>>
     O getNewOperation(Class<? extends AbstractOp<IP, EP, R>> operationClass, IP initParams) {
-        //noinspection unchecked
         return (O) ctx.getBean(operationClass, initParams);
     }
 
     @Override
     public <IP extends InitParams, EP extends ExecParams, R extends Result, J extends Job<IP, EP, R>>
     J getNewJob(Class<? extends AbstractJob<IP, EP, R>> jobClass, IP initParams) {
-        //noinspection unchecked
-        J job = (J) ctx.getBean(jobClass, initParams);
+        JobId jobId = idFactory.getJobId(jobClass);
+        J job = (J) ctx.getBean(jobClass, jobId, initParams);
         allJobs.add(job);
         return job;
     }

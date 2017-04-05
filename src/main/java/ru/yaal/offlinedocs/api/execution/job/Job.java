@@ -11,4 +11,6 @@ import ru.yaal.offlinedocs.api.execution.Result;
  */
 public interface Job<IP extends InitParams, EP extends ExecParams, R extends Result> {
     R execute(EP execParams);
+
+    JobId getId();
 }

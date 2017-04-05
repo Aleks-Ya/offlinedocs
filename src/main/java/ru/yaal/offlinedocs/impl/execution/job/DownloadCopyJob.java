@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import ru.yaal.offlinedocs.api.artifact.Artifact;
+import ru.yaal.offlinedocs.api.execution.job.JobId;
 import ru.yaal.offlinedocs.impl.execution.EmptyExecParams;
 import ru.yaal.offlinedocs.impl.execution.EmptyResult;
 import ru.yaal.offlinedocs.impl.execution.operation.ArtifactDataOpResult;
@@ -25,8 +26,8 @@ import java.io.File;
 class DownloadCopyJob extends AbstractJob<DownloadCopyJob.InitParams, EmptyExecParams, EmptyResult> {
     private final Logger LOG = LoggerFactory.getLogger(DownloadCopyJob.class);
 
-    public DownloadCopyJob(InitParams initParams) {
-        super(initParams);
+    public DownloadCopyJob(JobId jobId, InitParams initParams) {
+        super(jobId, initParams);
     }
 
     @Override
