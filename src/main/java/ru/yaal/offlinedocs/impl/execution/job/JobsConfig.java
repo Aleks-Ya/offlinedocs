@@ -15,6 +15,8 @@ import ru.yaal.offlinedocs.impl.execution.operation.download.DownloadToStorageOp
 import java.net.URL;
 
 /**
+ * TODO configure jobs in xml/yaml/etc
+ *
  * @author Yablokov Aleksey
  */
 @Configuration

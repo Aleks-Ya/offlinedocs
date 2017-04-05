@@ -16,6 +16,7 @@ import java.util.List;
 
 /**
  * TODO Don't unpack archive if destination already contains files with the same size
+ * TODO native packet for Windows, Linux, MacOS
  *
  * @author Yablokov Aleksey
  */
@@ -32,6 +33,9 @@ public class Application {
         log.info("Spring Context started");
         ExecutionFactory factory = context.getBean(ExecutionFactory.class);
         List<Job<? extends InitParams, ? extends ExecuteParams, ? extends Result>> jobs = factory.getAllJobs();
+        //TODO use JobRunner for executing jobs
+        //TODO implement concurrent job execution with JobRunner
+        //TODO exception in a job doesn't crashes whole application
         for (Job job : jobs) {
             job.execute(EmptyExecuteParams.instance);
         }

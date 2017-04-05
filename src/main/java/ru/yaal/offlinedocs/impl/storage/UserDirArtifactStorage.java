@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.yaal.offlinedocs.api.artifact.Artifact;
-import ru.yaal.offlinedocs.api.artifact.ArtifactNotFoundException;
 import ru.yaal.offlinedocs.api.artifact.data.ArtifactData;
 import ru.yaal.offlinedocs.api.properties.DataAppProps;
 import ru.yaal.offlinedocs.api.storage.ArtifactStorage;
@@ -18,6 +17,8 @@ import java.io.File;
 import java.io.InputStream;
 
 /**
+ * TODO provide thread safety
+ *
  * @author Yablokov Aleksey
  */
 @Component

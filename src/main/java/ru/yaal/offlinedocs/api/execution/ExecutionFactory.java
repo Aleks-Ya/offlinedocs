@@ -8,6 +8,8 @@ import ru.yaal.offlinedocs.impl.execution.operation.AbstractOp;
 import java.util.List;
 
 /**
+ * TODO rename "execution" to "exec"
+ *
  * @author Yablokov Aleksey
  */
 public interface ExecutionFactory {

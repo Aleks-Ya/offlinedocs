@@ -17,6 +17,9 @@ import java.io.InputStream;
 import java.net.URL;
 
 /**
+ * TODO possibility works with the download HTML page (e.g. press "Accept" when download JDK Documentation)
+ * TODO download sites with documentation
+ *
  * @author Yablokov Aleksey
  */
 @Component

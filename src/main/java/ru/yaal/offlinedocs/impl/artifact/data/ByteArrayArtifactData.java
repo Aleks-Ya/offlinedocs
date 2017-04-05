@@ -13,6 +13,8 @@ import java.io.InputStream;
 import java.nio.file.Files;
 
 /**
+ * TODO work with temp files/dirs via TempStorage
+ *
  * @author Yablokov Aleksey
  */
 public class ByteArrayArtifactData implements ArtifactData {
@@ -32,7 +34,7 @@ public class ByteArrayArtifactData implements ArtifactData {
 
     @Override
     @SneakyThrows
-    public InputStream getData() {
+    public InputStream getInputStream() {
         return new FileInputStream(artifactFile);
     }
 

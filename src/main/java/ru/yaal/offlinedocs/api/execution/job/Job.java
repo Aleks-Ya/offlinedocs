@@ -5,6 +5,8 @@ import ru.yaal.offlinedocs.api.execution.InitParams;
 import ru.yaal.offlinedocs.api.execution.Result;
 
 /**
+ * TODO Job extends Callable
+ *
  * @author Yablokov Aleksey
  */
 public interface Job<IP extends InitParams, EP extends ExecuteParams, R extends Result> {

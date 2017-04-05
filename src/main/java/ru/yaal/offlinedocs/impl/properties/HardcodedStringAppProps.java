@@ -14,6 +14,8 @@ import java.util.Map;
 import static ru.yaal.offlinedocs.impl.properties.DataAppPropsImpl.*;
 
 /**
+ * TODO implement PropertyFileStringAppProps
+ *
  * @author Yablokov Aleksey
  */
 @Component

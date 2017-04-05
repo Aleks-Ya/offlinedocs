@@ -38,7 +38,7 @@ public class CopyArtifactOp
         LOG.debug("Coping {} to {}", artifact, destFile.getAbsolutePath());
 
         ArtifactData data = artifactStorage.read(artifact);
-        InputStream is = data.getData();
+        InputStream is = data.getInputStream();
         FileUtils.copyInputStreamToFile(is, destFile);
         LOG.debug("Copied: {} to {}", artifact, destFile.getAbsolutePath());
 

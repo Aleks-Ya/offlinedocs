@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * TODO can remove ExecutionFactory if make all operations and jobs thread safety and autowire them (?)
+ *
  * @author Yablokov Aleksey
  */
 @Component

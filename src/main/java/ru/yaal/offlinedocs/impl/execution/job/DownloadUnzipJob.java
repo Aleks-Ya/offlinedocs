@@ -17,6 +17,8 @@ import ru.yaal.offlinedocs.impl.execution.operation.unpack.UnpackZipOp;
 import java.io.File;
 
 /**
+ * TODO unify jobs that use plexus-archiver
+ *
  * @author Yablokov Aleksey
  */
 @Component

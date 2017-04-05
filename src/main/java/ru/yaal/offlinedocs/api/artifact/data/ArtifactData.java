@@ -10,6 +10,6 @@ import java.io.InputStream;
  */
 public interface ArtifactData {
     Artifact getArtifact();
-    InputStream getData();
+    InputStream getInputStream();
     File getFile();
 }

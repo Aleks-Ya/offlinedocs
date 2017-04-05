@@ -14,6 +14,8 @@ import java.nio.file.Files;
 import static org.junit.Assert.assertThat;
 
 /**
+ * TODO find/create matcher for verifying directory structure
+ *
  * @author Yablokov Aleksey
  */
 public class UnpackZipOpTest extends TestBase {

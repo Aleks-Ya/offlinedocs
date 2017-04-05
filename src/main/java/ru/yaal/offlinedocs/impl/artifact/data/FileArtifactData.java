@@ -23,7 +23,7 @@ public class FileArtifactData implements ArtifactData {
     }
 
     @SneakyThrows
-    public InputStream getData() {
+    public InputStream getInputStream() {
         return new FileInputStream(artifactFile);
     }
 

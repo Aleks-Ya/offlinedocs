@@ -2,14 +2,10 @@ package ru.yaal.offlinedocs.impl.storage;
 
 import com.google.common.io.ByteStreams;
 import lombok.SneakyThrows;
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
 import ru.yaal.offlinedocs.api.artifact.Artifact;
-import ru.yaal.offlinedocs.api.artifact.ArtifactNotFoundException;
 import ru.yaal.offlinedocs.api.artifact.data.ArtifactData;
 import ru.yaal.offlinedocs.api.storage.ArtifactStorage;
 import ru.yaal.offlinedocs.impl.artifact.data.ByteArrayArtifactData;
-import ru.yaal.offlinedocs.spring.Profiles;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -18,6 +14,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * TODO use in-memory FileSystem instead of Map
+ *
  * @author Yablokov Aleksey
  */
 //@Component

@@ -20,6 +20,7 @@ import static org.junit.Assert.assertThat;
 public class UserDirArtifactStorageTest extends TestBase {
     @Test
     public void subDirInStorage() throws Exception {
+        //TODO factory class contains "hadoop artifact" and "hadoop artifact data"
         Artifact artifact = new ArtifactImpl("Hadoop", "HadoopJavadoc", "2.8.0",
                 artifactTypeFactory.getTypeById("pdf"));
         ByteArrayInputStream is = new ByteArrayInputStream(new byte[]{1, 2, 3});

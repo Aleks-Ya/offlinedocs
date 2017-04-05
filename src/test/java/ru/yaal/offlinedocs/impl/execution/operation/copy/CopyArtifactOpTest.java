@@ -36,6 +36,7 @@ public class CopyArtifactOpTest extends TestBase {
         destFile.deleteOnExit();
         assertThat(destFile, aFileWithSize(0));
         CopyArtifactOp.InitParams params = new CopyArtifactOp.InitParams(artifact, destFile);
+        //TODO shorter: executionFactory.getNewOperation().execute()
         Operation<CopyArtifactOp.InitParams, EmptyExecuteParams, EmptyResult> op =
                 executionFactory.getNewOperation(CopyArtifactOp.class, params);
         op.execute(EmptyExecuteParams.instance);

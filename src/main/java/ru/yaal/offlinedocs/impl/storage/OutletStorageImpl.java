@@ -28,7 +28,8 @@ class OutletStorageImpl implements OutletStorage {
 
     @Override
     public File getArtifactFile(Artifact artifact) {
-        String artifactFile = String.format("%s-%s.%s", artifact.getName(), artifact.getVersion(), artifact.getType().getFileExtension());
+        String artifactFile = String.format("%s-%s.%s",
+                artifact.getName(), artifact.getVersion(), artifact.getType().getFileExtension());
         return new File(getArtifactDir(artifact), artifactFile);
     }
 }

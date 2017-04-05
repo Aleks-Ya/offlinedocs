@@ -16,6 +16,8 @@ import ru.yaal.offlinedocs.impl.execution.operation.download.DownloadToStorageOp
 import java.io.File;
 
 /**
+ * TODO make all operations thread safety and just autowire them in jobs
+ *
  * @author Yablokov Aleksey
  */
 @Component

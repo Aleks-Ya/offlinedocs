@@ -15,6 +15,8 @@ import java.io.*;
 import java.util.zip.GZIPInputStream;
 
 /**
+ * TODO extract archive operations to separated bean for performance testing and tuning
+ *
  * @author Yablokov Aleksey
  */
 @Component
