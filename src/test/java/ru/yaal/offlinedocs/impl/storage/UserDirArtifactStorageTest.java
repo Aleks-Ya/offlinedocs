@@ -13,8 +13,9 @@ import static org.hamcrest.io.FileMatchers.aFileWithAbsolutePath;
 import static org.junit.Assert.assertThat;
 
 /**
+ * TODO download file to temp dir and then copy to artifact storage
+ *
  * @author Yablokov Aleksey
- *         TODO download file to temp dir and then copy to artifact storage
  */
 public class UserDirArtifactStorageTest extends TestBase {
     @Test

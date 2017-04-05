@@ -15,6 +15,8 @@ import ru.yaal.offlinedocs.spring.Profiles;
 import java.util.List;
 
 /**
+ * TODO Don't unpack archive if destination already contains files with the same size
+ *
  * @author Yablokov Aleksey
  */
 public class Application {
