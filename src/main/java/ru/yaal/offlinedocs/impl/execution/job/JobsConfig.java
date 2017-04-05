@@ -6,9 +6,9 @@ import org.codehaus.plexus.components.io.fileselectors.IncludeExcludeFileSelecto
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import ru.yaal.offlinedocs.api.execution.ExecutionFactory;
+import ru.yaal.offlinedocs.api.execution.ExecFactory;
 import ru.yaal.offlinedocs.api.execution.job.Job;
-import ru.yaal.offlinedocs.impl.execution.EmptyExecuteParams;
+import ru.yaal.offlinedocs.impl.execution.EmptyExecParams;
 import ru.yaal.offlinedocs.impl.execution.EmptyResult;
 import ru.yaal.offlinedocs.impl.execution.operation.download.DownloadToStorageOp;
 
@@ -21,15 +21,15 @@ import java.net.URL;
  */
 @Configuration
 public class JobsConfig {
-    private final ExecutionFactory factory;
+    private final ExecFactory factory;
 
     @Autowired
-    public JobsConfig(ExecutionFactory factory) {
+    public JobsConfig(ExecFactory factory) {
         this.factory = factory;
     }
 
     @Bean
-    public Job<DownloadUnTarGzJob.InitParams, EmptyExecuteParams, EmptyResult> hadoopJavadocJob() {
+    public Job<DownloadUnTarGzJob.InitParams, EmptyExecParams, EmptyResult> hadoopJavadocJob() {
         IncludeExcludeFileSelector selector = new IncludeExcludeFileSelector();
         selector.setIncludes(new String[]{"hadoop-2.8.0/share/doc/hadoop/**"});
 
@@ -39,7 +39,7 @@ public class JobsConfig {
     }
 
     @Bean
-    public Job<DownloadUnzipJob.InitParams, EmptyExecuteParams, EmptyResult> jdk8Documentation() {
+    public Job<DownloadUnzipJob.InitParams, EmptyExecParams, EmptyResult> jdk8Documentation() {
         return makeDownloadUnzipJob(
                 "JavaSE",
                 "JdkDocumentation",
@@ -49,7 +49,7 @@ public class JobsConfig {
     }
 
     @Bean
-    public Job<DownloadUnzipJob.InitParams, EmptyExecuteParams, EmptyResult> hiveJavadoc() {
+    public Job<DownloadUnzipJob.InitParams, EmptyExecParams, EmptyResult> hiveJavadoc() {
         return makeDownloadUnzipJob(
                 "Hive",
                 "HiveJavadoc",
@@ -59,7 +59,7 @@ public class JobsConfig {
     }
 
     @SneakyThrows
-    private Job<DownloadUnTarGzJob.InitParams, EmptyExecuteParams, EmptyResult> makeDownloadUnTarGzJob(
+    private Job<DownloadUnTarGzJob.InitParams, EmptyExecParams, EmptyResult> makeDownloadUnTarGzJob(
             String artifactCategory,
             String artifactName,
             String artifactVersion,
@@ -75,7 +75,7 @@ public class JobsConfig {
     }
 
     @SneakyThrows
-    private Job<DownloadUnzipJob.InitParams, EmptyExecuteParams, EmptyResult> makeDownloadUnzipJob(
+    private Job<DownloadUnzipJob.InitParams, EmptyExecParams, EmptyResult> makeDownloadUnzipJob(
             String artifactCategory,
             String artifactName,
             String artifactVersion,
@@ -90,14 +90,14 @@ public class JobsConfig {
     }
 
     @Bean
-    public Job<DownloadCopyJob.InitParams, EmptyExecuteParams, EmptyResult> springReference437Pdf() {
+    public Job<DownloadCopyJob.InitParams, EmptyExecParams, EmptyResult> springReference437Pdf() {
         return makeDownloadCopyJob("Spring", "SpringReferencePdf", "4.3.7",
                 "http://docs.spring.io/spring/docs/4.3.7.RELEASE/spring-framework-reference/pdf/spring-framework-reference.pdf",
                 "pdf");
     }
 
     @SneakyThrows
-    private Job<DownloadCopyJob.InitParams, EmptyExecuteParams, EmptyResult> makeDownloadCopyJob(
+    private Job<DownloadCopyJob.InitParams, EmptyExecParams, EmptyResult> makeDownloadCopyJob(
             String artifactCategory,
             String artifactName,
             String artifactVersion,

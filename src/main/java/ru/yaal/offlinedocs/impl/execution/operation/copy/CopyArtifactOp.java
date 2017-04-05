@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import ru.yaal.offlinedocs.api.artifact.Artifact;
 import ru.yaal.offlinedocs.api.artifact.data.ArtifactData;
-import ru.yaal.offlinedocs.impl.execution.EmptyExecuteParams;
+import ru.yaal.offlinedocs.impl.execution.EmptyExecParams;
 import ru.yaal.offlinedocs.impl.execution.EmptyResult;
 import ru.yaal.offlinedocs.impl.execution.operation.AbstractOp;
 
@@ -22,7 +22,7 @@ import java.io.InputStream;
 @Component
 @Scope("prototype")
 public class CopyArtifactOp
-        extends AbstractOp<CopyArtifactOp.InitParams, EmptyExecuteParams, EmptyResult> {
+        extends AbstractOp<CopyArtifactOp.InitParams, EmptyExecParams, EmptyResult> {
 
     private final Logger LOG = LoggerFactory.getLogger(CopyArtifactOp.class);
 
@@ -32,7 +32,7 @@ public class CopyArtifactOp
 
     @Override
     @SneakyThrows
-    public EmptyResult execute(EmptyExecuteParams executeParams) {
+    public EmptyResult execute(EmptyExecParams execParams) {
         Artifact artifact = getInitParams().getArtifact();
         File destFile = getInitParams().getDestFile();
         LOG.debug("Coping {} to {}", artifact, destFile.getAbsolutePath());

@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import ru.yaal.offlinedocs.impl.execution.EmptyExecuteParams;
+import ru.yaal.offlinedocs.impl.execution.EmptyExecParams;
 import ru.yaal.offlinedocs.impl.execution.EmptyResult;
 import ru.yaal.offlinedocs.impl.execution.operation.AbstractOp;
 
@@ -20,7 +20,7 @@ import java.io.File;
  */
 @Component
 @Scope("prototype")
-public class UnpackTarGzOp extends AbstractOp<UnpackTarGzOp.InitParams, EmptyExecuteParams, EmptyResult> {
+public class UnpackTarGzOp extends AbstractOp<UnpackTarGzOp.InitParams, EmptyExecParams, EmptyResult> {
 
     private final Logger LOG = LoggerFactory.getLogger(UnpackTarGzOp.class);
 
@@ -30,7 +30,7 @@ public class UnpackTarGzOp extends AbstractOp<UnpackTarGzOp.InitParams, EmptyExe
 
     @Override
     @SneakyThrows
-    public EmptyResult execute(EmptyExecuteParams executeParams) {
+    public EmptyResult execute(EmptyExecParams execParams) {
         File srcFile = getInitParams().getSrcFile();
         File destDir = getInitParams().getDestDir();
         //noinspection ResultOfMethodCallIgnored

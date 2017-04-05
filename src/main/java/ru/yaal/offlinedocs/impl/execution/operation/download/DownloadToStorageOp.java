@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import ru.yaal.offlinedocs.api.artifact.Artifact;
 import ru.yaal.offlinedocs.api.artifact.data.ArtifactData;
 import ru.yaal.offlinedocs.impl.artifact.ArtifactImpl;
-import ru.yaal.offlinedocs.impl.execution.EmptyExecuteParams;
+import ru.yaal.offlinedocs.impl.execution.EmptyExecParams;
 import ru.yaal.offlinedocs.impl.execution.operation.AbstractOp;
 import ru.yaal.offlinedocs.impl.execution.operation.ArtifactDataOpResult;
 
@@ -25,7 +25,7 @@ import java.net.URL;
 @Component
 @Scope("prototype")
 public class DownloadToStorageOp
-        extends AbstractOp<DownloadToStorageOp.InitParams, EmptyExecuteParams, ArtifactDataOpResult> {
+        extends AbstractOp<DownloadToStorageOp.InitParams, EmptyExecParams, ArtifactDataOpResult> {
 
     private final Logger LOG = LoggerFactory.getLogger(DownloadToStorageOp.class);
 
@@ -35,7 +35,7 @@ public class DownloadToStorageOp
 
     @Override
     @SneakyThrows
-    public ArtifactDataOpResult execute(EmptyExecuteParams executeParams) {
+    public ArtifactDataOpResult execute(EmptyExecParams execParams) {
         InitParams params = getInitParams();
         Artifact artifact = new ArtifactImpl(
                 params.getArtifactCategory(),

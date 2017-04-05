@@ -4,7 +4,7 @@ import org.hamcrest.Matchers;
 import org.junit.Test;
 import ru.yaal.offlinedocs.api.execution.operation.Operation;
 import ru.yaal.offlinedocs.impl.TestBase;
-import ru.yaal.offlinedocs.impl.execution.EmptyExecuteParams;
+import ru.yaal.offlinedocs.impl.execution.EmptyExecParams;
 import ru.yaal.offlinedocs.impl.execution.EmptyResult;
 
 import java.io.File;
@@ -26,9 +26,9 @@ public class UnpackZipOpTest extends TestBase {
         destDir.deleteOnExit();
 
         UnpackZipOp.InitParams params = new UnpackZipOp.InitParams(srcFile, destDir);
-        Operation<UnpackZipOp.InitParams, EmptyExecuteParams, EmptyResult> op =
-                executionFactory.getNewOperation(UnpackZipOp.class, params);
-        op.execute(EmptyExecuteParams.instance);
+        Operation<UnpackZipOp.InitParams, EmptyExecParams, EmptyResult> op =
+                execFactory.getNewOperation(UnpackZipOp.class, params);
+        op.execute(EmptyExecParams.instance);
         assertThat(destDir.list(), Matchers.arrayContaining("my_zip"));
     }
 

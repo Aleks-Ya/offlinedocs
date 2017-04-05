@@ -3,12 +3,12 @@ package ru.yaal.offlinedocs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import ru.yaal.offlinedocs.api.execution.ExecuteParams;
-import ru.yaal.offlinedocs.api.execution.ExecutionFactory;
+import ru.yaal.offlinedocs.api.execution.ExecFactory;
+import ru.yaal.offlinedocs.api.execution.ExecParams;
 import ru.yaal.offlinedocs.api.execution.InitParams;
 import ru.yaal.offlinedocs.api.execution.Result;
 import ru.yaal.offlinedocs.api.execution.job.Job;
-import ru.yaal.offlinedocs.impl.execution.EmptyExecuteParams;
+import ru.yaal.offlinedocs.impl.execution.EmptyExecParams;
 import ru.yaal.offlinedocs.spring.Config;
 import ru.yaal.offlinedocs.spring.Profiles;
 
@@ -31,13 +31,13 @@ public class Application {
         context.refresh();
         context.start();
         log.info("Spring Context started");
-        ExecutionFactory factory = context.getBean(ExecutionFactory.class);
-        List<Job<? extends InitParams, ? extends ExecuteParams, ? extends Result>> jobs = factory.getAllJobs();
+        ExecFactory factory = context.getBean(ExecFactory.class);
+        List<Job<? extends InitParams, ? extends ExecParams, ? extends Result>> jobs = factory.getAllJobs();
         //TODO use JobRunner for executing jobs
         //TODO implement concurrent job execution with JobRunner
         //TODO exception in a job doesn't crashes whole application
         for (Job job : jobs) {
-            job.execute(EmptyExecuteParams.instance);
+            job.execute(EmptyExecParams.instance);
         }
         log.info("Finish");
     }

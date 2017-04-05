@@ -5,9 +5,8 @@ import ru.yaal.offlinedocs.api.artifact.data.ArtifactData;
 import ru.yaal.offlinedocs.api.execution.operation.Operation;
 import ru.yaal.offlinedocs.impl.TestBase;
 import ru.yaal.offlinedocs.impl.artifact.ArtifactImpl;
-import ru.yaal.offlinedocs.impl.execution.EmptyExecuteParams;
+import ru.yaal.offlinedocs.impl.execution.EmptyExecParams;
 import ru.yaal.offlinedocs.impl.execution.operation.ArtifactDataOpResult;
-import ru.yaal.offlinedocs.impl.execution.operation.download.DownloadToStorageOp;
 
 import java.io.ByteArrayInputStream;
 import java.net.URL;
@@ -28,12 +27,12 @@ public class DownloadToStorageOpTest extends TestBase {
         URL artifactUrl = new URL("http://docs.spring.io/spring/docs/4.3.7.RELEASE/spring-framework-reference/pdf/spring-framework-reference.pdf");
         DownloadToStorageOp.InitParams initParams =
                 new DownloadToStorageOp.InitParams(artifactCategory, artifactName, artifactVersion, artifactUrl, "pdf");
-        Operation<DownloadToStorageOp.InitParams, EmptyExecuteParams, ArtifactDataOpResult> op =
-                executionFactory.getNewOperation(DownloadToStorageOp.class, initParams);
+        Operation<DownloadToStorageOp.InitParams, EmptyExecParams, ArtifactDataOpResult> op =
+                execFactory.getNewOperation(DownloadToStorageOp.class, initParams);
         ByteArrayInputStream is = new ByteArrayInputStream(new byte[]{1, 2, 3, 4, 5});
         netApi.putEntry(artifactUrl, is);
 
-        ArtifactDataOpResult result = op.execute(EmptyExecuteParams.instance);
+        ArtifactDataOpResult result = op.execute(EmptyExecParams.instance);
         ArtifactImpl expArtifact = new ArtifactImpl(artifactCategory, artifactName, artifactVersion,
                 artifactTypeFactory.getTypeById("pdf"));
 

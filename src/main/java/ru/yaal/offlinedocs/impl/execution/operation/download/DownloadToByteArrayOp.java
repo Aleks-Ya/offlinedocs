@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import ru.yaal.offlinedocs.impl.execution.EmptyExecuteParams;
+import ru.yaal.offlinedocs.impl.execution.EmptyExecParams;
 import ru.yaal.offlinedocs.impl.execution.operation.AbstractOp;
 import ru.yaal.offlinedocs.impl.execution.operation.ByteArrayOpResult;
 
@@ -19,7 +19,7 @@ import java.net.URL;
 @Component
 @Scope("prototype")
 public class DownloadToByteArrayOp
-        extends AbstractOp<DownloadToByteArrayOp.InitParams, EmptyExecuteParams, ByteArrayOpResult> {
+        extends AbstractOp<DownloadToByteArrayOp.InitParams, EmptyExecParams, ByteArrayOpResult> {
 
     private final Logger LOG = LoggerFactory.getLogger(DownloadToByteArrayOp.class);
 
@@ -29,7 +29,7 @@ public class DownloadToByteArrayOp
 
     @Override
     @SneakyThrows
-    public ByteArrayOpResult execute(EmptyExecuteParams executeParams) {
+    public ByteArrayOpResult execute(EmptyExecParams execParams) {
         URL url = getInitParams().getArtifactUrl();
         LOG.debug("Start downloading " + url);
         InputStream is = netApi.openUrl(url);

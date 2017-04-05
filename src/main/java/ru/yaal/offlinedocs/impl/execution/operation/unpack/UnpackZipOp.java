@@ -2,14 +2,13 @@ package ru.yaal.offlinedocs.impl.execution.operation.unpack;
 
 import lombok.Getter;
 import lombok.SneakyThrows;
-import org.codehaus.plexus.archiver.tar.TarGZipUnArchiver;
 import org.codehaus.plexus.archiver.zip.ZipUnArchiver;
 import org.codehaus.plexus.logging.console.ConsoleLogger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import ru.yaal.offlinedocs.impl.execution.EmptyExecuteParams;
+import ru.yaal.offlinedocs.impl.execution.EmptyExecParams;
 import ru.yaal.offlinedocs.impl.execution.EmptyResult;
 import ru.yaal.offlinedocs.impl.execution.operation.AbstractOp;
 
@@ -20,7 +19,7 @@ import java.io.File;
  */
 @Component
 @Scope("prototype")
-public class UnpackZipOp extends AbstractOp<UnpackZipOp.InitParams, EmptyExecuteParams, EmptyResult> {
+public class UnpackZipOp extends AbstractOp<UnpackZipOp.InitParams, EmptyExecParams, EmptyResult> {
 
     private final Logger LOG = LoggerFactory.getLogger(UnpackZipOp.class);
 
@@ -30,7 +29,7 @@ public class UnpackZipOp extends AbstractOp<UnpackZipOp.InitParams, EmptyExecute
 
     @Override
     @SneakyThrows
-    public EmptyResult execute(EmptyExecuteParams executeParams) {
+    public EmptyResult execute(EmptyExecParams execParams) {
         File srcFile = getInitParams().getSrcFile();
         File destDir = getInitParams().getDestDir();
         //noinspection ResultOfMethodCallIgnored

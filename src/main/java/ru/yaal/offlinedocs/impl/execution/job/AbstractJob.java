@@ -1,8 +1,8 @@
 package ru.yaal.offlinedocs.impl.execution.job;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import ru.yaal.offlinedocs.api.execution.ExecuteParams;
-import ru.yaal.offlinedocs.api.execution.ExecutionFactory;
+import ru.yaal.offlinedocs.api.execution.ExecParams;
+import ru.yaal.offlinedocs.api.execution.ExecFactory;
 import ru.yaal.offlinedocs.api.execution.InitParams;
 import ru.yaal.offlinedocs.api.execution.Result;
 import ru.yaal.offlinedocs.api.execution.job.Job;
@@ -15,14 +15,14 @@ import ru.yaal.offlinedocs.api.storage.OutletStorage;
 @SuppressWarnings({"SpringAutowiredFieldsWarningInspection", "WeakerAccess"})
 public abstract class AbstractJob<
         IP extends InitParams,
-        EP extends ExecuteParams,
+        EP extends ExecParams,
         R extends Result>
         implements Job<IP, EP, R> {
 
     private final IP initParams;
 
     @Autowired
-    protected ExecutionFactory executionFactory;
+    protected ExecFactory execFactory;
     @Autowired
     protected DataAppProps dataAppProps;
     @Autowired

@@ -3,8 +3,8 @@ package ru.yaal.offlinedocs.impl.execution;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
-import ru.yaal.offlinedocs.api.execution.ExecuteParams;
-import ru.yaal.offlinedocs.api.execution.ExecutionFactory;
+import ru.yaal.offlinedocs.api.execution.ExecFactory;
+import ru.yaal.offlinedocs.api.execution.ExecParams;
 import ru.yaal.offlinedocs.api.execution.InitParams;
 import ru.yaal.offlinedocs.api.execution.Result;
 import ru.yaal.offlinedocs.api.execution.job.Job;
@@ -16,29 +16,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * TODO can remove ExecutionFactory if make all operations and jobs thread safety and autowire them (?)
+ * TODO can remove ExecFactory if make all operations and jobs thread safety and autowire them (?)
  *
  * @author Yablokov Aleksey
  */
 @Component
-public class SpringExecutionFactory implements ExecutionFactory {
+public class SpringExecFactory implements ExecFactory {
     private final ApplicationContext ctx;
-    private List<Job<? extends InitParams, ? extends ExecuteParams, ? extends Result>> allJobs = new ArrayList<>();
+    private List<Job<? extends InitParams, ? extends ExecParams, ? extends Result>> allJobs = new ArrayList<>();
 
     @Autowired
-    public SpringExecutionFactory(ApplicationContext ctx) {
+    public SpringExecFactory(ApplicationContext ctx) {
         this.ctx = ctx;
     }
 
     @Override
-    public <IP extends InitParams, EP extends ExecuteParams, R extends Result, O extends Operation<IP, EP, R>>
+    public <IP extends InitParams, EP extends ExecParams, R extends Result, O extends Operation<IP, EP, R>>
     O getNewOperation(Class<? extends AbstractOp<IP, EP, R>> operationClass, IP initParams) {
         //noinspection unchecked
         return (O) ctx.getBean(operationClass, initParams);
     }
 
     @Override
-    public <IP extends InitParams, EP extends ExecuteParams, R extends Result, J extends Job<IP, EP, R>>
+    public <IP extends InitParams, EP extends ExecParams, R extends Result, J extends Job<IP, EP, R>>
     J getNewJob(Class<? extends AbstractJob<IP, EP, R>> jobClass, IP initParams) {
         //noinspection unchecked
         J job = (J) ctx.getBean(jobClass, initParams);
@@ -47,7 +47,7 @@ public class SpringExecutionFactory implements ExecutionFactory {
     }
 
     @Override
-    public List<Job<? extends InitParams, ? extends ExecuteParams, ? extends Result>> getAllJobs() {
+    public List<Job<? extends InitParams, ? extends ExecParams, ? extends Result>> getAllJobs() {
         return allJobs;
     }
 }

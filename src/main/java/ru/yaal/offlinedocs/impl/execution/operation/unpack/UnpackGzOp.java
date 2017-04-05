@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import ru.yaal.offlinedocs.impl.execution.EmptyExecuteParams;
+import ru.yaal.offlinedocs.impl.execution.EmptyExecParams;
 import ru.yaal.offlinedocs.impl.execution.EmptyResult;
 import ru.yaal.offlinedocs.impl.execution.operation.AbstractOp;
 import ru.yaal.offlinedocs.impl.execution.operation.download.DownloadHelper;
@@ -21,7 +21,7 @@ import java.util.zip.GZIPInputStream;
  */
 @Component
 @Scope("prototype")
-public class UnpackGzOp extends AbstractOp<UnpackGzOp.InitParams, EmptyExecuteParams, EmptyResult> {
+public class UnpackGzOp extends AbstractOp<UnpackGzOp.InitParams, EmptyExecParams, EmptyResult> {
 
     private final Logger LOG = LoggerFactory.getLogger(UnpackGzOp.class);
 
@@ -31,7 +31,7 @@ public class UnpackGzOp extends AbstractOp<UnpackGzOp.InitParams, EmptyExecutePa
 
     @Override
     @SneakyThrows
-    public EmptyResult execute(EmptyExecuteParams executeParams) {
+    public EmptyResult execute(EmptyExecParams execParams) {
         File srcFile = getInitParams().getSrcFile();
         File destFile = getInitParams().getDestFile();
         LOG.info("Unpacking {} to {}", srcFile, destFile);

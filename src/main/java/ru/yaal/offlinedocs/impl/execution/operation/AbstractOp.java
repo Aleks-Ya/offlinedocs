@@ -2,7 +2,7 @@ package ru.yaal.offlinedocs.impl.execution.operation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.yaal.offlinedocs.api.artifact.type.ArtifactTypeFactory;
-import ru.yaal.offlinedocs.api.execution.ExecuteParams;
+import ru.yaal.offlinedocs.api.execution.ExecParams;
 import ru.yaal.offlinedocs.api.execution.InitParams;
 import ru.yaal.offlinedocs.api.execution.Result;
 import ru.yaal.offlinedocs.api.execution.operation.Operation;
@@ -15,7 +15,7 @@ import ru.yaal.offlinedocs.api.system.NetApi;
 @SuppressWarnings("SpringAutowiredFieldsWarningInspection")
 public abstract class AbstractOp<
         IP extends InitParams,
-        EP extends ExecuteParams,
+        EP extends ExecParams,
         R extends Result>
         implements Operation<IP, EP, R> {
 
