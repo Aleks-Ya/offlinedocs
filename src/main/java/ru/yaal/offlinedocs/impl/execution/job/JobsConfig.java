@@ -10,7 +10,7 @@ import ru.yaal.offlinedocs.api.execution.ExecutionFactory;
 import ru.yaal.offlinedocs.api.execution.job.Job;
 import ru.yaal.offlinedocs.impl.execution.EmptyExecuteParams;
 import ru.yaal.offlinedocs.impl.execution.EmptyResult;
-import ru.yaal.offlinedocs.impl.execution.operation.download.storage.DownloadToStorageOp;
+import ru.yaal.offlinedocs.impl.execution.operation.download.DownloadToStorageOp;
 
 import java.net.URL;
 

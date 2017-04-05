@@ -1,4 +1,4 @@
-package ru.yaal.offlinedocs.impl.execution.operation.download.storage;
+package ru.yaal.offlinedocs.impl.execution.operation.download;
 
 import lombok.Getter;
 import lombok.SneakyThrows;
@@ -12,7 +12,6 @@ import ru.yaal.offlinedocs.impl.artifact.ArtifactImpl;
 import ru.yaal.offlinedocs.impl.execution.EmptyExecuteParams;
 import ru.yaal.offlinedocs.impl.execution.operation.AbstractOp;
 import ru.yaal.offlinedocs.impl.execution.operation.ArtifactDataOpResult;
-import ru.yaal.offlinedocs.impl.execution.operation.download.bytes.DownloadToByteArrayOp;
 
 import java.io.InputStream;
 import java.net.URL;

@@ -1,4 +1,4 @@
-package ru.yaal.offlinedocs.impl.execution.operation.download.bytes;
+package ru.yaal.offlinedocs.impl.execution.operation.download;
 
 import lombok.Getter;
 import lombok.SneakyThrows;
@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 import ru.yaal.offlinedocs.impl.execution.EmptyExecuteParams;
 import ru.yaal.offlinedocs.impl.execution.operation.AbstractOp;
 import ru.yaal.offlinedocs.impl.execution.operation.ByteArrayOpResult;
-import ru.yaal.offlinedocs.impl.execution.operation.download.DownloadHelper;
 
 import java.io.InputStream;
 import java.net.URL;

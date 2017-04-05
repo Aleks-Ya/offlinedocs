@@ -1,4 +1,4 @@
-package ru.yaal.offlinedocs.impl.execution.operation.download.storage;
+package ru.yaal.offlinedocs.impl.execution.operation.download;
 
 import org.junit.Test;
 import ru.yaal.offlinedocs.api.artifact.data.ArtifactData;
@@ -7,6 +7,7 @@ import ru.yaal.offlinedocs.impl.TestBase;
 import ru.yaal.offlinedocs.impl.artifact.ArtifactImpl;
 import ru.yaal.offlinedocs.impl.execution.EmptyExecuteParams;
 import ru.yaal.offlinedocs.impl.execution.operation.ArtifactDataOpResult;
+import ru.yaal.offlinedocs.impl.execution.operation.download.DownloadToStorageOp;
 
 import java.io.ByteArrayInputStream;
 import java.net.URL;

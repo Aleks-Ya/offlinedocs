@@ -11,7 +11,7 @@ import ru.yaal.offlinedocs.impl.execution.EmptyExecuteParams;
 import ru.yaal.offlinedocs.impl.execution.EmptyResult;
 import ru.yaal.offlinedocs.impl.execution.operation.ArtifactDataOpResult;
 import ru.yaal.offlinedocs.impl.execution.operation.copy.CopyArtifactOp;
-import ru.yaal.offlinedocs.impl.execution.operation.download.storage.DownloadToStorageOp;
+import ru.yaal.offlinedocs.impl.execution.operation.download.DownloadToStorageOp;
 
 import java.io.File;
 
