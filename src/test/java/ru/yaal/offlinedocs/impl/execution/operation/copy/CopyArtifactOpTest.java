@@ -2,11 +2,9 @@ package ru.yaal.offlinedocs.impl.execution.operation.copy;
 
 import org.junit.Test;
 import ru.yaal.offlinedocs.api.artifact.Artifact;
-import ru.yaal.offlinedocs.api.execution.operation.Operation;
 import ru.yaal.offlinedocs.impl.TestBase;
 import ru.yaal.offlinedocs.impl.artifact.ArtifactImpl;
 import ru.yaal.offlinedocs.impl.execution.EmptyExecParams;
-import ru.yaal.offlinedocs.impl.execution.EmptyResult;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -36,10 +34,7 @@ public class CopyArtifactOpTest extends TestBase {
         destFile.deleteOnExit();
         assertThat(destFile, aFileWithSize(0));
         CopyArtifactOp.InitParams params = new CopyArtifactOp.InitParams(artifact, destFile);
-        //TODO shorter: execFactory.getNewOperation().execute()
-        Operation<CopyArtifactOp.InitParams, EmptyExecParams, EmptyResult> op =
-                execFactory.getNewOperation(CopyArtifactOp.class, params);
-        op.execute(EmptyExecParams.instance);
+        execFactory.getNewOperation(CopyArtifactOp.class, params).execute(EmptyExecParams.instance);
         assertThat(destFile, aFileWithSize(greaterThan(0L)));
     }
 }

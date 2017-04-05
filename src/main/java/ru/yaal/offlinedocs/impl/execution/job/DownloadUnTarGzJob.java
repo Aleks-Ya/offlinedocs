@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import ru.yaal.offlinedocs.api.artifact.Artifact;
 import ru.yaal.offlinedocs.api.artifact.data.ArtifactData;
-import ru.yaal.offlinedocs.api.execution.operation.Operation;
 import ru.yaal.offlinedocs.impl.execution.EmptyExecParams;
 import ru.yaal.offlinedocs.impl.execution.EmptyResult;
 import ru.yaal.offlinedocs.impl.execution.operation.ArtifactDataOpResult;
@@ -33,18 +32,15 @@ class DownloadUnTarGzJob extends AbstractJob<DownloadUnTarGzJob.InitParams, Empt
     public EmptyResult execute(EmptyExecParams execParams) {
         LOG.debug("Start");
         DownloadToStorageOp.InitParams params = getInitParams().getDownloadParams();
-        Operation<DownloadToStorageOp.InitParams, EmptyExecParams, ArtifactDataOpResult> downloadOp =
-                execFactory.getNewOperation(DownloadToStorageOp.class, params);
-        ArtifactDataOpResult downloadResult = downloadOp.execute(EmptyExecParams.instance);
+        ArtifactDataOpResult downloadResult =
+                execFactory.getNewOperation(DownloadToStorageOp.class, params).execute(EmptyExecParams.instance);
         ArtifactData artifactData = downloadResult.getArtifactData();
         Artifact artifact = artifactData.getArtifact();
 
         File destDir = outletStorage.getArtifactDir(artifact);
         FileSelector[] fileSelectors = getInitParams().getFileSelectors();
         UnpackTarGzOp.InitParams unTarGzParams = new UnpackTarGzOp.InitParams(artifactData.getFile(), destDir, fileSelectors);
-        Operation<UnpackTarGzOp.InitParams, EmptyExecParams, EmptyResult> unpackOp =
-                execFactory.getNewOperation(UnpackTarGzOp.class, unTarGzParams);
-        unpackOp.execute(EmptyExecParams.instance);
+        execFactory.getNewOperation(UnpackTarGzOp.class, unTarGzParams).execute(EmptyExecParams.instance);
 
         return EmptyResult.instance;
     }

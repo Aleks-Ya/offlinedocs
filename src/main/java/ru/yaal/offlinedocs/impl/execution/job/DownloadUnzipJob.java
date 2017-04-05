@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import ru.yaal.offlinedocs.api.artifact.Artifact;
 import ru.yaal.offlinedocs.api.artifact.data.ArtifactData;
-import ru.yaal.offlinedocs.api.execution.operation.Operation;
 import ru.yaal.offlinedocs.impl.execution.EmptyExecParams;
 import ru.yaal.offlinedocs.impl.execution.EmptyResult;
 import ru.yaal.offlinedocs.impl.execution.operation.ArtifactDataOpResult;
@@ -34,17 +33,14 @@ class DownloadUnzipJob extends AbstractJob<DownloadUnzipJob.InitParams, EmptyExe
     public EmptyResult execute(EmptyExecParams execParams) {
         LOG.debug("Start");
         DownloadToStorageOp.InitParams params = getInitParams().getDownloadParams();
-        Operation<DownloadToStorageOp.InitParams, EmptyExecParams, ArtifactDataOpResult> downloadOp =
-                execFactory.getNewOperation(DownloadToStorageOp.class, params);
-        ArtifactDataOpResult downloadResult = downloadOp.execute(EmptyExecParams.instance);
+        ArtifactDataOpResult downloadResult =
+                execFactory.getNewOperation(DownloadToStorageOp.class, params).execute(EmptyExecParams.instance);
         ArtifactData artifactData = downloadResult.getArtifactData();
         Artifact artifact = artifactData.getArtifact();
 
         File destDir = outletStorage.getArtifactDir(artifact);
         UnpackZipOp.InitParams copyParams = new UnpackZipOp.InitParams(artifactData.getFile(), destDir);
-        Operation<UnpackZipOp.InitParams, EmptyExecParams, EmptyResult> copyOp =
-                execFactory.getNewOperation(UnpackZipOp.class, copyParams);
-        copyOp.execute(EmptyExecParams.instance);
+        execFactory.getNewOperation(UnpackZipOp.class, copyParams).execute(EmptyExecParams.instance);
 
         return EmptyResult.instance;
     }

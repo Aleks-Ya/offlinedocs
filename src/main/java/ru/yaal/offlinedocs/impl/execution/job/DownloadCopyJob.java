@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import ru.yaal.offlinedocs.api.artifact.Artifact;
-import ru.yaal.offlinedocs.api.execution.operation.Operation;
 import ru.yaal.offlinedocs.impl.execution.EmptyExecParams;
 import ru.yaal.offlinedocs.impl.execution.EmptyResult;
 import ru.yaal.offlinedocs.impl.execution.operation.ArtifactDataOpResult;
@@ -34,16 +33,13 @@ class DownloadCopyJob extends AbstractJob<DownloadCopyJob.InitParams, EmptyExecP
     public EmptyResult execute(EmptyExecParams execParams) {
         LOG.debug("Start");
         DownloadToStorageOp.InitParams params = getInitParams().getDownloadParams();
-        Operation<DownloadToStorageOp.InitParams, EmptyExecParams, ArtifactDataOpResult> downloadOp =
-                execFactory.getNewOperation(DownloadToStorageOp.class, params);
-        ArtifactDataOpResult downloadResult = downloadOp.execute(EmptyExecParams.instance);
+        ArtifactDataOpResult downloadResult =
+                execFactory.getNewOperation(DownloadToStorageOp.class, params).execute(EmptyExecParams.instance);
         Artifact artifact = downloadResult.getArtifactData().getArtifact();
 
         File destDir = outletStorage.getArtifactFile(artifact);
         CopyArtifactOp.InitParams copyParams = new CopyArtifactOp.InitParams(artifact, destDir);
-        Operation<CopyArtifactOp.InitParams, EmptyExecParams, EmptyResult> copyOp =
-                execFactory.getNewOperation(CopyArtifactOp.class, copyParams);
-        copyOp.execute(EmptyExecParams.instance);
+        execFactory.getNewOperation(CopyArtifactOp.class, copyParams).execute(EmptyExecParams.instance);
 
         return EmptyResult.instance;
     }

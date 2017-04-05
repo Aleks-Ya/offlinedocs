@@ -2,10 +2,8 @@ package ru.yaal.offlinedocs.impl.execution.operation.unpack;
 
 import org.hamcrest.Matchers;
 import org.junit.Test;
-import ru.yaal.offlinedocs.api.execution.operation.Operation;
 import ru.yaal.offlinedocs.impl.TestBase;
 import ru.yaal.offlinedocs.impl.execution.EmptyExecParams;
-import ru.yaal.offlinedocs.impl.execution.EmptyResult;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,8 +21,7 @@ public class UnpackTarGzOpTest extends TestBase {
         File destDir = Files.createTempDirectory(getClass().getSimpleName() + "_").toFile();
         destDir.deleteOnExit();
         UnpackTarGzOp.InitParams params = new UnpackTarGzOp.InitParams(srcFile, destDir, null);
-        Operation<UnpackTarGzOp.InitParams, EmptyExecParams, EmptyResult> op = execFactory.getNewOperation(UnpackTarGzOp.class, params);
-        op.execute(EmptyExecParams.instance);
+        execFactory.getNewOperation(UnpackTarGzOp.class, params).execute(EmptyExecParams.instance);
         assertThat(destDir.list(), Matchers.arrayContaining("mytar"));
     }
 
