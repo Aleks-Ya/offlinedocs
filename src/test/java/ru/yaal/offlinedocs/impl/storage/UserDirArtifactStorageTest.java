@@ -14,6 +14,7 @@ import static org.junit.Assert.assertThat;
 
 /**
  * TODO download file to temp dir and then copy to artifact storage
+ * TODO unpack file to temp dir and then copy to outlet
  *
  * @author Yablokov Aleksey
  */
