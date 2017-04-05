@@ -22,7 +22,7 @@ public class CopyArtifactOpTest extends TestBase {
 
     @Test
     public void execute() throws IOException {
-        String artifactName = "SpringJavadoc";
+        String artifactName = getClass().getSimpleName();
         String artifactVersion = "4.3.7";
         String artifactType = "pdf";
         Artifact artifact = new ArtifactImpl("Spring", artifactName, artifactVersion,

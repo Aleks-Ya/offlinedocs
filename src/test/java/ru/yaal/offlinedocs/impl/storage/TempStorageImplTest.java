@@ -8,6 +8,7 @@ import java.io.File;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.io.FileMatchers.anExistingDirectory;
+import static org.hamcrest.io.FileMatchers.anExistingFile;
 
 /**
  * @author Yablokov Aleksey
@@ -25,4 +26,8 @@ public class TempStorageImplTest extends TestBase {
         assertThat(dir, anExistingDirectory());
     }
 
+    @Test
+    public void createTempFile() {
+        assertThat(tempStorage.createTempFile(), anExistingFile());
+    }
 }

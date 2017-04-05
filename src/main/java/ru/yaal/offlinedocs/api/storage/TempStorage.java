@@ -12,4 +12,6 @@ public interface TempStorage {
     File getJobTempDir(JobId jobId);
 
     File getOpTempDir(OpId opId);
+
+    File createTempFile();
 }

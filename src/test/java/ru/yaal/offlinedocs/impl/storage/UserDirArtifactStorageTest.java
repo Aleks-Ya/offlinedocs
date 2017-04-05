@@ -13,7 +13,6 @@ import static org.hamcrest.io.FileMatchers.aFileWithAbsolutePath;
 import static org.junit.Assert.assertThat;
 
 /**
- * TODO download file to temp dir and then copy to artifact storage
  * TODO unpack file to temp dir and then copy to outlet
  *
  * @author Yablokov Aleksey
@@ -21,13 +20,14 @@ import static org.junit.Assert.assertThat;
 public class UserDirArtifactStorageTest extends TestBase {
     @Test
     public void subDirInStorage() throws Exception {
-        //TODO factory class contains "hadoop artifact" and "hadoop artifact data"
-        Artifact artifact = new ArtifactImpl("Hadoop", "HadoopJavadoc", "2.8.0",
+        //TODO create factory contains "hadoop artifact" and "hadoop artifact data"
+        String artifactCategory = getClass().getSimpleName();
+        Artifact artifact = new ArtifactImpl(artifactCategory, "HadoopJavadoc", "2.8.0",
                 artifactTypeFactory.getTypeById("pdf"));
         ByteArrayInputStream is = new ByteArrayInputStream(new byte[]{1, 2, 3});
         File artifactFile = artifactStorage.save(artifact, is).getFile();
         String sep = fileApi.getFileSeparator();
-        String expected = "Hadoop" + sep + "HadoopJavadoc" + sep + "2.8.0" + sep + "HadoopJavadoc-2.8.0.pdf";
+        String expected = artifactCategory + sep + "HadoopJavadoc" + sep + "2.8.0" + sep + "HadoopJavadoc-2.8.0.pdf";
         assertThat(artifactFile, aFileWithAbsolutePath(endsWith(expected)));
     }
 

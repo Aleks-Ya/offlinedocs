@@ -10,6 +10,7 @@ import ru.yaal.offlinedocs.api.artifact.Artifact;
 import ru.yaal.offlinedocs.api.artifact.data.ArtifactData;
 import ru.yaal.offlinedocs.api.properties.DataAppProps;
 import ru.yaal.offlinedocs.api.storage.ArtifactStorage;
+import ru.yaal.offlinedocs.api.storage.TempStorage;
 import ru.yaal.offlinedocs.api.system.FileApi;
 import ru.yaal.offlinedocs.impl.artifact.data.FileArtifactData;
 
@@ -26,11 +27,15 @@ class UserDirArtifactStorage implements ArtifactStorage {
     private static final Logger LOG = LoggerFactory.getLogger(UserDirArtifactStorage.class);
     private final File rootDir;
     private final String sep;
+    private final TempStorage tempStorage;
 
     @Autowired
-    public UserDirArtifactStorage(FileApi fileApi, DataAppProps dataAppProps) {
+    public UserDirArtifactStorage(FileApi fileApi, DataAppProps dataAppProps, TempStorage tempStorage) {
+        this.tempStorage = tempStorage;
         sep = fileApi.getFileSeparator();
         rootDir = dataAppProps.getArtifactStorageDir();
+        //noinspection ResultOfMethodCallIgnored
+        rootDir.mkdirs();
         LOG.info("Artifact storage directory: " + rootDir.getAbsolutePath());
     }
 
@@ -38,9 +43,17 @@ class UserDirArtifactStorage implements ArtifactStorage {
     @SneakyThrows
     public ArtifactData save(Artifact artifact, InputStream artifactIS) {
         File artifactFile = subDirInStorage(rootDir, artifact);
-        LOG.debug("Saving artifact to file: " + artifactFile.getAbsolutePath());
-        FileUtils.copyInputStreamToFile(artifactIS, artifactFile);
-        LOG.debug("Artifact saved: " + artifactFile.getAbsolutePath());
+        if (!artifactFile.exists()) {
+            File tempFile = tempStorage.createTempFile();
+            LOG.debug("Saving artifact to file: " + tempFile);
+            FileUtils.copyInputStreamToFile(artifactIS, tempFile);
+            LOG.debug("Artifact saved (size {} kb): {}", tempFile.length() / 1000, tempFile);
+            LOG.debug("Move {} to {}: ", tempFile, artifactFile);
+            FileUtils.moveFile(tempFile, artifactFile);
+            LOG.debug("Artifact moved: " + artifactFile);
+        } else {
+            LOG.debug("Skip exists artifact: " + artifactFile);
+        }
         return new FileArtifactData(artifact, artifactFile);
     }
 

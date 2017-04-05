@@ -1,5 +1,6 @@
 package ru.yaal.offlinedocs.impl.storage;
 
+import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +21,10 @@ import java.util.Map;
  */
 @Component
 @SuppressWarnings("ResultOfMethodCallIgnored")
-public class TempStorageImpl implements TempStorage {
+class TempStorageImpl implements TempStorage {
     private static final Logger LOG = LoggerFactory.getLogger(TempStorageImpl.class);
     private final File tempDir;
+    private final File createdFileDir;
     private final Map<JobId, File> jobDirs = new HashMap<>();
     private final Map<OpId, File> opDirs = new HashMap<>();
 
@@ -32,6 +34,10 @@ public class TempStorageImpl implements TempStorage {
         tempDir.delete();
         tempDir.mkdirs();
         LOG.debug("Temp dir cleaned: " + tempDir.getAbsolutePath());
+
+        createdFileDir = new File(tempDir, "created_files");
+        createdFileDir.mkdirs();
+        LOG.debug("Created files temp dir: " + createdFileDir);
     }
 
     @Override
@@ -58,5 +64,11 @@ public class TempStorageImpl implements TempStorage {
             LOG.debug("Temp op dir created: " + dir.getAbsolutePath());
         }
         return dir;
+    }
+
+    @Override
+    @SneakyThrows
+    public File createTempFile() {
+        return File.createTempFile("CreatedFile_", ".tmp", createdFileDir);
     }
 }
