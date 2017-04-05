@@ -5,7 +5,7 @@ import ru.yaal.offlinedocs.api.artifact.data.ArtifactData;
 import ru.yaal.offlinedocs.impl.TestBase;
 import ru.yaal.offlinedocs.impl.artifact.ArtifactImpl;
 import ru.yaal.offlinedocs.impl.execution.EmptyExecParams;
-import ru.yaal.offlinedocs.impl.execution.id.JustJobId;
+import ru.yaal.offlinedocs.impl.execution.id.JustId;
 import ru.yaal.offlinedocs.impl.execution.operation.ArtifactDataOpResult;
 
 import java.io.ByteArrayInputStream;
@@ -31,7 +31,7 @@ public class DownloadToStorageOpTest extends TestBase {
         netApi.putEntry(artifactUrl, is);
 
         ArtifactDataOpResult result = execFactory.getNewOperation(
-                JustJobId.jobId, DownloadToStorageOp.class, initParams).execute(EmptyExecParams.instance);
+                JustId.jobId, DownloadToStorageOp.class, initParams).execute(EmptyExecParams.instance);
         ArtifactImpl expArtifact = new ArtifactImpl(artifactCategory, artifactName, artifactVersion,
                 artifactTypeFactory.getTypeById("pdf"));
 

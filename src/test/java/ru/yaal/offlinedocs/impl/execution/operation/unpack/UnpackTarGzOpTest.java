@@ -4,7 +4,7 @@ import org.hamcrest.Matchers;
 import org.junit.Test;
 import ru.yaal.offlinedocs.impl.TestBase;
 import ru.yaal.offlinedocs.impl.execution.EmptyExecParams;
-import ru.yaal.offlinedocs.impl.execution.id.JustJobId;
+import ru.yaal.offlinedocs.impl.execution.id.JustId;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,7 +22,7 @@ public class UnpackTarGzOpTest extends TestBase {
         File destDir = Files.createTempDirectory(getClass().getSimpleName() + "_").toFile();
         destDir.deleteOnExit();
         UnpackTarGzOp.InitParams params = new UnpackTarGzOp.InitParams(srcFile, destDir, null);
-        execFactory.getNewOperation(JustJobId.jobId, UnpackTarGzOp.class, params).execute(EmptyExecParams.instance);
+        execFactory.getNewOperation(JustId.jobId, UnpackTarGzOp.class, params).execute(EmptyExecParams.instance);
         assertThat(destDir.list(), Matchers.arrayContaining("mytar"));
     }
 

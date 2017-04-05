@@ -39,6 +39,6 @@ class IdFactoryImpl implements IdFactory {
             nextId = 0;
         }
         nextIdMap.put(opClass, nextId + 1);
-        return new OpIdImpl(jobId.toString() + "_" + opClass.getSimpleName() + "-" + nextId);
+        return new OpIdImpl(jobId, opClass.getSimpleName() + "-" + nextId);
     }
 }

@@ -10,6 +10,7 @@ import ru.yaal.offlinedocs.api.execution.ExecFactory;
 import ru.yaal.offlinedocs.api.properties.DataAppProps;
 import ru.yaal.offlinedocs.api.storage.ArtifactStorage;
 import ru.yaal.offlinedocs.api.storage.OutletStorage;
+import ru.yaal.offlinedocs.api.storage.TempStorage;
 import ru.yaal.offlinedocs.api.system.FileApi;
 import ru.yaal.offlinedocs.spring.Profiles;
 
@@ -41,4 +42,7 @@ public abstract class TestBase {
 
     @Autowired
     protected FileApi fileApi;
+
+    @Autowired
+    protected TempStorage tempStorage;
 }

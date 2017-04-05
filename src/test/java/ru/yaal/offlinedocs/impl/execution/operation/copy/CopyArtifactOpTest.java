@@ -5,7 +5,7 @@ import ru.yaal.offlinedocs.api.artifact.Artifact;
 import ru.yaal.offlinedocs.impl.TestBase;
 import ru.yaal.offlinedocs.impl.artifact.ArtifactImpl;
 import ru.yaal.offlinedocs.impl.execution.EmptyExecParams;
-import ru.yaal.offlinedocs.impl.execution.id.JustJobId;
+import ru.yaal.offlinedocs.impl.execution.id.JustId;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -35,7 +35,7 @@ public class CopyArtifactOpTest extends TestBase {
         destFile.deleteOnExit();
         assertThat(destFile, aFileWithSize(0));
         CopyArtifactOp.InitParams params = new CopyArtifactOp.InitParams(artifact, destFile);
-        execFactory.getNewOperation(JustJobId.jobId, CopyArtifactOp.class, params).execute(EmptyExecParams.instance);
+        execFactory.getNewOperation(JustId.jobId, CopyArtifactOp.class, params).execute(EmptyExecParams.instance);
         assertThat(destFile, aFileWithSize(greaterThan(0L)));
     }
 }
