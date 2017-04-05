@@ -1,0 +1,1 @@
+Quick run: mvn package exec:java
