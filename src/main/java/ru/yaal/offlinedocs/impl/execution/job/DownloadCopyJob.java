@@ -17,6 +17,7 @@ import java.io.File;
 
 /**
  * TODO make all operations thread safety and just autowire them in jobs
+ * TODO send HEAD HTTP request to sure that artifact was changed
  *
  * @author Yablokov Aleksey
  */
