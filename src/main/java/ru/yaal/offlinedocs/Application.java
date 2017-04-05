@@ -16,21 +16,27 @@ import ru.yaal.offlinedocs.spring.Profiles;
  * @author Yablokov Aleksey
  */
 public class Application {
-    private static final Logger log = LoggerFactory.getLogger(Application.class);
+    private static final Logger LOG = LoggerFactory.getLogger(Application.class);
 
     public static void main(String[] args) {
-        log.debug("Star");
+        LOG.debug("Star");
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
         context.getEnvironment().setActiveProfiles(Profiles.PROD);
         context.register(Config.class);
         context.refresh();
         context.start();
-        log.info("Spring Context started");
+        LOG.info("Spring Context started");
         ExecFactory factory = context.getBean(ExecFactory.class);
         //TODO implement concurrent job execution with JobRunner
         //TODO exception in a job doesn't crashes whole application
         JobRunner runner = context.getBean(JobRunner.class);
-        factory.getAllJobs().forEach(job -> runner.runJob2(job, EmptyExecParams.instance));
-        log.info("Finish");
+        factory.getAllJobs().forEach(job -> {
+            try {
+                runner.runJob2(job, EmptyExecParams.instance);
+            } catch (Exception e) {
+                LOG.error("Job failed: " + e.getMessage(), e);
+            }
+        });
+        LOG.info("Finish");
     }
 }
