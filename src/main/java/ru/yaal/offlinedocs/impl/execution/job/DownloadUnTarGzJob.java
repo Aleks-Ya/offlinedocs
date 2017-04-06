@@ -9,11 +9,11 @@ import org.springframework.stereotype.Component;
 import ru.yaal.offlinedocs.api.artifact.Artifact;
 import ru.yaal.offlinedocs.api.artifact.data.ArtifactData;
 import ru.yaal.offlinedocs.api.execution.job.JobId;
-import ru.yaal.offlinedocs.impl.execution.param.EmptyExecParams;
 import ru.yaal.offlinedocs.impl.execution.EmptyResult;
 import ru.yaal.offlinedocs.impl.execution.operation.ArtifactDataOpResult;
 import ru.yaal.offlinedocs.impl.execution.operation.download.DownloadToStorageOp;
 import ru.yaal.offlinedocs.impl.execution.operation.unpack.UnpackTarGzOp;
+import ru.yaal.offlinedocs.impl.execution.param.EmptyExecParams;
 
 import java.io.File;
 
@@ -33,16 +33,20 @@ class DownloadUnTarGzJob extends AbstractJob<DownloadUnTarGzJob.InitParams, Empt
     public EmptyResult execute(EmptyExecParams execParams) {
         LOG.debug("Start");
         DownloadToStorageOp.InitParams params = getInitParams().getDownloadParams();
-        ArtifactDataOpResult downloadResult =
-                execFactory.getNewOperation(getJobId(), DownloadToStorageOp.class, params).execute(EmptyExecParams.instance);
-        ArtifactData artifactData = downloadResult.getArtifactData();
-        Artifact artifact = artifactData.getArtifact();
-
+        boolean skipIfExists = params.getSkipIfExists();
+        Artifact artifact = params.getArtifact();
         File destDir = outletStorage.getArtifactDir(artifact);
-        FileSelector[] fileSelectors = getInitParams().getFileSelectors();
-        UnpackTarGzOp.InitParams unTarGzParams = new UnpackTarGzOp.InitParams(artifactData.getFile(), destDir, fileSelectors);
-        execFactory.getNewOperation(getJobId(), UnpackTarGzOp.class, unTarGzParams).execute(EmptyExecParams.instance);
+        if (skipIfExists && !outletStorage.isArtifactExists(artifact)) {
+            ArtifactDataOpResult downloadResult =
+                    execFactory.getNewOperation(getJobId(), DownloadToStorageOp.class, params).execute(EmptyExecParams.instance);
+            ArtifactData artifactData = downloadResult.getArtifactData();
 
+            FileSelector[] fileSelectors = getInitParams().getFileSelectors();
+            UnpackTarGzOp.InitParams unTarGzParams = new UnpackTarGzOp.InitParams(artifactData.getFile(), destDir, fileSelectors);
+            execFactory.getNewOperation(getJobId(), UnpackTarGzOp.class, unTarGzParams).execute(EmptyExecParams.instance);
+        } else {
+            LOG.debug("Artifact already exists: " + destDir);
+        }
         return EmptyResult.instance;
     }
 

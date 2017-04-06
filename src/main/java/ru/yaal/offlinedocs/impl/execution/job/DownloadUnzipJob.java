@@ -8,11 +8,11 @@ import org.springframework.stereotype.Component;
 import ru.yaal.offlinedocs.api.artifact.Artifact;
 import ru.yaal.offlinedocs.api.artifact.data.ArtifactData;
 import ru.yaal.offlinedocs.api.execution.job.JobId;
-import ru.yaal.offlinedocs.impl.execution.param.EmptyExecParams;
 import ru.yaal.offlinedocs.impl.execution.EmptyResult;
 import ru.yaal.offlinedocs.impl.execution.operation.ArtifactDataOpResult;
 import ru.yaal.offlinedocs.impl.execution.operation.download.DownloadToStorageOp;
 import ru.yaal.offlinedocs.impl.execution.operation.unpack.UnpackZipOp;
+import ru.yaal.offlinedocs.impl.execution.param.EmptyExecParams;
 
 import java.io.File;
 
@@ -34,14 +34,19 @@ class DownloadUnzipJob extends AbstractJob<DownloadUnzipJob.InitParams, EmptyExe
     public EmptyResult execute(EmptyExecParams execParams) {
         LOG.debug("Start");
         DownloadToStorageOp.InitParams params = getInitParams().getDownloadParams();
-        ArtifactDataOpResult downloadResult =
-                execFactory.getNewOperation(getJobId(), DownloadToStorageOp.class, params).execute(EmptyExecParams.instance);
-        ArtifactData artifactData = downloadResult.getArtifactData();
-        Artifact artifact = artifactData.getArtifact();
-
+        Artifact artifact = params.getArtifact();
         File destDir = outletStorage.getArtifactDir(artifact);
-        UnpackZipOp.InitParams copyParams = new UnpackZipOp.InitParams(artifactData.getFile(), destDir);
-        execFactory.getNewOperation(getJobId(), UnpackZipOp.class, copyParams).execute(EmptyExecParams.instance);
+        boolean skipIfExists = params.getSkipIfExists();
+        if (skipIfExists && !outletStorage.isArtifactExists(artifact)) {
+            ArtifactDataOpResult downloadResult =
+                    execFactory.getNewOperation(getJobId(), DownloadToStorageOp.class, params).execute(EmptyExecParams.instance);
+            ArtifactData artifactData = downloadResult.getArtifactData();
+
+            UnpackZipOp.InitParams copyParams = new UnpackZipOp.InitParams(artifactData.getFile(), destDir);
+            execFactory.getNewOperation(getJobId(), UnpackZipOp.class, copyParams).execute(EmptyExecParams.instance);
+        } else {
+            LOG.debug("Artifact already exists: " + destDir);
+        }
 
         return EmptyResult.instance;
     }

@@ -10,7 +10,6 @@ import ru.yaal.offlinedocs.spring.Config;
 import ru.yaal.offlinedocs.spring.Profiles;
 
 /**
- * TODO Don't unpack archive if destination already contains files with the same size
  * TODO native packet for Windows, Linux, MacOS
  *
  * @author Yablokov Aleksey

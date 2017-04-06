@@ -11,4 +11,7 @@ public interface OutletStorage {
     File getArtifactDir(Artifact artifact);
 
     File getArtifactFile(Artifact artifact);
+
+    //TODO how to check is artifact stored to the outlet correct?
+    boolean isArtifactExists(Artifact artifact);
 }

@@ -7,11 +7,10 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import ru.yaal.offlinedocs.api.artifact.Artifact;
 import ru.yaal.offlinedocs.api.execution.job.JobId;
-import ru.yaal.offlinedocs.impl.execution.param.EmptyExecParams;
 import ru.yaal.offlinedocs.impl.execution.EmptyResult;
-import ru.yaal.offlinedocs.impl.execution.operation.ArtifactDataOpResult;
 import ru.yaal.offlinedocs.impl.execution.operation.copy.CopyArtifactOp;
 import ru.yaal.offlinedocs.impl.execution.operation.download.DownloadToStorageOp;
+import ru.yaal.offlinedocs.impl.execution.param.EmptyExecParams;
 
 import java.io.File;
 
@@ -34,14 +33,17 @@ class DownloadCopyJob extends AbstractJob<DownloadCopyJob.InitParams, EmptyExecP
     public EmptyResult execute(EmptyExecParams execParams) {
         LOG.debug("Start");
         DownloadToStorageOp.InitParams params = getInitParams().getDownloadParams();
-        ArtifactDataOpResult downloadResult =
-                execFactory.getNewOperation(getJobId(), DownloadToStorageOp.class, params).execute(EmptyExecParams.instance);
-        Artifact artifact = downloadResult.getArtifactData().getArtifact();
-
+        boolean skipIfExists = params.getSkipIfExists();
+        Artifact artifact = params.getArtifact();
         File destDir = outletStorage.getArtifactFile(artifact);
-        CopyArtifactOp.InitParams copyParams = new CopyArtifactOp.InitParams(artifact, destDir);
-        execFactory.getNewOperation(getJobId(), CopyArtifactOp.class, copyParams).execute(EmptyExecParams.instance);
+        if (skipIfExists && !outletStorage.isArtifactExists(artifact)) {
+            execFactory.getNewOperation(getJobId(), DownloadToStorageOp.class, params).execute(EmptyExecParams.instance);
 
+            CopyArtifactOp.InitParams copyParams = new CopyArtifactOp.InitParams(artifact, destDir);
+            execFactory.getNewOperation(getJobId(), CopyArtifactOp.class, copyParams).execute(EmptyExecParams.instance);
+        } else {
+            LOG.debug("Artifact already exists: " + destDir);
+        }
         return EmptyResult.instance;
     }
 

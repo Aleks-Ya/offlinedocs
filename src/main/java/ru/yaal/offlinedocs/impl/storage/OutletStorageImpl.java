@@ -32,4 +32,9 @@ class OutletStorageImpl implements OutletStorage {
                 artifact.getName(), artifact.getVersion(), artifact.getType().getFileExtension());
         return new File(getArtifactDir(artifact), artifactFile);
     }
+
+    @Override
+    public boolean isArtifactExists(Artifact artifact) {
+        return getArtifactFile(artifact).exists() || getArtifactDir(artifact).list() != null;
+    }
 }
