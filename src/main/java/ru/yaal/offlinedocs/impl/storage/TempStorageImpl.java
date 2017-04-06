@@ -16,6 +16,7 @@ import java.util.Map;
 
 /**
  * TODO make TempStorageImpl thread safety
+ * TODO clean temp dir while application is stopping
  *
  * @author Yablokov Aleksey
  */
