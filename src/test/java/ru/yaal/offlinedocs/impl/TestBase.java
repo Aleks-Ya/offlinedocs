@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import ru.yaal.offlinedocs.api.artifact.ArtifactFactory;
 import ru.yaal.offlinedocs.api.artifact.type.ArtifactTypeFactory;
 import ru.yaal.offlinedocs.api.execution.ExecFactory;
 import ru.yaal.offlinedocs.api.properties.DataAppProps;
@@ -45,4 +46,7 @@ public abstract class TestBase {
 
     @Autowired
     protected TempStorage tempStorage;
+
+    @Autowired
+    protected ArtifactFactory artifactFactory;
 }

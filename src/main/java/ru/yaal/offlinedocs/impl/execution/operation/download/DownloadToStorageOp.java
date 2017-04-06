@@ -9,10 +9,9 @@ import org.springframework.stereotype.Component;
 import ru.yaal.offlinedocs.api.artifact.Artifact;
 import ru.yaal.offlinedocs.api.artifact.data.ArtifactData;
 import ru.yaal.offlinedocs.api.execution.operation.OpId;
-import ru.yaal.offlinedocs.impl.artifact.ArtifactImpl;
-import ru.yaal.offlinedocs.impl.execution.param.EmptyExecParams;
 import ru.yaal.offlinedocs.impl.execution.operation.AbstractOp;
 import ru.yaal.offlinedocs.impl.execution.operation.ArtifactDataOpResult;
+import ru.yaal.offlinedocs.impl.execution.param.EmptyExecParams;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -38,11 +37,7 @@ public class DownloadToStorageOp
     @SneakyThrows
     public ArtifactDataOpResult execute(EmptyExecParams execParams) {
         InitParams params = getInitParams();
-        Artifact artifact = new ArtifactImpl(
-                params.getArtifactCategory(),
-                params.getArtifactName(),
-                params.getArtifactVersion(),
-                artifactTypeFactory.getTypeById(params.getArtifactTypeId()));
+        Artifact artifact = params.getArtifact();
         ArtifactData data;
         if (params.getSkipIfExists() && artifactStorage.has(artifact)) {
             LOG.debug("Skip exists artifact download: " + artifact);
@@ -59,25 +54,17 @@ public class DownloadToStorageOp
 
     @Getter
     public static class InitParams extends DownloadToByteArrayOp.InitParams {
-        private final String artifactCategory;
-        private final String artifactName;
-        private final String artifactVersion;
-        private final String artifactTypeId;
+        private final Artifact artifact;
         private final Boolean skipIfExists;
 
-        public InitParams(
-                String artifactCategory, String artifactName, String artifactVersion, URL artifactUrl, String artifactTypeId, Boolean skipIfExists) {
+        public InitParams(Artifact artifact, URL artifactUrl, Boolean skipIfExists) {
             super(artifactUrl);
-            this.artifactCategory = artifactCategory;
-            this.artifactName = artifactName;
-            this.artifactVersion = artifactVersion;
-            this.artifactTypeId = artifactTypeId;
+            this.artifact = artifact;
             this.skipIfExists = skipIfExists;
         }
 
-        public InitParams(
-                String artifactCategory, String artifactName, String artifactVersion, URL artifactUrl, String artifactTypeId) {
-            this(artifactCategory, artifactName, artifactVersion, artifactUrl, artifactTypeId, true);
+        public InitParams(Artifact artifact, URL artifactUrl) {
+            this(artifact, artifactUrl, true);
         }
     }
 }

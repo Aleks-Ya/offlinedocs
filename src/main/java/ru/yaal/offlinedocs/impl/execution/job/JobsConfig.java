@@ -6,11 +6,13 @@ import org.codehaus.plexus.components.io.fileselectors.IncludeExcludeFileSelecto
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import ru.yaal.offlinedocs.api.artifact.Artifact;
+import ru.yaal.offlinedocs.api.artifact.ArtifactFactory;
 import ru.yaal.offlinedocs.api.execution.ExecFactory;
 import ru.yaal.offlinedocs.api.execution.job.Job;
-import ru.yaal.offlinedocs.impl.execution.param.EmptyExecParams;
 import ru.yaal.offlinedocs.impl.execution.EmptyResult;
 import ru.yaal.offlinedocs.impl.execution.operation.download.DownloadToStorageOp;
+import ru.yaal.offlinedocs.impl.execution.param.EmptyExecParams;
 
 import java.net.URL;
 
@@ -22,10 +24,12 @@ import java.net.URL;
 @Configuration
 public class JobsConfig {
     private final ExecFactory execFactory;
+    private final ArtifactFactory artifactFactory;
 
     @Autowired
-    public JobsConfig(ExecFactory execFactory) {
+    public JobsConfig(ExecFactory execFactory, ArtifactFactory artifactFactory) {
         this.execFactory = execFactory;
+        this.artifactFactory = artifactFactory;
     }
 
     @Bean
@@ -67,9 +71,8 @@ public class JobsConfig {
             String artifactTypeId,
             FileSelector[] fileSelectors) {
 
-        DownloadToStorageOp.InitParams opParams = new DownloadToStorageOp.InitParams(
-                artifactCategory, artifactName, artifactVersion,
-                new URL(artifactUrl), artifactTypeId);
+        Artifact artifact = artifactFactory.instantiate(artifactCategory, artifactName, artifactVersion, artifactTypeId);
+        DownloadToStorageOp.InitParams opParams = new DownloadToStorageOp.InitParams(artifact, new URL(artifactUrl));
         DownloadUnTarGzJob.InitParams jobParams = new DownloadUnTarGzJob.InitParams(opParams, fileSelectors);
         return execFactory.getNewJob(DownloadUnTarGzJob.class, jobParams);
     }
@@ -82,9 +85,8 @@ public class JobsConfig {
             String artifactUrl,
             String artifactTypeId) {
 
-        DownloadToStorageOp.InitParams opParams = new DownloadToStorageOp.InitParams(
-                artifactCategory, artifactName, artifactVersion,
-                new URL(artifactUrl), artifactTypeId);
+        Artifact artifact = artifactFactory.instantiate(artifactCategory, artifactName, artifactVersion, artifactTypeId);
+        DownloadToStorageOp.InitParams opParams = new DownloadToStorageOp.InitParams(artifact, new URL(artifactUrl));
         DownloadUnzipJob.InitParams jobParams = new DownloadUnzipJob.InitParams(opParams);
         return execFactory.getNewJob(DownloadUnzipJob.class, jobParams);
     }
@@ -104,8 +106,8 @@ public class JobsConfig {
             String artifactUrl,
             String artifactTypeId) {
 
-        DownloadToStorageOp.InitParams opParams = new DownloadToStorageOp.InitParams(
-                artifactCategory, artifactName, artifactVersion, new URL(artifactUrl), artifactTypeId);
+        Artifact artifact = artifactFactory.instantiate(artifactCategory, artifactName, artifactVersion, artifactTypeId);
+        DownloadToStorageOp.InitParams opParams = new DownloadToStorageOp.InitParams(artifact, new URL(artifactUrl));
         DownloadCopyJob.InitParams jobParams = new DownloadCopyJob.InitParams(opParams);
         return execFactory.getNewJob(DownloadCopyJob.class, jobParams);
     }
