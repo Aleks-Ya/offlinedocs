@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import ru.yaal.offlinedocs.api.execution.job.JobId;
 import ru.yaal.offlinedocs.api.execution.operation.Operation;
-import ru.yaal.offlinedocs.impl.execution.EmptyExecParams;
+import ru.yaal.offlinedocs.impl.execution.param.EmptyExecParams;
 import ru.yaal.offlinedocs.impl.execution.EmptyResult;
 
 import java.util.List;
@@ -32,7 +32,7 @@ class OpListJob extends AbstractJob<OpListJob.InitParams, EmptyExecParams, Empty
     }
 
     @Getter
-    public static class InitParams implements ru.yaal.offlinedocs.api.execution.InitParams {
+    public static class InitParams implements ru.yaal.offlinedocs.api.execution.param.InitParams {
         private final List<Operation> ops;
 
         public InitParams(List<Operation> ops) {

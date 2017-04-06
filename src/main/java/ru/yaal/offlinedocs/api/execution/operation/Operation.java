@@ -1,7 +1,7 @@
 package ru.yaal.offlinedocs.api.execution.operation;
 
-import ru.yaal.offlinedocs.api.execution.ExecParams;
-import ru.yaal.offlinedocs.api.execution.InitParams;
+import ru.yaal.offlinedocs.api.execution.param.ExecParams;
+import ru.yaal.offlinedocs.api.execution.param.InitParams;
 import ru.yaal.offlinedocs.api.execution.Result;
 
 /**

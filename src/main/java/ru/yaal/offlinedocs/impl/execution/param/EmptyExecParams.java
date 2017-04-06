@@ -1,6 +1,6 @@
-package ru.yaal.offlinedocs.impl.execution;
+package ru.yaal.offlinedocs.impl.execution.param;
 
-import ru.yaal.offlinedocs.api.execution.ExecParams;
+import ru.yaal.offlinedocs.api.execution.param.ExecParams;
 
 /**
  * TODO remove ExecParams

@@ -3,6 +3,8 @@ package ru.yaal.offlinedocs.api.execution;
 import ru.yaal.offlinedocs.api.execution.job.Job;
 import ru.yaal.offlinedocs.api.execution.job.JobId;
 import ru.yaal.offlinedocs.api.execution.operation.Operation;
+import ru.yaal.offlinedocs.api.execution.param.ExecParams;
+import ru.yaal.offlinedocs.api.execution.param.InitParams;
 import ru.yaal.offlinedocs.impl.execution.job.AbstractJob;
 import ru.yaal.offlinedocs.impl.execution.operation.AbstractOp;
 

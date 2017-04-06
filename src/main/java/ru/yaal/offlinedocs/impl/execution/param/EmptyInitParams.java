@@ -1,6 +1,6 @@
-package ru.yaal.offlinedocs.impl.execution;
+package ru.yaal.offlinedocs.impl.execution.param;
 
-import ru.yaal.offlinedocs.api.execution.InitParams;
+import ru.yaal.offlinedocs.api.execution.param.InitParams;
 
 /**
  * @author Yablokov Aleksey

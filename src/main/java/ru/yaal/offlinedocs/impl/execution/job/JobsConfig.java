@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import ru.yaal.offlinedocs.api.execution.ExecFactory;
 import ru.yaal.offlinedocs.api.execution.job.Job;
-import ru.yaal.offlinedocs.impl.execution.EmptyExecParams;
+import ru.yaal.offlinedocs.impl.execution.param.EmptyExecParams;
 import ru.yaal.offlinedocs.impl.execution.EmptyResult;
 import ru.yaal.offlinedocs.impl.execution.operation.download.DownloadToStorageOp;
 

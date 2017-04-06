@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import ru.yaal.offlinedocs.api.execution.ExecFactory;
 import ru.yaal.offlinedocs.api.execution.run.JobRunner;
-import ru.yaal.offlinedocs.impl.execution.EmptyExecParams;
+import ru.yaal.offlinedocs.impl.execution.param.EmptyExecParams;
 import ru.yaal.offlinedocs.spring.Config;
 import ru.yaal.offlinedocs.spring.Profiles;
 

@@ -2,7 +2,7 @@ package ru.yaal.offlinedocs.impl.execution.operation.unpack;
 
 import org.junit.Test;
 import ru.yaal.offlinedocs.impl.TestBase;
-import ru.yaal.offlinedocs.impl.execution.EmptyExecParams;
+import ru.yaal.offlinedocs.impl.execution.param.EmptyExecParams;
 import ru.yaal.offlinedocs.impl.execution.id.JustId;
 
 import java.io.File;

@@ -1,4 +1,4 @@
-package ru.yaal.offlinedocs.api.execution;
+package ru.yaal.offlinedocs.api.execution.param;
 
 /**
  * @author Yablokov Aleksey

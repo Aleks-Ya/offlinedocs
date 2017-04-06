@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import ru.yaal.offlinedocs.api.artifact.Artifact;
 import ru.yaal.offlinedocs.api.artifact.data.ArtifactData;
 import ru.yaal.offlinedocs.api.execution.job.JobId;
-import ru.yaal.offlinedocs.impl.execution.EmptyExecParams;
+import ru.yaal.offlinedocs.impl.execution.param.EmptyExecParams;
 import ru.yaal.offlinedocs.impl.execution.EmptyResult;
 import ru.yaal.offlinedocs.impl.execution.operation.ArtifactDataOpResult;
 import ru.yaal.offlinedocs.impl.execution.operation.download.DownloadToStorageOp;
@@ -47,7 +47,7 @@ class DownloadUnTarGzJob extends AbstractJob<DownloadUnTarGzJob.InitParams, Empt
     }
 
     @Getter
-    public static class InitParams implements ru.yaal.offlinedocs.api.execution.InitParams {
+    public static class InitParams implements ru.yaal.offlinedocs.api.execution.param.InitParams {
         private final DownloadToStorageOp.InitParams downloadParams;
         private final FileSelector[] fileSelectors;
 

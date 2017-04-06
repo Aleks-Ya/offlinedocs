@@ -10,7 +10,7 @@ import ru.yaal.offlinedocs.api.artifact.Artifact;
 import ru.yaal.offlinedocs.api.artifact.data.ArtifactData;
 import ru.yaal.offlinedocs.api.execution.operation.OpId;
 import ru.yaal.offlinedocs.impl.artifact.ArtifactImpl;
-import ru.yaal.offlinedocs.impl.execution.EmptyExecParams;
+import ru.yaal.offlinedocs.impl.execution.param.EmptyExecParams;
 import ru.yaal.offlinedocs.impl.execution.operation.AbstractOp;
 import ru.yaal.offlinedocs.impl.execution.operation.ArtifactDataOpResult;
 

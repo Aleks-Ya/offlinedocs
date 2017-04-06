@@ -2,8 +2,8 @@ package ru.yaal.offlinedocs.impl.execution.operation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.yaal.offlinedocs.api.artifact.type.ArtifactTypeFactory;
-import ru.yaal.offlinedocs.api.execution.ExecParams;
-import ru.yaal.offlinedocs.api.execution.InitParams;
+import ru.yaal.offlinedocs.api.execution.param.ExecParams;
+import ru.yaal.offlinedocs.api.execution.param.InitParams;
 import ru.yaal.offlinedocs.api.execution.Result;
 import ru.yaal.offlinedocs.api.execution.operation.OpId;
 import ru.yaal.offlinedocs.api.execution.operation.Operation;

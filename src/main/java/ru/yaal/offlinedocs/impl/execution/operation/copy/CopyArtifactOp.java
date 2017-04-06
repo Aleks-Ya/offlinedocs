@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import ru.yaal.offlinedocs.api.artifact.Artifact;
 import ru.yaal.offlinedocs.api.artifact.data.ArtifactData;
 import ru.yaal.offlinedocs.api.execution.operation.OpId;
-import ru.yaal.offlinedocs.impl.execution.EmptyExecParams;
+import ru.yaal.offlinedocs.impl.execution.param.EmptyExecParams;
 import ru.yaal.offlinedocs.impl.execution.EmptyResult;
 import ru.yaal.offlinedocs.impl.execution.operation.AbstractOp;
 
@@ -47,7 +47,7 @@ public class CopyArtifactOp
     }
 
     @Getter
-    public static class InitParams implements ru.yaal.offlinedocs.api.execution.InitParams {
+    public static class InitParams implements ru.yaal.offlinedocs.api.execution.param.InitParams {
         private final Artifact artifact;
         private final File destFile;
 
