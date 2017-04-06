@@ -35,6 +35,8 @@ class OutletStorageImpl implements OutletStorage {
 
     @Override
     public boolean isArtifactExists(Artifact artifact) {
-        return getArtifactFile(artifact).exists() || getArtifactDir(artifact).list() != null;
+        File file = getArtifactFile(artifact);
+        File dir = getArtifactDir(artifact);
+        return file.exists() || (dir.list() != null && dir.list().length > 0);
     }
 }

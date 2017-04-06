@@ -62,6 +62,21 @@ public class JobsConfig {
                 "jar");
     }
 
+    @Bean
+    public Job<DownloadCopyJob.InitParams, EmptyExecParams, EmptyResult> springReference437Pdf() {
+        return makeDownloadCopyJob("Spring", "SpringReferencePdf", "4.3.7",
+                "http://docs.spring.io/spring/docs/4.3.7.RELEASE/spring-framework-reference/pdf/spring-framework-reference.pdf",
+                "pdf");
+    }
+
+    //TODO verify that downloaded PDF is correct
+    @Bean
+    public Job<DownloadCopyJob.InitParams, EmptyExecParams, EmptyResult> umlDocumentation25() {
+        return makeDownloadCopyJob("UML", "UmlDocumentationPdf", "2.5",
+                "http://www.omg.org/cgi-bin/doc?formal/15-03-01.pdf",
+                "pdf");
+    }
+
     @SneakyThrows
     private Job<DownloadUnTarGzJob.InitParams, EmptyExecParams, EmptyResult> makeDownloadUnTarGzJob(
             String artifactCategory,
@@ -89,13 +104,6 @@ public class JobsConfig {
         DownloadToStorageOp.InitParams opParams = new DownloadToStorageOp.InitParams(artifact, new URL(artifactUrl));
         DownloadUnzipJob.InitParams jobParams = new DownloadUnzipJob.InitParams(opParams);
         return execFactory.getNewJob(DownloadUnzipJob.class, jobParams);
-    }
-
-    @Bean
-    public Job<DownloadCopyJob.InitParams, EmptyExecParams, EmptyResult> springReference437Pdf() {
-        return makeDownloadCopyJob("Spring", "SpringReferencePdf", "4.3.7",
-                "http://docs.spring.io/spring/docs/4.3.7.RELEASE/spring-framework-reference/pdf/spring-framework-reference.pdf",
-                "pdf");
     }
 
     @SneakyThrows
