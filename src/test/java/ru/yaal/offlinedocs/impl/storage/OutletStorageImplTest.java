@@ -18,11 +18,20 @@ public class OutletStorageImplTest extends TestBase {
 
     @Test
     public void artifactToFileName() {
-        Artifact artifact =
-                new ArtifactImpl("Hadoop", "HadoopJavadoc", "2.8.0",
-                        artifactTypeFactory.getTypeById("pdf"));
+        Artifact artifact = new ArtifactImpl("Hadoop", "HadoopJavadoc", "2.8.0",
+                artifactTypeFactory.getTypeById("pdf"));
         File actual = outletStorage.getArtifactFile(artifact);
         String expected = "HadoopJavadoc-2.8.0.pdf";
+        assertThat(actual, FileMatchers.aFileWithCanonicalPath(endsWith(expected)));
+    }
+
+    @Test
+    public void getArtifactDir() {
+        String sep = fileApi.getFileSeparator();
+        Artifact artifact = new ArtifactImpl("Hadoop", "HadoopJavadoc", "2.8.0",
+                artifactTypeFactory.getTypeById("pdf"));
+        File actual = outletStorage.getArtifactDir(artifact);
+        String expected = "Hadoop" + sep + "HadoopJavadoc" + sep + "2.8.0";
         assertThat(actual, FileMatchers.aFileWithCanonicalPath(endsWith(expected)));
     }
 }

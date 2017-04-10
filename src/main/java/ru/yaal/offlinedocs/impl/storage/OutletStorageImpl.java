@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import ru.yaal.offlinedocs.api.artifact.Artifact;
 import ru.yaal.offlinedocs.api.properties.DataAppProps;
 import ru.yaal.offlinedocs.api.storage.OutletStorage;
+import ru.yaal.offlinedocs.api.system.FileApi;
 
 import java.io.File;
 
@@ -15,15 +16,17 @@ import java.io.File;
 class OutletStorageImpl implements OutletStorage {
 
     private final File outletDir;
+    private final String sep;
 
     @Autowired
-    public OutletStorageImpl(DataAppProps dataAppProps) {
+    public OutletStorageImpl(DataAppProps dataAppProps, FileApi fileApi) {
         outletDir = dataAppProps.getOutletDir();
+        sep = fileApi.getFileSeparator();
     }
 
     @Override
     public File getArtifactDir(Artifact artifact) {
-        return new File(outletDir, artifact.getCategory());
+        return new File(outletDir, artifact.getCategory() + sep + artifact.getName() + sep + artifact.getVersion());
     }
 
     @Override
