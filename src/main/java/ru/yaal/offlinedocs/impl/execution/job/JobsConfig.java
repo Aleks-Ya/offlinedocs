@@ -80,7 +80,7 @@ public class JobsConfig {
     @Bean
     public Job<DownloadCopyJob.InitParams, EmptyExecParams, EmptyResult> hiveSources211() {
         return makeDownloadCopyJob("Hive", "HiveExecSources", "2.1.1",
-                "http://search.maven.org/remotecontent?filepath=org/apache/hive/hive-exec/2.1.1/hive-exec-2.1.1-sources.jar",
+                "http://repo1.maven.org/maven2/org/apache/hive/hive-exec/2.1.1/hive-exec-2.1.1-sources.jar",
                 "jar");
     }
 
